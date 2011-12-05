@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action = "" method="GET">
+<form action = "<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
 	<table>
 		<tr>
 			<td>First Number</td>
@@ -30,14 +30,20 @@
 		// loop through $_GET and print out key=value pairs
 		echo "<h2>foreach the Form Variables</h2>";
 		
-		foreach($_GET as $k=>$v){
+		foreach($_GET as $key=>$value){
 		
-			echo "<p>" . $k . " = " . $v . "</p>\n";
+			echo "<p>" . $key . " = " . $value . "</p>\n";
 			//echo "<p>$k = $v</p>\n"; // another way
 			
 		} // end foreach
+	
+		// Calculate and display the sum
+		echo "<h1>The sum of ".$_GET['num1']." and ".$_GET['num2']." is ".($_GET['num1'] + $_GET['num2'])."</h1>";
 		
 	} // end if
+	
+	
+	
 
 ?>
 		
