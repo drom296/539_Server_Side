@@ -14,7 +14,6 @@
 		<meta charset="utf-8" />
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<title>Choose a Poll</title>
 		<meta name="description" content="" />
 		<meta name="author" content="tuxedo" />
@@ -33,7 +32,7 @@
 					// start the list item
 					echo "<li>\n";
 					// setup the link
-					echo "<a href=$poll_page?cat=".urlencode($topic).">$topic</a>";
+					echo "<a href='$poll_page?cat=".urlencode($topic)."'>$topic</a>";
 					// setup the link - description separator
 					echo " - ";
 					// setup the description
