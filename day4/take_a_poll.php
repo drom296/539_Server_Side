@@ -37,12 +37,12 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<style type="text/css">
-		ol{
-			list-style-type:none;
-			margin-left:0;
-			padding-left:0;
-		}
-	</style>
+			ol{
+				list-style-type:none;
+				margin-left:0;
+				padding-left:0;
+			}
+		</style>
 
 	</head>
 	<body>
