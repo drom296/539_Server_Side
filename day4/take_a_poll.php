@@ -50,8 +50,8 @@
 		<h2><?php echo $polls[$poll] ?></h2>
 		
 		<form action='poll_results.php' method='GET'>
-			<input type='hidden' name='cat' value=<?php echo urlencode($poll) ?> />
-			<input type='hidden' name='question' value=<?php echo urlencode($polls[$poll]) ?>/>
+			<input type='hidden' name='cat' value= <?php echo urlencode($poll) ?> />
+			<input type='hidden' name='question' value= <?php echo urlencode($polls[$poll]) ?> />
 			<ol>
 			<?php
 				// generate the choices by looping over the array for it
