@@ -1,8 +1,10 @@
 <?php
   $polls = array(
-		array('topic'=>'Type of Gamer', 'link'=> 'take_a_poll.php?poll=game', "description"=>'What type of gamer are you?'),
-		array('topic'=>'Food Places', 'link'=> 'take_a_poll.php?poll=food', "description"=>"What's your fav place to eat in Rochester?"),
+		'Gamer' => 'What type of gamer are you?',
+		'Food Choice' => "What's your fav place to eat in Rochester?" 
 	);
+	
+	$poll_page = "take_a_poll.php";
 ?>
 
 
@@ -27,15 +29,14 @@
 		<ul>
 			<?php
 				$result = "";
-				foreach ($polls as $sPoll) {
+				foreach ($polls as $topic => $desc) {
 					// start the list item
 					echo "<li>";
 					// setup the link
-					echo "<a href='".$sPoll['link']."'>".$sPoll['topic']."</a>";
+					echo "<a href=$poll_page?poll=".urlencode($topic).">$topic</a>";
 					// setup the link - description separator
 					echo " - ";
 					// setup the description
-					echo $sPoll['description'];
 					// end the list item
 					echo "</li>";
 				}
