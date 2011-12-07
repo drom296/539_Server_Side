@@ -5,6 +5,7 @@
 		'Food Choice' => "What's your fav place to eat in Rochester?" 
 	);
 	
+	// check to see if the poll variable was sent
 	if (!array_key_exists('cat', $_GET)){
 		header("location: choose_a_poll.php");
 	}
@@ -50,8 +51,8 @@
 		<h2><?php echo $polls[$poll] ?></h2>
 		
 		<form action='poll_results.php' method='GET'>
-			<input type='hidden' name='cat' value=<?php echo $poll ?> />
-			<input type='hidden' name='question' value=<?php echo $polls[$poll] ?>/>
+			<input type='hidden' name='cat' value=<?php echo urlencode($poll) ?> />
+			<input type='hidden' name='question' value=<?php echo urlencode($polls[$poll]) ?>/>
 			<ol>
 			<?php
 				// generate the choices by looping over the array for it
@@ -60,7 +61,7 @@
 					// setup the list item
 					echo "<li>\n";
 					// setup the input item
-					echo "\t<input type='radio' name = 'choice' value='". $value ."' />$value</li>\n";
+					echo "\t<input type='radio' name = 'choice' value='". urlencode($value) ."' />$value</li>\n";
 				}
 			?>
 			</ol>
