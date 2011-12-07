@@ -37,6 +37,7 @@
 					// setup the link - description separator
 					echo " - ";
 					// setup the description
+					echo $desc;
 					// end the list item
 					echo "</li>";
 				}
