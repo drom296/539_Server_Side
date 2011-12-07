@@ -31,15 +31,15 @@
 				$result = "";
 				foreach ($polls as $topic => $desc) {
 					// start the list item
-					echo "<li>";
+					echo "<li>\n";
 					// setup the link
-					echo "<a href=$poll_page?poll=".urlencode($topic).">$topic</a>";
+					echo "<a href=$poll_page?cat=".urlencode($topic).">$topic</a>";
 					// setup the link - description separator
 					echo " - ";
 					// setup the description
 					echo $desc;
 					// end the list item
-					echo "</li>";
+					echo "</li>\n";
 				}
 			?>
 		</ul>
