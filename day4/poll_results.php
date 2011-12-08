@@ -31,7 +31,7 @@
 	<body>
 		<h1>Results</h1>
 		<h2>You chose the <em><?php echo urldecode($_GET['cat']) ?></em> category!</h2>
-		<h2>The question was: <?php echo urldecode($_GET['question']) ?> </h2>
+		<h2>The question was: <em><?php echo urldecode($_GET['question']) ?></em> </h2>
 		<h2>Your answer was: <em>"<?php echo urldecode($_GET['choice']) ?>"</em></h2>
 		
 		<p><a href="choose_a_poll.php">Take another poll?</a></p>
