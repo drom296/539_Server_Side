@@ -3,6 +3,7 @@
   $polls = array();
 	
 	// get contents of a file
+	// test if the file exists
 	$file_lines = file('poll_topics.txt');
 	
 	foreach ($file_lines as $line) {
@@ -13,13 +14,13 @@
 		$polls[$topic] = $question;
 	}
 	
-	$polls["pedro"] = "Added";
-	$polls[4] = "Added num";
-	$polls["4"] = "Added num2";
-	
-	print_r($polls);
-		
-	echo "<br /><br />".$polls[3];	
+	// $polls["pedro"] = "Added";
+	// $polls[4] = "Added num";
+	// $polls["4"] = "Added num2";
+// 	
+	// print_r($polls);
+// 		
+	// echo "<br /><br />".$polls[3];	
 		
 	$poll_page = "take_a_poll.php";
 ?>
