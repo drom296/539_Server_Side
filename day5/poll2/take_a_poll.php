@@ -1,22 +1,13 @@
 <?php
   // init the associative array array
   $polls = array();
+  // set up the choices array
+	$answers = array();
 	
 	// get contents of a file
 	// test if the file exists
 	$filename = 'poll_topics.txt';
 	$delim = "|";
-	if(file_exists($filename) && is_readable($filename)){
-		$file_lines = file($filename);
-		
-		foreach ($file_lines as $line) {
-			// break into 2 pieces
-			list($topic,$question) = explode($delim,$line);
-			
-			// add to the array
-			$polls[$topic] = $question;
-		}
-	}
 		
 	// check to see if the poll variable was sent
 	if (!isset($_GET['cat'])){
@@ -25,10 +16,38 @@
 	
 	// decode what was passed in the url to determine the poll.
 	$poll = urldecode($_GET['cat']);
+
+	// fill the polls and answers array
+	$filename = 'poll_data.txt';
+	if(file_exists($filename) && is_readable($filename)){
+		$file_lines = file($filename);
+		
+		foreach ($file_lines as $line) {
+			// break into pieces
+			$parts = explode($delim,$line);
+			
+			// the first part is the key for the inner array, grab it
+			$topic = array_shift($parts);
+			// the second part has the question
+			$question = array_shift($parts);
+			
+			// add the question and topic to the $polls array
+			$polls[$topic] = $question;
+			
+			// set up the inner array
+			$answers[$topic] = array();
+			
+			// add to the array the inner array
+			foreach ($parts as $choice) {
+				array_push($answers[$topic], $choice);
+			}
+		}
+	}
 	
-	// set up the choices array
-	$answers = array();
-	
+	// check if it exists in the $polls array
+	if (!isset($polls[$poll])){
+		header("location: choose_a_poll.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +70,7 @@
 				padding-left:0;
 			}
 		</style>
-
+	
 	</head>
 	<body>
 		<h1>Take a Poll</h1>

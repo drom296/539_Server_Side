@@ -1,2 +1,2 @@
-Gamer|Casual|Hardcore
-Food Choice|Dinosaur BBQ|Open Face|John's Tex-Mex Eatery|Ming's|Other/Fast Food
+Gamer|What type of gamer are you?|Casual|Hardcore
+Food Choice|What's your fav place to eat in Rochester?|Dinosaur BBQ|Open Face|John's Tex-Mex Eatery|Ming's|Other/Fast Food
