@@ -31,11 +31,7 @@
 			$isSet = FALSE;
 			$passLen = FALSE;
 			
-			if ($keyExists){
-				// key exists, lets assume other comparison is true until proven false
-				$isSet = false;
-				$keyExists = false;
-				
+			if ($keyExists){				
 				// check if it is set	
 				$isSet = isset($_POST[$field]);
 				// check if it is of min length
