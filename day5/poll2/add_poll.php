@@ -40,11 +40,6 @@
 			// add it to the boolean result via ands
 			$pass = $pass && $keyExists && $isSet && $passLen;
 			
-			echo "<br />$field passed? :";
-			echo " exists? -> ".($keyExists?'True':'False');
-			echo ", isSet? -> ".($isSet?'True':'False');
-			echo ", passLen? -> ".($passLen?'True':'False');
-			
 			// if we failed, init an inner array for $errors
 			if(!$pass){
 				// add errors specfic to the problem
@@ -58,9 +53,6 @@
 			}
 			
 		}
-		
-		echo "<br /><br /><br />";
-		print_r($errors);
 		
 		// return the result
 		return $pass;
@@ -140,9 +132,6 @@
 		echo "<ul>";
 	
 		global $errors;	
-	
-		echo "<br />Test2<br />";
-		print_r($GLOBALS['errors']);
 	
 		foreach ($GLOBALS['errors'] as $field => $message) {
 			// start list item
