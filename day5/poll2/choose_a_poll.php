@@ -4,7 +4,7 @@
 	
 	// get contents of a file
 	// test if the file exists
-	$filename = 'poll_topics.txt';
+	$filename = 'poll_data.txt';
 	$delim = "|";
 	if(file_exists($filename) && is_readable($filename)){
 		$file_lines = file($filename);
