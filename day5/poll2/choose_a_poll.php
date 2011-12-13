@@ -4,25 +4,22 @@
 	
 	// get contents of a file
 	// test if the file exists
-	$file_lines = file('poll_topics.txt');
-	
-	foreach ($file_lines as $line) {
-		// break into 2 pieces
-		list($topic,$question) = explode(':',$line);
+	$filename = 'poll_topics.txt';
+	$delim = "|";
+	if(file_exists($filename) && is_readable($filename)){
+		$file_lines = file($filename);
 		
-		// add to the array
-		$polls[$topic] = $question;
+		foreach ($file_lines as $line) {
+			// break into 2 pieces
+			list($topic,$question) = explode($delim,$line);
+			
+			// add to the array
+			$polls[$topic] = $question;
+		}
 	}
 	
-	// $polls["pedro"] = "Added";
-	// $polls[4] = "Added num";
-	// $polls["4"] = "Added num2";
-// 	
-	// print_r($polls);
-// 		
-	// echo "<br /><br />".$polls[3];	
-		
 	$poll_page = "take_a_poll.php";
+	
 ?>
 
 

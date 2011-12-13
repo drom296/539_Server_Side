@@ -1,0 +1,2 @@
+Gamer|Casual|Hardcore
+Food Choice|Dinosaur BBQ|Open Face|John's Tex-Mex Eatery|Ming's|Other/Fast Food
