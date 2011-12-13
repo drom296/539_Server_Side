@@ -19,7 +19,7 @@
 	}
 	
 	function validateForm(){
-		global $fields;
+		global $fields, $errors;
 		$pass = true;
 		$minLen = 1;
 		
