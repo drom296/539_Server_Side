@@ -249,4 +249,3 @@ function tidy_html($input_string)
         }
     return $cleaned_html;
     }
-?>
