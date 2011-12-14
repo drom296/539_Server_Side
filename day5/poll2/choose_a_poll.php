@@ -19,6 +19,7 @@
 	}
 	
 	$poll_page = "take_a_poll.php";
+	$add_poll_page = "add_poll.php";
 	
 ?>
 
@@ -57,5 +58,7 @@
 				}
 			?>
 		</ul>
+		
+		<h3><a href='<?php echo $add_poll_page?>' >Add a Poll</a></h3>
 	</body>
 </html>
