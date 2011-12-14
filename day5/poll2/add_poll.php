@@ -3,14 +3,22 @@
 	$fields = array('cat','question','choice1','choice2','choice3','choice4','choice5');
 	// init a errors array
 	$errors = array();
+	// init the data array
+	$dataArray = array();
 	// store the method the form is submitted
 	$submitMethod = "POST";
 	// init submit array
 	$submitArray = array();
 	// init the passed variable for validation
 	$passed = TRUE; // assumed true until proven false
-	
+	// init min length for fields
 	$minLen = 1;
+	// init password
+	define('PASSWORD', 'Chuck');
+	// init delimiter
+	$delim = "|";
+	// init filename
+	$fileName = "poll_data.txt";
 	
 	// check if the form was submitted
 	// source: http://www.vbforums.com/showthread.php?t=562749
@@ -21,12 +29,46 @@
 		
 		// initialize a boolean to see if it passed validation	
 		$passed = validateForm();
-	} else{
-
+		if ($passed){
+			// check if they entered the write password
+			$passed = checkPassword();
+			
+			if ($passed){
+				// good to go: proceed with submit
+				pushData();
+			} else{
+				$errors["password"] = "was not correct";
+			}
+		}
+	}
+	
+	// Grabs the data from the submit array, adds the entries (minus the password)
+	// to the data file 
+	function pushData(){
+		global $dataArray, $delim,$fileName, $submitArray;
+		
+		if (count($dataArray)>2){
+			// implode the data array
+			$topic = implode($delim, $dataArray);
+			// check if file exists
+			
+			// write it to the file
+			file_put_contents($fileName, "\n".$topic, FILE_APPEND);
+			
+			// TODO clear the submitArray
+			unset($submitArray);
+		}
+	}
+	
+	function checkPassword(){
+		global $submitArray;
+		
+		// check if the passed in password matches ours
+		return trim($submitArray['password']) == PASSWORD;
 	}
 	
 	function validateForm(){
-		global $fields, $errors, $submitArray, $minLen;
+		global $fields, $errors, $submitArray, $minLen, $dataArray;
 		$pass = true;
 		
 		// check if the fields are set and are greater than 0 in length
@@ -40,10 +82,26 @@
 			if ($keyExists){				
 				// check if it is set	
 				$isSet = isset($submitArray[$field]);
-				// sanitize the field
-				$submitArray[$field] = sanitizeString($submitArray[$field]);
 				// check if it is of min length
 				$passLen = strlen($submitArray[$field]) >= $minLen;
+				
+				// check if it passed, sanitize, check again
+				if ($isSet && $passLen){
+					// TODO sanitize data
+					// sanitize the field
+					// echo "<br />";
+					// echo "Sanitizing $field: $submitArray[$field]";
+					// echo "<br />";
+					$submitArray[$field] = sanitizeString($submitArray[$field]);
+					// echo "<br />";
+					// echo "Sanitized $field: $submitArray[$field]";
+					// echo "<br />";
+					
+					// check if it is set	
+					$isSet = isset($submitArray[$field]);
+					// check if it is of min length
+					$passLen = strlen($submitArray[$field]) >= $minLen;
+				}
 			}
 			// add it to the boolean result via ands
 			$pass = $pass && $keyExists && $isSet && $passLen;
@@ -58,8 +116,10 @@
 				} else if (!$passLen){
 					$errors[$field] = "did not meet the minimum length of $minLen";
 				}
+			} else {
+				// push to data array
+				$dataArray[$field] = $submitArray[$field];
 			}
-			
 		}
 		
 		// return the result
@@ -69,6 +129,7 @@
 	function sanitizeString($var){
 		$var = trim($var);
 		$var = stripslashes($var);
+		$var = strip_tags($var);
 		$var = htmlentities($var);
 		$var = strip_tags($var);
 		
@@ -81,16 +142,13 @@
 		global $fields, $submitArray, $minLen;	
 		$result = null;
 		
-		// echo "<br />FieldName: $fieldName";
-		
-		if(array_key_exists($fieldName, $submitArray) && 
+		if(is_array($submitArray) && 
+				array_key_exists($fieldName, $submitArray) && 
 				isset($submitArray[$fieldName]) &&
 				strlen($submitArray[$fieldName]) >= $minLen){
 			
 			$result = $submitArray[$fieldName];
 		}
-		
-		// echo "<br />Result: $result <br />";
 		
 		return $result;
 	}
