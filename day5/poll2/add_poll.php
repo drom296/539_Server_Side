@@ -5,37 +5,45 @@
 	$errors = array();
 	// store the method the form is submitted
 	$submitMethod = "POST";
+	// init submit array
+	$submitArray = array();
 	// init the passed variable for validation
 	$passed = TRUE; // assumed true until proven false
+	
+	$minLen = 1;
 	
 	// check if the form was submitted
 	// source: http://www.vbforums.com/showthread.php?t=562749
 	if($_SERVER['REQUEST_METHOD'] == $submitMethod) {
+		// set what the submit array will be	
+		$sub = "_".$submitMethod;
+		$submitArray = $$sub;
+		
 		// initialize a boolean to see if it passed validation	
 		$passed = validateForm();
 	} else{
-		// TODO figure out way to print errors out
-		// echo "Form did not pass validation";
+
 	}
 	
 	function validateForm(){
-		global $fields, $errors;
+		global $fields, $errors, $submitArray, $minLen;
 		$pass = true;
-		$minLen = 1;
 		
 		// check if the fields are set and are greater than 0 in length
 		foreach ($fields as $field) {
 			// check if the key exists
-			$keyExists = array_key_exists($field, $_POST); 
+			$keyExists = array_key_exists($field, $submitArray); 
 			// init values for other comparison variables
 			$isSet = FALSE;
 			$passLen = FALSE;
 			
 			if ($keyExists){				
 				// check if it is set	
-				$isSet = isset($_POST[$field]);
+				$isSet = isset($submitArray[$field]);
+				// sanitize the field
+				$submitArray[$field] = sanitizeString($submitArray[$field]);
 				// check if it is of min length
-				$passLen = strlen($_POST[$field]) >= $minLen;
+				$passLen = strlen($submitArray[$field]) >= $minLen;
 			}
 			// add it to the boolean result via ands
 			$pass = $pass && $keyExists && $isSet && $passLen;
@@ -66,6 +74,26 @@
 		
 		return $var; 
 	}
+	
+	// gets the value for the field stored in POST
+	// if it DNE, return null;
+	function getValue($fieldName){
+		global $fields, $submitArray, $minLen;	
+		$result = null;
+		
+		// echo "<br />FieldName: $fieldName";
+		
+		if(array_key_exists($fieldName, $submitArray) && 
+				isset($submitArray[$fieldName]) &&
+				strlen($submitArray[$fieldName]) >= $minLen){
+			
+			$result = $submitArray[$fieldName];
+		}
+		
+		// echo "<br />Result: $result <br />";
+		
+		return $result;
+	}
 ?>
 
 
@@ -81,36 +109,43 @@
 	<table>
 		<tr>
 			<td>Topic Category</td>
-			<td><input type="text" name="cat" size="10" /></td>
+			<td><input type="text" name="cat" size="10" 
+				<?php echo ($val = getValue("cat")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 		<tr>
 			<td>Topic Question</td>
-			<td><input type="text" name="question" size="50" /></td>
+			<td><input type="text" name="question" size="50" 
+				<?php echo ($val = getValue("question")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 		
 		<tr>
 			<td>Choice 1</td>
-			<td><input type="text" name="choice1" size="15" /></td>
+			<td><input type="text" name="choice1" size="15" 
+				<?php echo ($val = getValue("choice1")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 		
 		<tr>
 			<td>Choice 2</td>
-			<td><input type="text" name="choice2" size="15" /></td>
+			<td><input type="text" name="choice2" size="15" 
+				<?php echo ($val = getValue("choice2")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 		
 		<tr>
 			<td>Choice 3</td>
-			<td><input type="text" name="choice3" size="15" /></td>
+			<td><input type="text" name="choice3" size="15" 
+				<?php echo ($val = getValue("choice3")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 		
 		<tr>
 			<td>Choice 4</td>
-			<td><input type="text" name="choice4" size="15" /></td>
+			<td><input type="text" name="choice4" size="15" 
+				<?php echo ($val = getValue("choice4")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 		
 		<tr>
 			<td>Choice 5</td>
-			<td><input type="text" name="choice5" size="15" /></td>
+			<td><input type="text" name="choice5" size="15" 
+				<?php echo ($val = getValue("choice5")) ? "value='$val'" : ""; ?> /></td>
 		</tr>
 	</table>	
 	<hr />
