@@ -27,18 +27,13 @@
 		$sub = "_".$submitMethod;
 		$submitArray = $$sub;
 		
-		// initialize a boolean to see if it passed validation	
-		$passed = validateForm();
+		// initialize a boolean to see if it passed validation
+		// check if they entered the write password	
+		$passed = (validateForm() && checkPassword());
+		// check password
 		if ($passed){
-			// check if they entered the write password
-			$passed = checkPassword();
-			
-			if ($passed){
-				// good to go: proceed with submit
+			// good to go: proceed with submit
 				pushData();
-			} else{
-				$errors["password"] = "was not correct";
-			}
 		}
 	}
 	
@@ -46,6 +41,9 @@
 	// to the data file 
 	function pushData(){
 		global $dataArray, $delim,$fileName, $submitArray;
+		
+		echo "<br />Count: ". count($dataArray);
+		echo "<br />Count: ". count($submitArray);
 		
 		if (count($dataArray)>2){
 			// implode the data array
@@ -61,10 +59,16 @@
 	}
 	
 	function checkPassword(){
-		global $submitArray;
+		global $submitArray, $errors;
 		
 		// check if the passed in password matches ours
-		return trim($submitArray['password']) == PASSWORD;
+		$result = trim($submitArray['password']) == PASSWORD;
+		
+		if(!$result){
+			$errors["password"] = "was not correct";
+		}
+		
+		return $result;
 	}
 	
 	function validateForm(){
@@ -141,6 +145,8 @@
 	function getValue($fieldName){
 		global $fields, $submitArray, $minLen;	
 		$result = null;
+		
+		// echo "<br />Count: ". count($submitArray);
 		
 		if(is_array($submitArray) && 
 				array_key_exists($fieldName, $submitArray) && 
@@ -238,6 +244,8 @@
 			// close list item
 			echo "</li>";
 		}
+	} else{
+		echo "Submission Successful!";
 	}
 	// close list
 	echo "</ul>";
