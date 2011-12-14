@@ -2,3 +2,8 @@ Gamer|What type of gamer are you?|Casual|Hardcore
 Food Choice|What's your fav place to eat in Rochester?|Dinosaur BBQ|Open Face|John's Tex-Mex Eatery|Ming's|Other/Fast Food
 Quizzes|What do you like about quizzes?|Short Answer|Essay Type|Multiple Choice|Take Home|Take as class
 test2|testing|1|2|3|4|5
+HW|Type of Hw?|SA|MC|Essay|none|NA
+HW|Type of Hw?|SA|MC|Essay|none|NA
+HW|Type of Hw?|SA|MC|Essay|none|NA
+Test|test|1|2|3|4|5
+TEst|Test|1|2|3|4|5

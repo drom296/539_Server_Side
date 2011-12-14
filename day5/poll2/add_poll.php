@@ -19,6 +19,8 @@
 	$delim = "|";
 	// init filename
 	$fileName = "poll_data.txt";
+	// init var for submission
+	$wasSubmitted = false;
 	
 	// check if the form was submitted
 	// source: http://www.vbforums.com/showthread.php?t=562749
@@ -27,13 +29,16 @@
 		$sub = "_".$submitMethod;
 		$submitArray = $$sub;
 		
+		$wasSubmitted = TRUE;
+		
 		// initialize a boolean to see if it passed validation
 		// check if they entered the write password	
-		$passed = (validateForm() && checkPassword());
+		$passed = validateForm();
+		$passed = checkPassword() && $passed;
 		// check password
 		if ($passed){
 			// good to go: proceed with submit
-				pushData();
+				pushData($submitArray);
 		}
 	}
 	
@@ -42,8 +47,8 @@
 	function pushData(){
 		global $dataArray, $delim,$fileName, $submitArray;
 		
-		echo "<br />Count: ". count($dataArray);
-		echo "<br />Count: ". count($submitArray);
+		// echo "<br />Count: ". count($dataArray);
+		// echo "<br />Count: ". count($submitArray);
 		
 		if (count($dataArray)>2){
 			// implode the data array
@@ -54,8 +59,28 @@
 			file_put_contents($fileName, "\n".$topic, FILE_APPEND);
 			
 			// TODO clear the submitArray
-			unset($submitArray);
+			$submitArray = array();
 		}
+	}
+	
+		// gets the value for the field stored in POST
+	// if it DNE, return null;
+	function getValue($fieldName){
+		global $submitArray, $minLen;	
+		$result = null;
+		
+		// echo "<br />Count: ". count($submitArray);
+		// var_dump($submitArray);
+		
+		if(is_array($submitArray) && count($submitArray) > 0 &&
+				array_key_exists($fieldName, $submitArray) && 
+				isset($submitArray[$fieldName]) &&
+				strlen($submitArray[$fieldName]) >= $minLen){
+			
+			$result = $submitArray[$fieldName];
+		}
+		
+		return $result;
 	}
 	
 	function checkPassword(){
@@ -139,27 +164,8 @@
 		
 		return $var; 
 	}
-	
-	// gets the value for the field stored in POST
-	// if it DNE, return null;
-	function getValue($fieldName){
-		global $fields, $submitArray, $minLen;	
-		$result = null;
-		
-		// echo "<br />Count: ". count($submitArray);
-		
-		if(is_array($submitArray) && 
-				array_key_exists($fieldName, $submitArray) && 
-				isset($submitArray[$fieldName]) &&
-				strlen($submitArray[$fieldName]) >= $minLen){
-			
-			$result = $submitArray[$fieldName];
-		}
-		
-		return $result;
-	}
-?>
 
+?>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -213,7 +219,9 @@
 		</tr>
 	</table>	
 	<hr />
-	<strong>Your Password: </strong><input type="password" name="password" size="15" /><br />
+	<strong>Your Password: </strong><input type="password" name="password" size="15" />
+	<?php echo "<span style='font-size:.8em'>Password is: " . PASSWORD; ?>
+	<br />
 	<input type="reset" value="Reset Form" />
 	<input type="submit" name="submit" value="Submit Form" />
 		
@@ -244,7 +252,7 @@
 			// close list item
 			echo "</li>";
 		}
-	} else{
+	} else if($wasSubmitted){
 		echo "Submission Successful!";
 	}
 	// close list
