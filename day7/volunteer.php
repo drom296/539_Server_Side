@@ -4,7 +4,7 @@
 	require_once 'volunteer_lib.php';
 	
 	$string = '';
-	$string .= html_header($title='Volunteer Generator'. $styles='');
+	$string .= html_header($title='Volunteer Generator'. $styles='example_styles.css');
 	$string .= "<h1>Volunteer Generator</h1>\n";
 	$string .= show_form();
 	$string .= check_submit();
