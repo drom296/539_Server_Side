@@ -1,9 +1,11 @@
 <?php
 
-	global $array;
-	
-	function html_header($title="Untitled", $styles=""){
-		$string=<<<END
+global $array, $phrases;
+
+$phrases = array('knows all the answers!', 'is thrilled to be a volunteer!', 'desires to be called on everytime!', 'loves being the volunteer!', 'would like to be the sole volunteer for the rest of the quarter!');
+
+function html_header($title = "Untitled", $styles = "") {
+	$string = <<<END
 			<!DOCTYPE html>
 			<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
@@ -12,17 +14,78 @@
 				<link type="text/css" rel="stylesheet" href="$styles" />
 			</head>
 			<body>
-			END;
+END;
+
+	return $string;
+}
+
+function html_footer($text = "") {
+	$string = <<<END
+			<p><em>$text</em></p>
+			</body>
+			</html>
+END;
+
+	return $string;
+}
+
+function show_form() {
+	$string = <<<END
+	
+	<form action="" method="POST">
+		<input type="submit" name="submit" value="Get a volunteer!" />
+	</form>
+	
+END;
+	return $string;
+}
+
+function return_file_as_array($path) {
+	if (file_exists($path) && is_readable($path)) {
+		return @file($path);
+	} else {
+		die("<strong>Problem loading file at #path!</strong>");
+	}
+}
+
+function check_submit() {
+	global $array, $phrases;
+
+	// load the data file & place in the $array global
+	$array = return_file_as_array($path = DATA_URL);
+
+	// check if submit was pressed, using $_POST and submit
+	if (array_key_exists("submit", $_POST)) {
+		// pick a random person
+		$person = $array[array_rand($array)];
+
+		// pick a random phrase
+		$phrase = $phrases[array_rand($phrases)];
+
+		$string = <<<END
+
+		<p><strong>$person $phrase</p></strong>
+		
+END;
+
+		return $string;
+	}
+}
+
+function show_people() {
+	global $array;
+	
+	$string = '';
+	$string .= '<ul>';
+	
+	// loop through people
+	foreach ($array as $person) {
+		$string .= "<li>$person</li>";
 	}
 	
-	function html_footer($text=""){}
+	$string .= '</ul>';
 
-	function show_form(){}
-
-	function return_file_as_array($path){}
-	
-	function check_submit(){}
-	
-	function show_people(){}
+	return $string;
+}
 ?>
 

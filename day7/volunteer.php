@@ -10,7 +10,7 @@
 	$string .= check_submit();
 	$string .= show_people();
 	$string .= html_footer($text='Day 7 HW/ICE');
-	echo string; 
+	echo $string; 
 ?>
 
 <!DOCTYPE html>
