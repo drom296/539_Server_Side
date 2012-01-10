@@ -9,7 +9,7 @@ function html_header($title = "Untitled", $styles = "") {
 			<!DOCTYPE html>
 			<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-				<meta http--equiv="content-type" content="text/html;charset=utf-8" />
+				<meta charset="utf-8" />
 				<title>$title</title>
 				<link type="text/css" rel="stylesheet" href="$styles" />
 			</head>
@@ -18,6 +18,8 @@ END;
 
 	return $string;
 }
+
+//<meta http--equiv="content-type" content="text/html; charset=utf-8" />
 
 function html_footer($text = "") {
 	$string = <<<END
@@ -32,7 +34,7 @@ END;
 function show_form() {
 	$string = <<<END
 	
-	<form action="" method="POST">
+	<form action="volunteer.php" method="POST">
 		<input type="submit" name="submit" value="Get a volunteer!" />
 	</form>
 	
