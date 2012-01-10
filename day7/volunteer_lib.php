@@ -49,40 +49,40 @@ function return_file_as_array($path) {
 }
 
 /*
- *Initializes the array of people, by first grabbing the data from a file, then 
- * formatting each of the values to match the desired format 
+ *Initializes the array of people, by first grabbing the data from a file, then
+ * formatting each of the values to match the desired format
  */
-function init_data(){
+function init_data() {
 	global $array;
 
 	// load the data file & place in the $array global
 	$array = return_file_as_array($path = DATA_URL);
-	
+
 	// Current data: lastName, firstName
 	// format to: firstName lastName
-	foreach ($array as $key=>$fullName) {
+	foreach ($array as $key => $fullName) {
 		$array[$key] = firstLastName(@$fullName);
 	}
-	
+
 }
 
 /*
  * Expects that the $fullName is in this format:
  * 		lastName, firstname
- * 
+ *
  * Then converts it to firstName lastName
  */
-function firstLastName($fullName){
+function firstLastName($fullName) {
 	// echo $fullName."<br />";
-	
+
 	$result = '';
-	
+
 	$pieces = explode(',', $fullName);
-	
-	$result = $pieces[1]." ".$pieces[0];
-	
+
+	$result = $pieces[1] . " " . $pieces[0];
+
 	// echo $result."<br />";
-	
+
 	return $result;
 }
 
@@ -109,15 +109,15 @@ END;
 
 function show_people() {
 	global $array;
-	
+
 	$string = '';
 	$string .= '<ul>';
-	
+
 	// loop through people
 	foreach ($array as $person) {
 		$string .= "<li>$person</li>";
 	}
-	
+
 	$string .= '</ul>';
 
 	return $string;
