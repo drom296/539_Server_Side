@@ -6,14 +6,14 @@ $phrases = array('knows all the answers!', 'is thrilled to be a volunteer!', 'de
 
 function html_header($title = "Untitled", $styles = "") {
 	$string = <<<END
-			<!DOCTYPE html>
-			<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<meta charset="utf-8" />
-				<title>$title</title>
-				<link type="text/css" rel="stylesheet" href="$styles" />
-			</head>
-			<body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>$title</title>
+	<link type="text/css" rel="stylesheet" href="$styles" />
+</head>
+<body>\n
 END;
 
 	return $string;
@@ -23,9 +23,9 @@ END;
 
 function html_footer($text = "") {
 	$string = <<<END
-			<p><em>$text</em></p>
-			</body>
-			</html>
+<p><em>$text</em></p>
+</body>
+</html>
 END;
 
 	return $string;
@@ -34,9 +34,9 @@ END;
 function show_form() {
 	$string = <<<END
 	
-	<form action="volunteer.php" method="POST">
-		<input type="submit" name="submit" value="Get a volunteer!" />
-	</form>
+<form action="volunteer.php" method="POST">
+	<input type="submit" name="submit" value="Get a volunteer!" />
+</form>
 	
 END;
 	return $string;
@@ -75,15 +75,11 @@ function init_data() {
  * Then converts it to firstName lastName
  */
 function firstLastName($fullName) {
-	// echo $fullName."<br />";
-
 	$result = '';
 
 	$pieces = explode(',', $fullName);
-
-	$result = $pieces[1] . " " . $pieces[0];
-
-	// echo $result."<br />";
+	
+	$result = trim($pieces[1]) . " " . trim($pieces[0]);
 
 	return $result;
 }
@@ -101,7 +97,7 @@ function check_submit() {
 
 		$string = <<<END
 
-		<p><strong>$person $phrase</p></strong>
+<p><strong>$person $phrase</p></strong>
 		
 END;
 
@@ -112,15 +108,15 @@ END;
 function show_people() {
 	global $array;
 
-	$string = '';
-	$string .= '<ul>';
+	$string = "<h2>Class List</h2>\n";
+	$string .= "<ul>";
 
 	// loop through people
 	foreach ($array as $person) {
-		$string .= "<li>$person</li>";
+		$string .= "\n\t<li>$person</li>";
 	}
 
-	$string .= '</ul>';
+	$string .= "\n</ul>\n";
 
 	return $string;
 }
