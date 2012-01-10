@@ -33,11 +33,9 @@ END;
 
 function show_form() {
 	$string = <<<END
-	
 <form action="volunteer.php" method="POST">
 	<input type="submit" name="submit" value="Get a volunteer!" />
 </form>
-	
 END;
 	return $string;
 }
@@ -96,9 +94,7 @@ function check_submit() {
 		$phrase = $phrases[array_rand($phrases)];
 
 		$string = <<<END
-
 <p><strong>$person $phrase</p></strong>
-		
 END;
 
 		return $string;
@@ -108,7 +104,7 @@ END;
 function show_people() {
 	global $array;
 
-	$string = "<h2>Class List</h2>\n";
+	$string = "\n<h2>Class List</h2>\n";
 	$string .= "<ul>";
 
 	// loop through people
