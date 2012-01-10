@@ -13,15 +13,3 @@
 	$string .= html_footer($text='Day 7 HW/ICE');
 	echo $string; 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="description" content="" />
-		<meta name="author" content="Pedro" />
-	</head>
-	<body>
-	
-	</body>
-</html>
