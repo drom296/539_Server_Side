@@ -48,11 +48,46 @@ function return_file_as_array($path) {
 	}
 }
 
-function check_submit() {
-	global $array, $phrases;
+/*
+ *Initializes the array of people, by first grabbing the data from a file, then 
+ * formatting each of the values to match the desired format 
+ */
+function init_data(){
+	global $array;
 
 	// load the data file & place in the $array global
 	$array = return_file_as_array($path = DATA_URL);
+	
+	// Current data: lastName, firstName
+	// format to: firstName lastName
+	foreach ($array as $key=>$fullName) {
+		$array[$key] = firstLastName(@$fullName);
+	}
+	
+}
+
+/*
+ * Expects that the $fullName is in this format:
+ * 		lastName, firstname
+ * 
+ * Then converts it to firstName lastName
+ */
+function firstLastName($fullName){
+	// echo $fullName."<br />";
+	
+	$result = '';
+	
+	$pieces = explode(',', $fullName);
+	
+	$result = $pieces[1]." ".$pieces[0];
+	
+	// echo $result."<br />";
+	
+	return $result;
+}
+
+function check_submit() {
+	global $array, $phrases;
 
 	// check if submit was pressed, using $_POST and submit
 	if (array_key_exists("submit", $_POST)) {
