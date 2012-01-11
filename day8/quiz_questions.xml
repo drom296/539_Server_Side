@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+    <record topic = "classic video games">
+        <title>Centipede</title> 
+        <question>How many shots does it take to destroy a mushroom?</question> 
+        <choices>
+            <choice correct="no" votes="0">1</choice>
+            <choice correct="no" votes="0">2</choice>
+            <choice correct="no" votes="0">3</choice>
+            <choice correct="yes" votes="0">4</choice>
+        </choices>
+    </record>
+    <record topic = "classic video games">
+        <title>Quake</title>
+        <question>What is the name of the most powerful weapon in Quake?</question>
+        <choices>
+            <choice correct="no" votes="0">gauntlet</choice>
+            <choice correct="no" votes="0">machine gun</choice>
+            <choice correct="yes" votes="0">BFG2000</choice>
+            <choice correct="no" votes="0">rocket launcher</choice>
+            <choice correct="no" votes="0">railgun</choice>
+        </choices>
+    </record>
+    <record topic = "classic video games">
+        <title>Tetris</title>
+        <question>Alexey Pazhitnov is the inventor of Tetris.</question>
+        <choices>
+            <choice correct="yes" votes="0">True</choice>
+            <choice correct="no" votes="0">False</choice>
+         </choices>
+    </record>
+    
+    <record topic = "Will Wright">
+        <title>Sim Farm</title>
+        <question>Will Wright was one of the co-creators of Sim Farm.</question>
+        <choices>
+            <choice correct="false" votes="0">True</choice>
+            <choice correct="no" votes="0">False</choice>
+         </choices>
+    </record>
+    
+    <record topic = "Will Wright">
+        <title>Sim City</title>
+        <question>Sim City was originally released for the Commodore 64.</question>
+        <choices>
+            <choice correct="yes" votes="0">True</choice>
+            <choice correct="no" votes="0">False</choice>
+         </choices>
+    </record>
+    
+    <record topic = "Will Wright">
+        <title>Sim Ant</title>
+        <question>In Sim Ant, the ant controlled by the player was always colored yellow.</question>
+        <choices>
+            <choice correct="yes" votes="0">True</choice>
+            <choice correct="no" votes="0">False</choice>
+         </choices>
+    </record>
+</questions>
