@@ -1,4 +1,6 @@
 <?php
+// echo html_header($title = 'HW-8', $styles = 'example_styles.css');
+
 // setup the file name
 $filename = "quiz_questions.xml";
 
@@ -21,37 +23,26 @@ foreach ($all_records as $record) {
 	// echo the title
 	echo "<h2>Title = $title</h2>";
 	// echo the question
-	echo "<h3>Question = $question</h3>";
-	
+	echo "\n<h3>Question = $question</h3>";
+
 	// setup the list for the choices
-	
+	echo "\n<ol type='I'>";
+
 	// loop thru the choices
-	
-	// echo out the choice as a list item
-	
+	$choices = $record -> getElementsByTagName('choice');
+
+	foreach ($choices as $choice) {
+		// echo out the choice as a list item
+		echo "\n<li>" . $choice -> nodeValue . "</li>";
+	}
+
+	// close the list
+	echo "\n</ol>";
+
 	// end the record
-	echo "<br /><hr />";
+	echo "\n<br /><hr />";
 }
 
-// echo "<h3>#8 - Echo All jokes from jokes_2.xml using a foreach loop</h3>";
-// echo "<h3>#8 - Echo All jokes from jokes_2.xml using a foreach loop</h3>";
-// foreach ($all_records as $joke) {
-// $question = $joke -> getElementsByTagName("question") -> item(0) -> nodeValue;
-// $answer = $joke -> getElementsByTagName("answer") -> item(0) -> nodeValue;
-// $rating = $joke -> getAttribute("rating");
-// echo "<p>Question=$question, Answer=$answer, rating=$rating</p>";
-// }
-?>
+// end the page
+// echo html_footer();
 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>html5_template</title>
-<meta name="description" content="" />
-<meta name="author" content="Pedro" />
-</head>
-<body>
-
-</body>
-</html> -->
