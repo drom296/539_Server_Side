@@ -1,5 +1,7 @@
 <?php
-// echo html_header($title = 'HW-8', $styles = 'example_styles.css');
+require_once 'volunteer_lib.php';
+
+echo html_header($title = 'HW-8', $styles = 'example_styles.css');
 
 // setup the file name
 $filename = "quiz_questions.xml";
@@ -44,5 +46,5 @@ foreach ($all_records as $record) {
 }
 
 // end the page
-// echo html_footer();
+echo html_footer();
 
