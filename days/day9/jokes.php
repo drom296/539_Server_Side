@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>ICE- Day 9 - Jokes</title>
+</head>
+<body>
 <?php
 // DOM Methods
 $jokes_url = "http://people.rit.edu/bdfvks/539/day9/jokes_server.php?type=XML&num=5";
@@ -34,3 +41,6 @@ foreach ($all_jokes as $joke) {
 	echo "\n<hr />\n\n";
 }
 ?>
+
+</body>
+</html>
