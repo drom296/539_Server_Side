@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>ICE- Day 9 - Jokes</title>
+	<title>ICE- Day 9 - Jokes2</title>
 </head>
 <body>
 <?php
 // DOM Methods
-$jokes_url = "http://people.rit.edu/bdfvks/539/day9/jokes_server.php?type=XML&num=5";
+$jokes_url = "jokes2.xml";
 $title = "Great Jokes!";
 
 $dom = new DomDocument();
@@ -22,13 +22,13 @@ echo "\n<p>length=$all_jokes->length</p>";
 
 foreach ($all_jokes as $joke) {
 	// get the question
-	$question = $joke -> getElementsByTagName('question') -> item(0) -> nodeValue;
+	$question = $joke -> getAttribute('question');
 
 	// get the answer
-	$answer = $joke -> getElementsByTagName('answer') -> item(0) -> nodeValue;
+	$answer = $joke -> getAttribute('answer');
 
 	// get the rating
-	$rating = $joke -> getElementsByTagName('rating') -> item(0) -> nodeValue;
+	$rating = $joke -> getAttribute('rating');
 
 	// display the question
 	echo "\n<h2>$question</h2>";
