@@ -1,36 +1,37 @@
-<jokes><joke>
-	<question>Why did the chicken cross the road?</question>
-	<answer>To get to the other side!</answer>
-	<category>kids</category>
-	<source>http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php</source>
-	<rating>5</rating>
-</joke>
-<joke>
-	<question>What do you get when you peel a banana?</question>
-	<answer>A pair of slippers!</answer>
-	<category>kids</category>
-	<source>http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php</source>
-	<rating>5</rating>
-</joke>
-<joke>
-	<question>Why don't sharks like to eat clowns?</question>
-	<answer>Because they taste funny!</answer>
-	<category>kids</category>
-	<source>http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php</source>
-	<rating>5</rating>
-</joke>
-<joke>
-	<question>Why did the dinosaur cross the road?</question>
-	<answer>Because the chicken hadn't evolved yet!</answer>
-	<category>kids</category>
-	<source>http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php</source>
-	<rating>5</rating>
-</joke>
-<joke>
-	<question>Why is 6 afraid of 7?</question>
-	<answer>Because 7 ate 9!</answer>
-	<category>kids</category>
-	<source>http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php</source>
-	<rating>5</rating>
-</joke>
+<jokes>
+	<joke
+	question="Why did the chicken cross the road?"
+	answer="To get to the other side!"
+	category="kids"
+	source="http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php"
+	rating="5"
+	/>
+	<joke
+	question="What do you get when you peel a banana?"
+	answer="A pair of slippers!"
+	category="kids"
+	source="http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php"
+	rating="5"
+	/>
+	<joke
+	question="Why don't sharks like to eat clowns?"
+	answer="Because they taste funny!"
+	category="kids"
+	source="http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php"
+	rating="5"
+	/>
+	<joke
+	question="Why did the dinosaur cross the road?"
+	answer="Because the chicken hadn't evolved yet!"
+	category="kids"
+	source="http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php"
+	rating="5"
+	/>
+	<joke
+	question="Why is 6 afraid of 7?"
+	answer="Because 7 ate 9!"
+	category="kids"
+	source="http://www.ist.rit.edu/~acjvks/pfw/092/examples/day9/jokes_server.php"
+	rating="5"
+	/>
 </jokes>
