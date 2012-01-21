@@ -1,0 +1,46 @@
+#nav {
+	border-width: 2px 1px 2px 1px;
+	border-style: solid;
+	border-color: #555544;
+	background-color: #555544;
+	color: #eeddbb;
+}
+#nav {
+	list-style-type: none;
+	overflow: hidden;
+}
+a {
+	text-decoration: none;
+	color: #eeddbb;
+	/*	font-stretch: extra-expanded;*/ /*Maybe when its implemented*/
+	letter-spacing: 10px;
+}
+li {
+	float: left;
+	width: 24.8%;
+	text-align: center;
+}
+li+ li {
+	border-left: 2px solid #eeddbb;
+}
+li a {
+	display: block;
+}
+li a:hover {
+	transition: background-color 1s;
+	/* Firefox 4 */
+	-moz-transition: background-color 1s;
+	/* Safari and Chrome */
+	/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
+	-webkit-transition: background-color 1s;
+	/* Opera */
+	-o-transition: background-color 1s;
+	font-weight: bolder;
+	background-color: #eeddbb;
+	color: #555544;
+	text-transform: uppercase;
+}
+#navHome .navHome {
+	background-color: red;
+	color: blue;
+}
