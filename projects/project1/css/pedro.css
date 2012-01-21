@@ -1,0 +1,86 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.noFloat{
+	clear: both;
+}
+body {
+	background-color: #776655;
+	color: #555544;
+	background-image: url(../img/minimalfly.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-color: rgba(0,0,0,0.8);
+	background-size: cover;
+}
+#page {
+	min-width: 600px;
+	min-height: 50%;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#banner, #nav, #news, #editorial {
+	background-color: #ccbb88;
+	background-color: rgb(204,187,136);
+	background-color: rgba(204,187,136,.7);
+}
+#banner {
+	border-width: 2px 2px 0px 2px;
+	border-style: solid;
+/*	This was added b/c for some odd white space after the pic*/
+	margin-bottom: -4px; 
+/**********************/
+}
+
+#banner img{
+	margin:0;
+}
+#content {
+	margin-top: 2%;
+	border: 2px solid;
+	overflow: hidden;
+	width: 100%;
+}
+
+#content h1{
+	text-align: center;
+}
+
+#editorial {
+	max-width: 40%;
+	color: black;
+	float: left;
+	padding: 0 2% 0 2%;
+	margin-right: 2%;
+	/*	margin-bottom: 2%;*/
+	border-right-style: solid;
+	border-color: rgb(85,85,68);
+	border-color: rgba(85,85,68,0.5);
+	border-right-width: 3px;
+	border-bottom-style: solid;
+	border-bottom-width: 3px;
+	background-color: rgb(204,187,136);
+}
+#news {
+	padding: 0 2% 2% 2%;
+	color: black;
+}
+.newsItem{
+	margin-bottom: 1%;
+}
+.newsItem + div {
+	border-top: 2px dashed;
+	padding-top: 1%;
+}
+.newsSubject {
+	font-weight: bold;
+	font-size: 1.3em;
+}
+.newsDate {
+	font-style: italic;
+	font-size: .77em;
+	margin-left: 1em;
+}
