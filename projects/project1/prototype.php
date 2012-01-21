@@ -22,6 +22,7 @@
 				</ul>
 			</div>
 			<div id="content" class="noFloat">
+				
 				<div id="editorial" class="navHome">
 					<h1>Editorial</h1>
 					<img src="img/editor2.jpg" alt="editor" />
@@ -40,6 +41,7 @@
 						<br/>
 					</p>
 				</div>
+				
 				<div id="news">
 					<h1>News</h1>
 					<?php

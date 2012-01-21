@@ -27,22 +27,20 @@ li a {
 	display: block;
 }
 li a:hover {
-	transition: color 1s, background-color 1s, text-transform 1s;
+	transition: background-color 1s;
 	/* Firefox 4 */
-	-moz-transition: color 1s, background-color 1s, text-transform 1s; 
+	-moz-transition: background-color 1s;
 	/* Safari and Chrome */
-/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
--webkit-transition: background-color 1s;
-	/* Opera */ 
-	-o-transition: color 1s, background-color 1s, text-transform 1s;
-	
+	/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
+	-webkit-transition: background-color 1s;
+	/* Opera */
+	-o-transition: background-color 1s;
 	font-weight: bolder;
 	background-color: #eeddbb;
 	color: #555544;
 	text-transform: uppercase;
 }
-
-#navHome .navHome{
+#navHome .navHome {
 	background-color: red;
 	color: blue;
 }
