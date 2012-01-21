@@ -24,7 +24,7 @@
 			<div id="content" class="noFloat">
 				<div id="editorial" class="navHome">
 					<h1>Editorial</h1>
-					<img src="img/editor2.jpg" alt="editor" height="100px" width="100px"/>
+					<img src="img/editor2.jpg" alt="editor" />
 					<p>
 						Editorial
 						<br/>

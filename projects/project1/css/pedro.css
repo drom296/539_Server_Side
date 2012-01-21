@@ -2,8 +2,7 @@
 	margin: 0;
 	padding: 0;
 }
-
-.noFloat{
+.noFloat {
 	clear: both;
 }
 body {
@@ -30,13 +29,12 @@ body {
 #banner {
 	border-width: 2px 2px 0px 2px;
 	border-style: solid;
-/*	This was added b/c for some odd white space after the pic*/
-	margin-bottom: -4px; 
-/**********************/
+	/*	This was added b/c for some odd white space after the pic*/
+	margin-bottom: -4px;
+	/**********************/
 }
-
-#banner img{
-	margin:0;
+#banner img {
+	margin: 0;
 }
 #content {
 	margin-top: 2%;
@@ -44,13 +42,12 @@ body {
 	overflow: hidden;
 	width: 100%;
 }
-
-#content h1{
+#content h1 {
 	text-align: center;
 }
-
 #editorial {
 	max-width: 40%;
+	width: 255px;
 	color: black;
 	float: left;
 	padding: 0 2% 0 2%;
@@ -64,11 +61,16 @@ body {
 	border-bottom-width: 3px;
 	background-color: rgb(204,187,136);
 }
+#editorial > img {
+	padding: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
 #news {
 	padding: 0 2% 2% 2%;
 	color: black;
 }
-.newsItem{
+.newsItem {
 	margin-bottom: 1%;
 }
 .newsItem + div {
