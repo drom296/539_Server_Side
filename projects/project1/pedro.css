@@ -1,0 +1,28 @@
+/*COLOR*/
+body {
+	background-color: #776655;
+	color: #555544;
+	background-image: url(imgs/minimalfly.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-color: rgba(0,0,0,0.8);
+	background-size: cover;
+}
+#page {
+	min-width: 600px;
+	min-height: 50%;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#nav, #news, #editorial {
+	background-color: #ccbb88;
+}
+#banner {
+}
+#nav {
+}
+#news {
+}
+#editorial {
+}
