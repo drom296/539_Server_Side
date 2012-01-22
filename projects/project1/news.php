@@ -1,6 +1,15 @@
 <?php
 require("LIB_project1.php");
 
+$offset=0;
+$numItems = 5;
+
+if(isset($_GET['page'])){
+	if(($result = intval($_GET['page']))>0){
+		$offset = ($result -1)*$numItems;
+	}
+}
+
 $styles = array("css/pedro.css", "css/nav.css");
 
 // create header tags
@@ -13,7 +22,7 @@ $output .= addBanner();
 $output .= addNav();
 
 // add news and editorial
-$output .= addContent(false, 0, 5);
+$output .= addContent(false, $offset, $numItems);
 
 // add page navigation
 
