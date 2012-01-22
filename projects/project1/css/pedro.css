@@ -219,3 +219,8 @@ form input[type="submit"] {
 	background-color: #555544;
 	color: #eeddbb;
 }
+#fromAcknowledge{
+	text-align: center;
+	font-size: 1.1em;
+	font-weight: bold;
+}

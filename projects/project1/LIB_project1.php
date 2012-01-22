@@ -472,7 +472,7 @@ function addINIEditForm() {
 	}
 	
 	$result .= "</fieldset>";
-
+	
 	// add password protection
 	$result .= "<label for='adminPass'>Enter Admin Password</label>";
 	$result .= "<input type='text' name='adminPass' />";
@@ -491,6 +491,10 @@ function addINIEditForm() {
 function verifyKey($key, $val) {
 	global $prefs;
 	return $prefs[$key] == $val;
+}
+
+function isCorrectPassword($pass){
+	return verifyKey('password',$pass);
 }
 
 function addEditorialEditForm() {
