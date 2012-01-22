@@ -13,7 +13,8 @@ $output .= addBanner();
 $output .= addNav();
 
 // add news and editorial
-$output .= addContent(true, 0, 3);
+$numItems = getNumItemsHome();
+$output .= addNewsContent(true, 0, $numItems);
 
 // create footer
 $output .= html_footer("");

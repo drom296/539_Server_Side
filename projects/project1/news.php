@@ -2,7 +2,7 @@
 require("LIB_project1.php");
 
 $offset=0;
-$numItems = 5;
+$numItems = getNumItems();
 
 if(isset($_GET['page'])){
 	if(($result = intval($_GET['page']))>0){
@@ -22,7 +22,7 @@ $output .= addBanner();
 $output .= addNav();
 
 // add news and page nav
-$output .= addContent(false, $offset, $numItems, true);
+$output .= addNewsContent(false, $offset, $numItems, true);
 
 // create footer
 $output .= html_footer("");

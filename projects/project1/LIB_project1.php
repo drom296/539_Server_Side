@@ -3,11 +3,52 @@
 define('LOGO_PIC', 'img/logo.png');
 define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
+define('PREFS_DATA','data/setup.ini');
 
 $totalNewsItems;
 $pageNum;
 $maxPages;
 $numNewsItems;
+$prefs;
+
+init();
+
+function init(){
+	global $prefs;
+	// get the ini file as an array
+	$lines = return_file_as_array(PREFS_DATA);
+	
+	foreach($lines as $line){
+		list($key, $data) = explode("|", $line);
+		
+		$prefs[$key] = $data;
+	}
+	
+}
+
+function getIniVal($key){
+	global $prefs;
+	return $prefs[$key];
+}
+
+function getNumItems(){
+	return getIniVal('numItems');
+}
+
+function getNumItemsHome(){
+	return getIniVal('numItemsStart');
+}
+
+function getPassword(){
+	return getIniVal('numItemsStart');
+}
+
+function getEditorialPic(){
+	return getIniVal('editorialPic');
+}
+
+//TODO: setter functions for init files
+
 
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
@@ -96,7 +137,7 @@ function addNav() {
 	}
 }
 
-function addContent($includeEditorial = false, $offset, $numItems, $includeNewsNav = false) {
+function addNewsContent($includeEditorial = false, $offset=0, $numItems, $includeNewsNav = false) {
 	// create container div
 	$result = '<div id="content" class="noFloat roundBox">';
 
@@ -129,9 +170,8 @@ function addEditorial() {
 	$result .= '<h1>Editorial</h1>';
 
 	// add the editor's picture
-	// TODO: make dynamic by allowing them to choose
 	// probably thru an INI file
-	$result .= '<img src="img/editor2.jpg" alt="editor" />';
+	$result .= '<img src="img/'.getEditorialPic().'" alt="editor" />';
 
 	// get editorial
 	$result .= getEditorial();

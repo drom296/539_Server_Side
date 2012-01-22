@@ -1,16 +1,21 @@
 <?php
-    phpinfo();
-?>
+require("LIB_project1.php");
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>html5_template</title>
-		<meta name="description" content="" />
-		<meta name="author" content="Pedro" />
-	</head>
-	<body>
-	
-	</body>
-</html>
+$styles = array("css/pedro.css", "css/nav.css");
+
+// create header tags
+$output = html_header("Pedro News - Home", $styles);
+
+// create banner div
+$output .= addBanner();
+
+// create the nav
+$output .= addNav();
+
+// add the admin stuff
+
+// create footer
+$output .= html_footer("");
+
+echo $output;
+?>
