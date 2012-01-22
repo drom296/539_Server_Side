@@ -138,8 +138,11 @@ function getEditorial() {
 
 // TODO: need to grab from an actual file
 function addNews($offset, $numItems) {
-	$times = $numItems;
-	$result = "<h1>News</h1>";
+	// setup container div
+	$result = '<div id="news" class="roundBox">';
+	
+	// add the heading
+	$result .= "<h1>News</h1>";
 
 	// get X news items
 	$newsItems = getXStories($offset, $numItems);
@@ -169,6 +172,9 @@ function addNews($offset, $numItems) {
 		$result .= '</div> <!-- class="newsItem" -->';
 
 	}
+	
+	// close container div
+	$result .= '</div> <!-- id="news" class="roundBox" -->';
 
 	return $result;
 }
