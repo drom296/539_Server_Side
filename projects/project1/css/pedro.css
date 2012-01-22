@@ -123,7 +123,6 @@ body {
 }
 .newsItem {
 	margin-bottom: 1%;
-	color: black;
 	background-color: rgba(204,187,136,.85);
 }
 .newsItem + div {
