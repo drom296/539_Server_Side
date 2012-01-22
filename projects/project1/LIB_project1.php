@@ -35,10 +35,12 @@ function writeINIFile() {
 	if (!empty($content)) {
 		fwrite($file, $content);
 	}
-	
+
 	// close file
 	fclose($file);
 }
+
+// getter functions for init files
 
 function getIniVal($key) {
 	global $prefs;
@@ -61,7 +63,28 @@ function getEditorialPic() {
 	return getIniVal('editorialPic');
 }
 
-//TODO: setter functions for init files
+// setter functions for init files
+
+function setIniVal($key, $val) {
+	global $prefs;
+	return $prefs[$key] = $val;
+}
+
+function setNumItems($val) {
+	return setIniVal('numItems', $val);
+}
+
+function setNumItemsHome($val) {
+	return setIniVal('numItemsStart', $val);
+}
+
+function setPassword($val) {
+	return setIniVal('numItemsStart', $val);
+}
+
+function setEditorialPic($val) {
+	return setIniVal('editorialPic', $val);
+}
 
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
@@ -244,7 +267,7 @@ function addNews($offset, $numItems) {
 }
 
 // Grab x number of items from the file, starting from the specific offset
-function getXStories($offset, $numItems) {
+function getXStories($offset, $numItems, $getAll = false) {
 	global $totalNewsItems, $pageNum, $maxPages, $numNewsItems;
 
 	// setup result
@@ -286,6 +309,12 @@ function getXStories($offset, $numItems) {
 		}
 
 		$numNewsItems = $numItems;
+
+		// if they want all stories
+		if ($getAll) {
+			$offset = 0;
+			$numItems = $newsLength;
+		}
 
 		// get only the desired ones, starting from offset to the right below $numItems
 		for ($i = 0, $index = $offset; $i < $numItems; $i++, $index++) {
@@ -341,6 +370,40 @@ function addNewsNav() {
 
 	//return result
 	return $result;
+}
+
+function addStory($subject, $story) {
+	// get the date
+	$date = date('m/d/y g:iA');
+
+	// get the stories
+	$stories = getXStories(0, 1, true);
+
+	// add new story
+	array_unshift($stories, array('date' => $date, 'subject' => $subject, 'story' => $story));
+
+	// write stories back to file
+
+	// open file
+	$file = fopen(NEWS, "w") or die("Cannot open　" . NEWS);
+
+	$content = "";
+
+	// create the data to write
+	foreach ($stories as $story) {
+		$content .= $story['date']."|";
+		$content .= $story['subject']."|";
+		$content .= $story['story']."\n";
+	}
+
+	// write only if it has data
+	if (!empty($content)) {
+		fwrite($file, $content);
+	}
+
+	// close file
+	fclose($file);
+
 }
 ?>
 
