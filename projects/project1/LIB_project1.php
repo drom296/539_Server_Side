@@ -3,7 +3,7 @@
 define('LOGO_PIC', 'img/logo.png');
 define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
-define('PREFS_DATA','data/setup.ini');
+define('PREFS_DATA', 'data/setup.ini');
 
 $totalNewsItems;
 $pageNum;
@@ -13,57 +13,55 @@ $prefs;
 
 init();
 
-function init(){
+function init() {
 	global $prefs;
 	// get the ini file
 	$prefs = parse_ini_file(PREFS_DATA);
-	
-	echo "password: " .$prefs['password']."<br />";
-	
-	// testing purposes	
-	$prefs['password'] = "pedro";
 }
 
-function writeIniFile(){
-	// open file	
-	$file = fopen(PREFS_DATA, "w") or die("Cannot open　".PREFS_DATA);
-	
+function writeINIFile() {
+	global $prefs;
+	// open file
+	$file = fopen(PREFS_DATA, "w") or die("Cannot open　" . PREFS_DATA);
+
 	$content = "";
-	
+
 	// create the data to write
-	foreach($prefs as $key=>$data){
-		$content .= $key.' = '.$data."\n";
+	foreach ($prefs as $key => $data) {
+		$content .= $key . ' = ' . $data . "\n";
 	}
-	 
-	fwrite($file, $content ); 
-	fclose($file);  
+
+	// write only if it has data
+	if (!empty($content)) {
+		fwrite($file, $content);
+	}
+	
+	// close file
+	fclose($file);
 }
 
-function getIniVal($key){
+function getIniVal($key) {
 	global $prefs;
 	return $prefs[$key];
 }
 
-function getNumItems(){
+function getNumItems() {
 	return getIniVal('numItems');
 }
 
-function getNumItemsHome(){
+function getNumItemsHome() {
 	return getIniVal('numItemsStart');
 }
 
-function getPassword(){
+function getPassword() {
 	return getIniVal('numItemsStart');
 }
 
-function getEditorialPic(){
+function getEditorialPic() {
 	return getIniVal('editorialPic');
 }
 
-
-
 //TODO: setter functions for init files
-
 
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
@@ -152,7 +150,7 @@ function addNav() {
 	}
 }
 
-function addNewsContent($includeEditorial = false, $offset=0, $numItems, $includeNewsNav = false) {
+function addNewsContent($includeEditorial = false, $offset = 0, $numItems, $includeNewsNav = false) {
 	// create container div
 	$result = '<div id="content" class="noFloat roundBox">';
 
@@ -186,7 +184,7 @@ function addEditorial() {
 
 	// add the editor's picture
 	// probably thru an INI file
-	$result .= '<img src="img/'.getEditorialPic().'" alt="editor" />';
+	$result .= '<img src="img/' . getEditorialPic() . '" alt="editor" />';
 
 	// get editorial
 	$result .= getEditorial();
@@ -273,12 +271,13 @@ function getXStories($offset, $numItems) {
 		$offset = 0;
 	} else if ($offset > $newsLength) {
 		echo "true<br />";
-		$offset = $newsLength - $numItems+2; //+2 to handle zero based pages
+		$offset = $newsLength - $numItems + 2;
+		//+2 to handle zero based pages
 	}
-	
+
 	// set the page num
 	$pageNum = intval($offset / $numItems);
-	
+
 	// check if we are starting from outside our range
 	if ($offset < $newsLength) {
 		// check if we exceed our range
