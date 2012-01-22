@@ -2,6 +2,7 @@
 
 define('LOGO_PIC', 'img/logo.png');
 define('EDITORIAL', 'data/editorial.txt');
+define('NEWS', 'data/news.txt');
 
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
@@ -90,15 +91,15 @@ function addNav() {
 	}
 }
 
-function addContent($includeEditorial, $numItems) {
+function addContent($includeEditorial, $offset, $numItems) {
 	// create container div
 	$result = '<div id="content" class="noFloat roundBox">';
 
 	// create the editorial
-	//$result .= addEditorial();
+	$result .= addEditorial();
 
 	// create the news items
-	$result .= addNews($numItems);
+	$result .= addNews($offset, $numItems);
 
 	// close the container div
 	$result .= "</div> <!-- id='content'-->";
@@ -108,6 +109,7 @@ function addContent($includeEditorial, $numItems) {
 }
 
 function addEditorial() {
+	$result = "";
 	// create the container div
 	$result = '<div id="editorial" class="navHome">';
 
@@ -123,34 +125,89 @@ function addEditorial() {
 	$result .= getEditorial();
 
 	// close div
-	$result .= '</div> <!-- id="editorial -->"';
+	$result .= '</div> <!-- id="editorial -->';
 
 	// return the result
 	return $result;
 }
 
-//TODO: grab from editorial.txt file
+// grab from editorial.txt file
 function getEditorial() {
 	return file_get_contents(EDITORIAL);
 }
 
 // TODO: need to grab from an actual file
-function addNews($numItems) {
+function addNews($offset, $numItems) {
 	$times = $numItems;
-	$string = "";
-	for ($i = 0; $i < $times; $i++) {
-		$string .= <<<END
-<div class="newsItem">
-<p>
-<span class="newsSubject">Subject</span><span class="newsDate">1/12/2012</span>
-</p>
-<p>
-This is a story, of a lovely lady. Who had more kids than a grown man can count.
-</p>
-</div>\n\t\t\t\t\t
-END;
+	$result = "<h1>News</h1>";
+
+	// get X news items
+	$newsItems = getXStories($offset, $numItems);
+
+	// loop thru the stories
+	foreach ($newsItems as $newsItem) {
+
+		// set up the news item container
+		$result .= '<div class="newsItem">';
+
+		// setup container
+		$result .= "<p>";
+
+		// set up the subject
+		$result .= '<span class="newsSubject">' . $newsItem['subject'] . '</span>';
+
+		// set up the date
+		$result .= '<span class="newsDate">' . $newsItem['date'] . '</span>';
+
+		// close the container
+		$result .= "</p>";
+
+		// set up the story
+		$result .= "<p>" . $newsItem['story'] . "</p>";
+
+		// close the news item container
+		$result .= '</div> <!-- class="newsItem" -->';
+
 	}
-	return $string;
+
+	return $result;
+}
+
+// Grab x number of items from the file, starting from the specific offset
+function getXStories($offset, $numItems) {
+	// setup result
+	$result = array();
+
+	// TODO: do in a more optimistic way
+	// instead of getting the entire contents of the file, just get what you need
+
+	// non-optimistic way
+
+	// get file contents as array
+	$news = return_file_as_array(NEWS);
+
+	// print_r($news);
+	// get how many news items there are
+	$newsLength = count($news);
+
+	// check if we are starting from outside our range
+	if ($offset < $newsLength) {
+		// check if we exceed our range
+		if ($offset + $numItems > $newsLength) {
+			$numItems = $newsLength - $offset;
+		}
+
+		// get only the desired ones, starting from offset to the right below $numItems
+		for ($i = 0, $index = $offset; $i < $numItems; $i++, $index++) {
+			
+			list($date, $subject, $story) = explode("|", $news[$index]);
+
+			array_push($result, array('date' => $date, 'subject' => $subject, 'story' => $story));
+		}
+	}
+
+	// return the result
+	return $result;
 }
 ?>
 
