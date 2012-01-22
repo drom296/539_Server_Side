@@ -225,16 +225,19 @@ function getEditorial() {
 }
 
 function setEditorial($content) {
+	$result = false;
 	// open file
 	$file = fopen(EDITORIAL, "w") or die("Cannot open　" . EDITORIAL);
 
 	// write only if it has data
 	if (!empty($content)) {
-		fwrite($file, $content);
+		$result = fwrite($file, $content) > 0;
 	}
 
 	// close file
 	fclose($file);
+
+	return $result;
 }
 
 function addNews($offset, $numItems) {
@@ -306,7 +309,6 @@ function getXStories($offset, $numItems, $getAll = false) {
 	if ($offset < 0) {
 		$offset = 0;
 	} else if ($offset > $newsLength) {
-		echo "true<br />";
 		$offset = $newsLength - $numItems + 2;
 		//+2 to handle zero based pages
 	}
@@ -387,37 +389,42 @@ function addNewsNav() {
 }
 
 function addStory($subject, $story) {
-	// get the date
-	$date = date('m/d/y g:iA');
+	$result = false;
 
-	// get the stories
-	$stories = getXStories(0, 1, true);
+	if (!empty($subject) && !empty($story)) {
+		
+		// get the date
+		$date = date('m/d/y g:iA');
 
-	// add new story
-	array_unshift($stories, array('date' => $date, 'subject' => $subject, 'story' => $story));
+		// get the stories
+		$stories = getXStories(0, 1, true);
 
-	// write stories back to file
+		// add new story
+		array_unshift($stories, array('date' => $date, 'subject' => $subject, 'story' => $story));
 
-	// open file
-	$file = fopen(NEWS, "w") or die("Cannot open　" . NEWS);
+		// write stories back to file
 
-	$content = "";
+		// open file
+		$file = fopen(NEWS, "w") or die("Cannot open　" . NEWS);
 
-	// create the data to write
-	foreach ($stories as $story) {
-		$content .= $story['date'] . "|";
-		$content .= $story['subject'] . "|";
-		$content .= $story['story'] . "\n";
+		$content = "";
+
+		// create the data to write
+		foreach ($stories as $story) {
+			$content .= $story['date'] . "|";
+			$content .= $story['subject'] . "|";
+			$content .= $story['story'] . "\n";
+		}
+
+		// write only if it has data
+		if (!empty($content)) {
+			$result = fwrite($file, $content) > 0;
+		}
+
+		// close file
+		fclose($file);
 	}
-
-	// write only if it has data
-	if (!empty($content)) {
-		fwrite($file, $content);
-	}
-
-	// close file
-	fclose($file);
-
+	return $result;
 }
 
 function startContentDiv() {
@@ -471,14 +478,17 @@ function addINIEditForm() {
 		$result .= "<input type='text' name='$key' value='$displayVal' />";
 		$result .= "<br />";
 	}
-	
+
 	$result .= "</fieldset>";
-	
+
 	// add password protection
 	$result .= "<label for='adminPass'>Enter Admin Password</label>";
 	$result .= "<input type='text' name='adminPass' />";
 	$result .= "<br />";
-	
+
+	// add reset button
+	$result .= "<input type='reset' name='reset' value='reset'/>";
+
 	// add submit button
 	$result .= "<input type='submit' name='submit' value='submit'/>";
 
@@ -494,19 +504,74 @@ function verifyKey($key, $val) {
 	return $prefs[$key] == $val;
 }
 
-function isCorrectPassword($pass){
-	return verifyKey('password',$pass);
+function isCorrectPassword($pass) {
+	return verifyKey('password', $pass);
 }
 
 function addEditorialEditForm() {
+	// start result
+	$result = "";
 
+	// start form
+	$result .= "<form action='' method='post' >";
+
+	// add label
+	$result .= "<label for='editorial'>Edit Your Editorial</label>";
+	$result .= "<br />";
+
+	// add text area for editorial
+	$result .= "<textarea name='editorial' class='roundBox'>" . htmlspecialchars(getEditorial()) . "</textarea>";
+	$result .= "<br />";
+
+	// add password protection
+	$result .= "<label for='adminPass'>Enter Admin Password</label>";
+	$result .= "<input type='text' name='adminPass' />";
+	$result .= "<br />";
+
+	// add reset button
+	$result .= "<input type='reset' name='reset' value='reset'/>";
+
+	// add submit button
+	$result .= "<input type='submit' name='submit' value='submit'/>";
+
+	// close form
+	$result .= "</form>";
+
+	// return result
+	return $result;
 }
 
 function addNewsAddForm() {
+	// start result
+	$result = "";
 
+	// start form
+	$result .= "<form action='' method='post'>";
+
+	$result .= "<h3>Add News Posting</h3>";
+
+	// display inputs
+	$result .= "<input type='text' name='newsSubject' value='Subject or Title' />";
+	$result .= "<br />";
+
+	$result .= "<textarea name='story' class='roundBox'>Enter your news item here...</textarea>";
+	$result .= "<br />";
+
+	// add password protection
+	$result .= "<label for='adminPass'>Enter Admin Password</label>";
+	$result .= "<input type='text' name='adminPass' />";
+	$result .= "<br />";
+
+	// add reset button
+	$result .= "<input type='reset' name='reset' value='reset'/>";
+
+	// add submit button
+	$result .= "<input type='submit' name='submit' value='submit'/>";
+
+	// close form
+	$result .= "</form>";
+
+	// return result
+	return $result;
 }
 ?>
-
-<!-- show the code -->
-<!-- echo htmlspecialchars(getEditorial()); -->
-

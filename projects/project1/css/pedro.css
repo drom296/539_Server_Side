@@ -86,7 +86,7 @@ body {
 	overflow: hidden;
 	/*	width: inherit;*/
 }
-#content h1 {
+#content h1 , #content h2 {
 	text-align: center;
 }
 #editorial {
@@ -158,7 +158,7 @@ body {
 }
 #adminLinks {
 	list-style-type: none;
-	width: 400px;
+	width: 23.5em;
 	margin: auto;
 }
 #adminLinks a {
@@ -197,13 +197,15 @@ form {
 	/*	padding-right: 25%;*/
 	/*	padding-left: 25%;*/
 }
-form label {
-	margin-right: 2%;
-}
-form input {
+
+form input, form textarea, form input[type="submit"] {
 	border-color: #555544;
 	background-color: #555544;
 	color: #eeddbb;
+}
+
+form label {
+	margin-right: 2%;
 }
 form input {
 	margin: .4% 0 .4% 0;
@@ -212,15 +214,22 @@ form fieldset {
 	border-color: #555544;
 	margin-bottom: 1%;
 }
-form input[type="submit"] {
+form input[type="submit"], form input[type="reset"] {
 	width: 5em;
 	margin: 1%;
-	border-color: #555544;
-	background-color: #555544;
-	color: #eeddbb;
+}
+
+form label[for="adminPass"]{
+	font-weight: bold;
 }
 #fromAcknowledge{
 	text-align: center;
 	font-size: 1.1em;
 	font-weight: bold;
+}
+form textarea{
+	padding: 2%;
+	width: 90%;
+	height: 15em;
+	font-size: 1.2em;
 }
