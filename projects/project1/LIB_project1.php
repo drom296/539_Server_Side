@@ -15,15 +15,28 @@ init();
 
 function init(){
 	global $prefs;
-	// get the ini file as an array
-	$lines = return_file_as_array(PREFS_DATA);
+	// get the ini file
+	$prefs = parse_ini_file(PREFS_DATA);
 	
-	foreach($lines as $line){
-		list($key, $data) = explode("|", $line);
-		
-		$prefs[$key] = $data;
+	echo "password: " .$prefs['password']."<br />";
+	
+	// testing purposes	
+	$prefs['password'] = "pedro";
+}
+
+function writeIniFile(){
+	// open file	
+	$file = fopen(PREFS_DATA, "w") or die("Cannot open　".PREFS_DATA);
+	
+	$content = "";
+	
+	// create the data to write
+	foreach($prefs as $key=>$data){
+		$content .= $key.' = '.$data."\n";
 	}
-	
+	 
+	fwrite($file, $content ); 
+	fclose($file);  
 }
 
 function getIniVal($key){
@@ -46,6 +59,8 @@ function getPassword(){
 function getEditorialPic(){
 	return getIniVal('editorialPic');
 }
+
+
 
 //TODO: setter functions for init files
 
@@ -237,7 +252,7 @@ function getXStories($offset, $numItems) {
 	// setup result
 	$result = array();
 
-	// TODO: do in a more optimistic way
+	// TODO: Read file in a more optimistic way
 	// instead of getting the entire contents of the file, just get what you need
 
 	// non-optimistic way
