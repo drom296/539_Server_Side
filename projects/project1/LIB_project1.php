@@ -4,6 +4,7 @@ define('LOGO_PIC', 'img/logo.png');
 define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
 define('PREFS_DATA', 'data/setup.ini');
+define('BANNER', 'data/banners.txt');
 
 $totalNewsItems;
 $pageNum;
@@ -148,7 +149,7 @@ function addBanner() {
 	$string .= "\t" . "\t" . "\t" . '<img src="' . LOGO_PIC . '" alt="logo" />' . "\n";
 
 	// add banner ad
-	$string .= "\t" . "\t" . "\t" . '<img src="' . getBannerAd() . '" id="ad" alt="ad" />' . "\n";
+	$string .= "\t" . "\t" . "\t" . '<img src="' . getBannerAd() . '" id="ad" alt="ad" height="50px" width="50px"/>' . "\n";
 
 	// end div
 	$string .= "\t" . "\t" . '</div> <!-- id=banner -->' . "\n";
@@ -158,7 +159,71 @@ function addBanner() {
 
 // gets the next banner to be displayed as a string
 function getBannerAd() {
-	$result = LOGO_PIC;
+	$result = "";
+
+	// setup banner array
+	$banners = array();
+	// start with the highest num possible
+	$result = array('fileName' => "", "weight" => "", "count" => "", "displayVal" => PHP_INT_MAX);
+
+	// get all the lines
+	$lines = return_file_as_array(BANNER);
+
+	// find the lowest display value
+	foreach ($lines as $line) {
+		// explode each line, getting the filename, weight, and count
+		list($fileName, $weight, $count) = explode("|", $line);
+		// $displayVal = ($weight * $count);
+
+		// push to associative array
+		array_push($banners, array("fileName" => $fileName, "weight" => intval($weight), "count" => intval($count)));
+
+		// // check if this display value is lower than our current low, or if they are
+		// // equal, choose the lowest weight
+		// if ($result['displayValue'] > $displayVal || ($result['displayValue'] == $displayVal && $result['weight'] > $weight)) {
+		// // if so, this is the file we want
+		// $result['fileName'] = $fileName;
+		// $result['weight'] = $weight;
+		// $result['count'] = $count;
+		// $result['displayVal'] = $displayVal;
+		// }
+	}
+	
+	print_r($banners);
+
+	// sort the banners based on their display value (weight*count)
+	usort($banners, "bannerSort");
+	
+	print_r($banners);
+	
+	// choose the one with the smallest display value (first one)
+	$result = $banners[0]['fileName'];
+	
+	// prepend with image folder location
+	$result = "img/ad/".$result;
+	
+	return $result;
+}
+
+function bannerSort($a, $b) {
+	// compare their display value
+	$one = $a['weight'] * $a['count'];
+	$two = $b['weight'] * $b['count'];
+	$result = $one - $two;
+
+	if ($result == 0) {
+		// compare their weight
+		$one = $a['weight'];
+		$two = $b['weight'];
+		$result = $one - $two;
+	}
+
+	if ($result == 0) {
+		// compare their count
+		$one = $a['count'];
+		$two = $b['count'];
+		$result = $one - $two;
+	}
 
 	return $result;
 }
@@ -175,7 +240,7 @@ function addNav() {
 
 function addNewsContent($includeEditorial = false, $offset = 0, $numItems, $includeNewsNav = false) {
 	// create container div
-	$result = '<div id="content" class="noFloat roundBox">'."\n";
+	$result = '<div id="content" class="noFloat roundBox">' . "\n";
 
 	// create the editorial
 	if ($includeEditorial) {
@@ -191,7 +256,7 @@ function addNewsContent($includeEditorial = false, $offset = 0, $numItems, $incl
 	}
 
 	// close the container div
-	$result .= "</div> <!-- id='content'-->"."\n";
+	$result .= "</div> <!-- id='content'-->" . "\n";
 
 	// return the result
 	return $result;
@@ -200,20 +265,20 @@ function addNewsContent($includeEditorial = false, $offset = 0, $numItems, $incl
 function addEditorial() {
 	$result = "";
 	// create the container div
-	$result = '<div id="editorial" class="navHome">'."\n";
+	$result = '<div id="editorial" class="navHome">' . "\n";
 
 	// create the heading
-	$result .= '<h1>Editorial</h1>'."\n";
+	$result .= '<h1>Editorial</h1>' . "\n";
 
 	// add the editor's picture
 	// probably thru an INI file
-	$result .= '<img src="img/' . getEditorialPic() . '" alt="editor" />'."\n";
+	$result .= '<img src="img/' . getEditorialPic() . '" alt="editor" />' . "\n";
 
 	// get editorial
 	$result .= getEditorial();
 
 	// close div
-	$result .= '</div> <!-- id="editorial -->'."\n";
+	$result .= '</div> <!-- id="editorial -->' . "\n";
 
 	// return the result
 	return $result;
@@ -242,10 +307,10 @@ function setEditorial($content) {
 
 function addNews($offset, $numItems) {
 	// setup container div
-	$result = '<div id="news" class="roundBox">'."\n";
+	$result = '<div id="news" class="roundBox">' . "\n";
 
 	// add the heading
-	$result .= "<h1>News</h1>"."\n";
+	$result .= "<h1>News</h1>" . "\n";
 
 	// get X news items
 	$newsItems = getXStories($offset, $numItems);
@@ -254,30 +319,30 @@ function addNews($offset, $numItems) {
 	foreach ($newsItems as $newsItem) {
 
 		// set up the news item container
-		$result .= '<div class="newsItem">'."\n";
+		$result .= '<div class="newsItem">' . "\n";
 
 		// setup container
-		$result .= "<p>"."\n";
+		$result .= "<p>" . "\n";
 
 		// set up the subject
-		$result .= '<span class="newsSubject">' . $newsItem['subject'] . '</span>'."\n";
+		$result .= '<span class="newsSubject">' . $newsItem['subject'] . '</span>' . "\n";
 
 		// set up the date
-		$result .= '<span class="newsDate">' . $newsItem['date'] . '</span>'."\n";
+		$result .= '<span class="newsDate">' . $newsItem['date'] . '</span>' . "\n";
 
 		// close the container
-		$result .= "</p>"."\n";
+		$result .= "</p>" . "\n";
 
 		// set up the story
-		$result .= "<p>" . $newsItem['story'] . "</p>"."\n";
+		$result .= "<p>" . $newsItem['story'] . "</p>" . "\n";
 
 		// close the news item container
-		$result .= '</div> <!-- class="newsItem" -->'."\n";
+		$result .= '</div> <!-- class="newsItem" -->' . "\n";
 
 	}
 
 	// close container div
-	$result .= '</div> <!-- id="news" class="roundBox" -->'."\n";
+	$result .= '</div> <!-- id="news" class="roundBox" -->' . "\n";
 
 	return $result;
 }
@@ -355,15 +420,15 @@ function addNewsNav() {
 	$result = "";
 
 	// setup container div
-	$result .= "<div>"."\n";
+	$result .= "<div>" . "\n";
 
 	$end = $pageNum * $numNewsItems;
 	$start = $end - $numNewsItems + 1;
 	// TODO: fix bug with last page.
-	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>"."\n";
+	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
 
 	// setup container
-	$result .= "<span id='newsNav'>"."\n";
+	$result .= "<span id='newsNav'>" . "\n";
 
 	// setup the page links
 	if ($pageNum > 1) {
@@ -379,10 +444,10 @@ function addNewsNav() {
 	}
 
 	// setup container
-	$result .= "</span> <!-- id='newsNav -->"."\n";
+	$result .= "</span> <!-- id='newsNav -->" . "\n";
 
 	// close container div
-	$result .= "</div>"."\n";
+	$result .= "</div>" . "\n";
 
 	//return result
 	return $result;
@@ -392,7 +457,7 @@ function addStory($subject, $story) {
 	$result = false;
 
 	if (!empty($subject) && !empty($story)) {
-		
+
 		// get the date
 		$date = date('m/d/y g:iA');
 
@@ -429,26 +494,26 @@ function addStory($subject, $story) {
 
 function startContentDiv() {
 	// setup container div
-	return '<div id="content" class="noFloat roundBox">'."\n";
+	return '<div id="content" class="noFloat roundBox">' . "\n";
 }
 
 function closeContentDiv() {
 	// close container div
-	return "</div> <!-- id='content'-->"."\n";
+	return "</div> <!-- id='content'-->" . "\n";
 }
 
 function addAdminLinks() {
 	$result = "";
 
 	// add links
-	$result .= "<div id='adminLinksDiv'>"."\n";
-	$result .= "\t"."<ul id='adminLinks'>"."\n";
-	$result .= "\t"."\t"."<li><a href='edit_ini.php'>Change Admin values</a>"."\n";
-	$result .= "\t"."\t"."<li><a href='edit_editorial.php'>Edit the Editorial</a>"."\n";
-	$result .= "\t"."\t"."<li><a href='add_story.php'>Add a story</a>"."\n";
-	$result .= "\t"."</ul> <!-- id='adminLinks' -->"."\n";
-	$result .= "\t"."<br />"."\n";
-	$result .= "</div> <!-- id='adminLinksDiv' -->"."\n";
+	$result .= "<div id='adminLinksDiv'>" . "\n";
+	$result .= "\t" . "<ul id='adminLinks'>" . "\n";
+	$result .= "\t" . "\t" . "<li><a href='edit_ini.php'>Change Admin values</a>" . "\n";
+	$result .= "\t" . "\t" . "<li><a href='edit_editorial.php'>Edit the Editorial</a>" . "\n";
+	$result .= "\t" . "\t" . "<li><a href='add_story.php'>Add a story</a>" . "\n";
+	$result .= "\t" . "</ul> <!-- id='adminLinks' -->" . "\n";
+	$result .= "\t" . "<br />" . "\n";
+	$result .= "</div> <!-- id='adminLinksDiv' -->" . "\n";
 
 	// return the result
 	return $result;
@@ -461,10 +526,10 @@ function addINIEditForm() {
 	$result = "";
 
 	// start form
-	$result .= "<form action='' method='post'>"."\n";
+	$result .= "<form action='' method='post'>" . "\n";
 
-	$result .= "<fieldset>"."\n";
-	$result .= "<legend>Change Admin Values:</legend>"."\n";
+	$result .= "<fieldset>" . "\n";
+	$result .= "<legend>Change Admin Values:</legend>" . "\n";
 
 	// display inputs for the file
 	foreach ($prefs as $key => $val) {
@@ -474,26 +539,26 @@ function addINIEditForm() {
 			$displayVal = "";
 		}
 
-		$result .= "<label for='$key'>$key</label>"."\n";
-		$result .= "<input type='text' name='$key' id='$key' value='$displayVal' />"."\n";
-		$result .= "<br />"."\n";
+		$result .= "<label for='$key'>$key</label>" . "\n";
+		$result .= "<input type='text' name='$key' id='$key' value='$displayVal' />" . "\n";
+		$result .= "<br />" . "\n";
 	}
 
-	$result .= "</fieldset>"."\n";
+	$result .= "</fieldset>" . "\n";
 
 	// add password protection
-	$result .= "<label for='adminPass'>Enter Admin Password</label>"."\n";
-	$result .= "<input type='text' name='adminPass' id='adminPass'/>"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<label for='adminPass'>Enter Admin Password</label>" . "\n";
+	$result .= "<input type='text' name='adminPass' id='adminPass'/>" . "\n";
+	$result .= "<br />" . "\n";
 
 	// add reset button
-	$result .= "<input type='reset' name='reset' value='reset'/>"."\n";
+	$result .= "<input type='reset' name='reset' value='reset'/>" . "\n";
 
 	// add submit button
-	$result .= "<input type='submit' name='submit' value='submit'/>"."\n";
+	$result .= "<input type='submit' name='submit' value='submit'/>" . "\n";
 
 	// close form
-	$result .= "</form>"."\n";
+	$result .= "</form>" . "\n";
 
 	// return result
 	return $result;
@@ -513,29 +578,29 @@ function addEditorialEditForm() {
 	$result = "";
 
 	// start form
-	$result .= "<form action='' method='post' >"."\n";
+	$result .= "<form action='' method='post' >" . "\n";
 
 	// add label
-	$result .= "<label>Edit Your Editorial</label>"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<label>Edit Your Editorial</label>" . "\n";
+	$result .= "<br />" . "\n";
 
 	// add text area for editorial
-	$result .= "<textarea name='editorial' class='roundBox'>" . htmlspecialchars(getEditorial()) . "</textarea>"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<textarea name='editorial' class='roundBox'>" . htmlspecialchars(getEditorial()) . "</textarea>" . "\n";
+	$result .= "<br />" . "\n";
 
 	// add password protection
-	$result .= "<label for='adminPass'>Enter Admin Password</label>"."\n";
-	$result .= "<input type='text' name='adminPass' id='adminPass'/>"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<label for='adminPass'>Enter Admin Password</label>" . "\n";
+	$result .= "<input type='text' name='adminPass' id='adminPass'/>" . "\n";
+	$result .= "<br />" . "\n";
 
 	// add reset button
-	$result .= "<input type='reset' name='reset' value='reset'/>"."\n";
+	$result .= "<input type='reset' name='reset' value='reset'/>" . "\n";
 
 	// add submit button
-	$result .= "<input type='submit' name='submit' value='submit'/>"."\n";
+	$result .= "<input type='submit' name='submit' value='submit'/>" . "\n";
 
 	// close form
-	$result .= "</form>"."\n";
+	$result .= "</form>" . "\n";
 
 	// return result
 	return $result;
@@ -546,30 +611,30 @@ function addNewsAddForm() {
 	$result = "";
 
 	// start form
-	$result .= "<form action='' method='post'>"."\n";
+	$result .= "<form action='' method='post'>" . "\n";
 
-	$result .= "<h3>Add News Posting</h3>"."\n";
+	$result .= "<h3>Add News Posting</h3>" . "\n";
 
 	// display inputs
-	$result .= "<input type='text' name='newsSubject' value='Subject or Title' />"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<input type='text' name='newsSubject' value='Subject or Title' />" . "\n";
+	$result .= "<br />" . "\n";
 
-	$result .= "<textarea name='story' class='roundBox'>Enter your news item here...</textarea>"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<textarea name='story' class='roundBox'>Enter your news item here...</textarea>" . "\n";
+	$result .= "<br />" . "\n";
 
 	// add password protection
-	$result .= "<label for='adminPass'>Enter Admin Password</label>"."\n";
-	$result .= "<input type='text' name='adminPass' id='adminPass' />"."\n";
-	$result .= "<br />"."\n";
+	$result .= "<label for='adminPass'>Enter Admin Password</label>" . "\n";
+	$result .= "<input type='text' name='adminPass' id='adminPass' />" . "\n";
+	$result .= "<br />" . "\n";
 
 	// add reset button
-	$result .= "<input type='reset' name='reset' value='reset'/>"."\n";
+	$result .= "<input type='reset' name='reset' value='reset'/>" . "\n";
 
 	// add submit button
-	$result .= "<input type='submit' name='submit' value='submit'/>"."\n";
+	$result .= "<input type='submit' name='submit' value='submit'/>" . "\n";
 
 	// close form
-	$result .= "</form>"."\n";
+	$result .= "</form>" . "\n";
 
 	// return result
 	return $result;
