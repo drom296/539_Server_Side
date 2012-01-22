@@ -25,6 +25,7 @@ $output .= addNav();
 $output .= addContent(false, $offset, $numItems);
 
 // add page navigation
+$output .= addPageNav();
 
 // create footer
 $output .= html_footer("");
