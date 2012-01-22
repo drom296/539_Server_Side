@@ -4,6 +4,9 @@ define('LOGO_PIC', 'img/logo.png');
 define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
 
+$totalNewsItems;
+$pageNum;
+
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
 <!DOCTYPE html>
@@ -183,6 +186,8 @@ function addNews($offset, $numItems) {
 
 // Grab x number of items from the file, starting from the specific offset
 function getXStories($offset, $numItems) {
+	global $totalNewsItems, $pageNum;
+	
 	// setup result
 	$result = array();
 
@@ -197,6 +202,15 @@ function getXStories($offset, $numItems) {
 	// print_r($news);
 	// get how many news items there are
 	$newsLength = count($news);
+	
+	// set global variable
+	$totalNewsItems = $newsLength;
+
+	if($offset<0){
+		$offset = 0;
+	} else if($offset>$newsLength){
+		$offset = $newsLength-$numItems;
+	}
 
 	// check if we are starting from outside our range
 	if ($offset < $newsLength) {
@@ -204,6 +218,8 @@ function getXStories($offset, $numItems) {
 		if ($offset + $numItems > $newsLength) {
 			$numItems = $newsLength - $offset;
 		}
+		
+		$pageNum = intval($offset/$numItems);
 
 		// get only the desired ones, starting from offset to the right below $numItems
 		for ($i = 0, $index = $offset; $i < $numItems; $i++, $index++) {
@@ -216,6 +232,10 @@ function getXStories($offset, $numItems) {
 
 	// return the result
 	return $result;
+}
+
+function addPageNav(){
+	
 }
 ?>
 
