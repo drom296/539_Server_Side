@@ -149,7 +149,7 @@ function addBanner() {
 	$string .= "\t" . "\t" . "\t" . '<img src="' . LOGO_PIC . '" alt="logo" />' . "\n";
 
 	// add banner ad
-	$string .= "\t" . "\t" . "\t" . '<img src="' . getBannerAd() . '" id="ad" alt="ad" height="50px" width="50px"/>' . "\n";
+	$string .= "\t" . "\t" . "\t" . '<img src="' . getBannerAd() . '" id="ad" alt="ad"/>' . "\n";
 
 	// end div
 	$string .= "\t" . "\t" . '</div> <!-- id=banner -->' . "\n";
@@ -177,32 +177,45 @@ function getBannerAd() {
 
 		// push to associative array
 		array_push($banners, array("fileName" => $fileName, "weight" => intval($weight), "count" => intval($count)));
-
-		// // check if this display value is lower than our current low, or if they are
-		// // equal, choose the lowest weight
-		// if ($result['displayValue'] > $displayVal || ($result['displayValue'] == $displayVal && $result['weight'] > $weight)) {
-		// // if so, this is the file we want
-		// $result['fileName'] = $fileName;
-		// $result['weight'] = $weight;
-		// $result['count'] = $count;
-		// $result['displayVal'] = $displayVal;
-		// }
 	}
-	
-	print_r($banners);
 
 	// sort the banners based on their display value (weight*count)
 	usort($banners, "bannerSort");
-	
-	print_r($banners);
-	
+
 	// choose the one with the smallest display value (first one)
 	$result = $banners[0]['fileName'];
-	
+	// update count
+	$banners[0]['count'] = $banners[0]['count'] + 1;
+
+	// update banners file
+	updateBanners($banners);
+
 	// prepend with image folder location
-	$result = "img/ad/".$result;
-	
+	$result = "img/banner/" . $result;
+
 	return $result;
+}
+
+function updateBanners($banners) {
+	// open file
+	$file = fopen(BANNER, "w") or die("Cannot open　" . BANNER);
+
+	$content = "";
+
+	// create the data to write
+	foreach ($banners as $banner) {
+		$content .= $banner['fileName'] . "|";
+		$content .= $banner['weight'] . "|";
+		$content .= $banner['count'] . "\n";
+	}
+
+	// write only if it has data
+	if (!empty($content)) {
+		$result = fwrite($file, $content) > 0;
+	}
+
+	// close file
+	fclose($file);
 }
 
 function bannerSort($a, $b) {
