@@ -13,6 +13,7 @@ $output .= addBanner();
 $output .= addNav();
 
 // add the admin stuff
+$output .= addAdminContent();
 
 // create footer
 $output .= html_footer("");

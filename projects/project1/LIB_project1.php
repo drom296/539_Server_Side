@@ -418,6 +418,51 @@ function addStory($subject, $story) {
 	fclose($file);
 
 }
+
+function addAdminContent(){
+	// setup container div
+	$result = '<div id="content" class="noFloat roundBox">';
+	
+	// add INI edit
+	addINIEditForm();
+	
+	// add editorial edit form
+	addEditorialEditForm();
+	
+	// add newsAdd form
+	addNewsAddForm();
+	
+	// close container div
+	$result .= "</div> <!-- id='content'-->";
+
+	// return the result
+	return $result;	
+}
+
+function addINIEditForm(){
+	// start result
+	$result = "";
+	
+	// start form
+	$result .= "<form action='' method='post'>";
+	
+	
+	
+	// close form
+	$result .= "</form>";
+	
+	// return result
+	return $result;
+}
+
+function addEditorialEditForm(){
+	
+}
+
+function addNewsAddForm(){
+	
+}
+
 ?>
 
 <!-- show the code -->
