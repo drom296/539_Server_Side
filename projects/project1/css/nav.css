@@ -29,24 +29,24 @@ input, button {
 	overflow: hidden;
 	background-color: #555544;
 }
-a {
+#nav a {
 	text-decoration: none;
 	color: #eeddbb;
 	/*	font-stretch: extra-expanded;*/ /*Maybe when its implemented*/
 	letter-spacing: 10px;
 }
-li {
+#nav li {
 	float: left;
 	width: 24.7511%;
 	text-align: center;
 }
-li+ li {
+#nav  li+ li {
 	border-left: 2px solid #eeddbb;
 }
-li a {
+#nav li a {
 	display: block;
 }
-li a:hover {
+#nav li a:hover {
 	transition: background-color 1s;
 	/* Firefox 4 */
 	-moz-transition: background-color 1s;
