@@ -96,7 +96,9 @@ function addContent($includeEditorial, $offset, $numItems) {
 	$result = '<div id="content" class="noFloat roundBox">';
 
 	// create the editorial
-	$result .= addEditorial();
+	if ($includeEditorial) {
+		$result .= addEditorial();
+	}
 
 	// create the news items
 	$result .= addNews($offset, $numItems);
@@ -140,7 +142,7 @@ function getEditorial() {
 function addNews($offset, $numItems) {
 	// setup container div
 	$result = '<div id="news" class="roundBox">';
-	
+
 	// add the heading
 	$result .= "<h1>News</h1>";
 
@@ -172,7 +174,7 @@ function addNews($offset, $numItems) {
 		$result .= '</div> <!-- class="newsItem" -->';
 
 	}
-	
+
 	// close container div
 	$result .= '</div> <!-- id="news" class="roundBox" -->';
 
@@ -205,7 +207,7 @@ function getXStories($offset, $numItems) {
 
 		// get only the desired ones, starting from offset to the right below $numItems
 		for ($i = 0, $index = $offset; $i < $numItems; $i++, $index++) {
-			
+
 			list($date, $subject, $story) = explode("|", $news[$index]);
 
 			array_push($result, array('date' => $date, 'subject' => $subject, 'story' => $story));
