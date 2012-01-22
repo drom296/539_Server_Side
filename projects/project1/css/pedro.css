@@ -52,7 +52,7 @@ body {
 #content, #banner, #nav, #news, #editorial {
 	background-color: #ccbb88;
 	background-color: rgb(204,187,136);
-	background-color: rgba(204,187,136,.65);
+	background-color: rgba(204,187,136,.6);
 }
 .roundBox {
 	-webkit-border-radius: 15px;
@@ -119,9 +119,12 @@ body {
 #news {
 	padding: 0 2% 2% 2%;
 	color: black;
+	
 }
 .newsItem {
 	margin-bottom: 1%;
+	color: black;
+	background-color: rgba(204,187,136,.85);
 }
 .newsItem + div {
 	border-top: 2px dashed;
