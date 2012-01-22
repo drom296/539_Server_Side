@@ -148,7 +148,6 @@ function getEditorial() {
 	return file_get_contents(EDITORIAL);
 }
 
-// TODO: need to grab from an actual file
 function addNews($offset, $numItems) {
 	// setup container div
 	$result = '<div id="news" class="roundBox">';
@@ -259,7 +258,6 @@ function addNewsNav() {
 	// setup container div
 	$result .= "<div>";
 
-	// TODO: setup the items showing part
 	$end = $pageNum * $numNewsItems;
 	$start = $end - $numNewsItems + 1;
 	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>";
