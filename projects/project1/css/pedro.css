@@ -52,7 +52,7 @@ body {
 #content, #banner, #nav, #news, #editorial {
 	background-color: #ccbb88;
 	background-color: rgb(204,187,136);
-	background-color: rgba(204,187,136,.6);
+	background-color: rgba(204,187,136,.5);
 }
 .roundBox {
 	-webkit-border-radius: 15px;
