@@ -224,6 +224,19 @@ function getEditorial() {
 	return file_get_contents(EDITORIAL);
 }
 
+function setEditorial($content){
+	// open file
+	$file = fopen(EDITORIAL, "w") or die("Cannot open　" . EDITORIAL);
+
+	// write only if it has data
+	if (!empty($content)) {
+		fwrite($file, $content);
+	}
+
+	// close file
+	fclose($file);
+}
+
 function addNews($offset, $numItems) {
 	// setup container div
 	$result = '<div id="news" class="roundBox">';
@@ -406,4 +419,7 @@ function addStory($subject, $story) {
 
 }
 ?>
+
+<!-- show the code -->
+<!-- echo htmlspecialchars(getEditorial()); -->
 
