@@ -6,6 +6,8 @@ define('NEWS', 'data/news.txt');
 
 $totalNewsItems;
 $pageNum;
+$maxPages;
+$numNewsItems;
 
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
@@ -94,7 +96,7 @@ function addNav() {
 	}
 }
 
-function addContent($includeEditorial, $offset, $numItems) {
+function addContent($includeEditorial = false, $offset, $numItems, $includeNewsNav = false) {
 	// create container div
 	$result = '<div id="content" class="noFloat roundBox">';
 
@@ -105,6 +107,11 @@ function addContent($includeEditorial, $offset, $numItems) {
 
 	// create the news items
 	$result .= addNews($offset, $numItems);
+
+	// create the news nav
+	if ($includeNewsNav) {
+		$result .= addNewsNav();
+	}
 
 	// close the container div
 	$result .= "</div> <!-- id='content'-->";
@@ -186,8 +193,8 @@ function addNews($offset, $numItems) {
 
 // Grab x number of items from the file, starting from the specific offset
 function getXStories($offset, $numItems) {
-	global $totalNewsItems, $pageNum;
-	
+	global $totalNewsItems, $pageNum, $maxPages, $numNewsItems;
+
 	// setup result
 	$result = array();
 
@@ -202,15 +209,20 @@ function getXStories($offset, $numItems) {
 	// print_r($news);
 	// get how many news items there are
 	$newsLength = count($news);
-	
+
 	// set global variable
 	$totalNewsItems = $newsLength;
+	// set the max number of pages
+	$maxPages = intval($newsLength / $numItems);
 
-	if($offset<0){
+	if ($offset < 0) {
 		$offset = 0;
-	} else if($offset>$newsLength){
-		$offset = $newsLength-$numItems;
+	} else if ($offset > $newsLength) {
+		$offset = $newsLength - $numItems;
 	}
+
+	// set the page num
+	$pageNum = intval($offset / $numItems);
 
 	// check if we are starting from outside our range
 	if ($offset < $newsLength) {
@@ -218,8 +230,8 @@ function getXStories($offset, $numItems) {
 		if ($offset + $numItems > $newsLength) {
 			$numItems = $newsLength - $offset;
 		}
-		
-		$pageNum = intval($offset/$numItems);
+
+		$numNewsItems = $numItems;
 
 		// get only the desired ones, starting from offset to the right below $numItems
 		for ($i = 0, $index = $offset; $i < $numItems; $i++, $index++) {
@@ -234,8 +246,48 @@ function getXStories($offset, $numItems) {
 	return $result;
 }
 
-function addPageNav(){
-	
+function addNewsNav() {
+	global $pageNum, $maxPages, $numNewsItems;
+
+	// do this to avoid zero based page confusion
+	$pageNum = $pageNum + 1;
+	$maxPages = $maxPages + 1;
+
+	// setup result
+	$result = "";
+
+	// setup container div
+	$result .= "<div>";
+
+	// TODO: setup the items showing part
+	$end = $pageNum * $numNewsItems;
+	$start = $end - $numNewsItems + 1;
+	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>";
+
+	// setup container
+	$result .= "<span id='newsNav'>";
+
+	// setup the page links
+	if ($pageNum > 1) {
+		$result .= "<a href='news.php?page=1'>&lt;&lt;</a> ";
+		$result .= "<a href='news.php?page=" . ($pageNum - 1) . "'>&lt;</a> ";
+	}
+
+	$result .= "<span id='curNewsPage'>[" . ($pageNum) . "]</span> ";
+
+	if ($pageNum < $maxPages) {
+		$result .= "<a href='news.php?page=" . ($pageNum + 1) . "'>&gt;</a> ";
+		$result .= "<a href='news.php?page=$maxPages'>&gt;&gt;</a> ";
+	}
+
+	// setup container
+	$result .= "<span> <!-- id='newsNav -->";
+
+	// close container div
+	$result .= "</div>";
+
+	//return result
+	return $result;
 }
 ?>
 

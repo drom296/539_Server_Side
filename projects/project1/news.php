@@ -21,11 +21,8 @@ $output .= addBanner();
 // create the nav
 $output .= addNav();
 
-// add news and editorial
-$output .= addContent(false, $offset, $numItems);
-
-// add page navigation
-$output .= addPageNav();
+// add news and page nav
+$output .= addContent(false, $offset, $numItems, true);
 
 // create footer
 $output .= html_footer("");

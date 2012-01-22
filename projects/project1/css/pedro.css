@@ -73,12 +73,12 @@ body {
 	margin: 0;
 }
 #banner > #ad {
-/*	done to center the image*/
+	/*	done to center the image*/
 	display: block;
-	margin-top: -110px;  
+	margin-top: -110px;
 	margin-left: auto;
 	margin-right: auto;
-/* ++++++++++++++++ */
+	/* ++++++++++++++++ */
 }
 #content {
 	margin-top: 2%;
@@ -112,14 +112,12 @@ body {
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
-#editorial p{
-	margin:3%;
+#editorial p {
+	margin: 3%;
 }
-
 #news {
 	padding: 0 2% 2% 2%;
 	color: black;
-	
 }
 .newsItem {
 	margin-bottom: 1%;
@@ -137,4 +135,24 @@ body {
 	font-style: italic;
 	font-size: .77em;
 	margin-left: 1em;
+}
+#newsNav {
+	width: 6em;
+	background-color: #555544;
+	color: #eeddbb;
+	text-align: center;
+	font-size: 1.2em;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+#newsNav a {
+	color: #eeddbb;
+}
+#curNewsPage {
+	font-weight: bolder;
+}
+#numItemsShowing {
+	float: right;
+	font-size: .8em;
 }
