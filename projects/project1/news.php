@@ -13,7 +13,7 @@ if(isset($_GET['page'])){
 $styles = array("css/pedro.css", "css/nav.css");
 
 // create header tags
-$output = html_header("Pedro News - News", $styles);
+$output = html_header("News", $styles);
 
 // create banner div
 $output .= addBanner();

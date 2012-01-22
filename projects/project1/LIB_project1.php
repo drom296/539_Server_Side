@@ -357,6 +357,7 @@ function addNewsNav() {
 
 	$end = $pageNum * $numNewsItems;
 	$start = $end - $numNewsItems + 1;
+	// TODO: fix bug with last page.
 	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>";
 
 	// setup container

@@ -58,7 +58,7 @@
 			// write it to the file
 			file_put_contents($fileName, "\n".$topic, FILE_APPEND);
 			
-			// TODO clear the submitArray
+			// clear the submitArray
 			$submitArray = array();
 		}
 	}
@@ -116,7 +116,7 @@
 				
 				// check if it passed, sanitize, check again
 				if ($isSet && $passLen){
-					// TODO sanitize data
+					// sanitize data
 					// sanitize the field
 					// echo "<br />";
 					// echo "Sanitizing $field: $submitArray[$field]";
@@ -230,7 +230,7 @@
 <p id="errors">
 <?php
 	if (!$passed){
-		// TODO display error message
+		// display error message
 		// display error message
 		echo "Did not pass validation for the following reasons";
 		
