@@ -18,6 +18,9 @@ $output .= startContentDiv();
 // add the admin stuff
 $output .= addAdminLinks();
 
+// add the edit ini form
+$output .= addINIEditForm();
+
 // close content container
 $output .= closeContentDiv();
 

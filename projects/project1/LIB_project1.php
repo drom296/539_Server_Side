@@ -224,7 +224,7 @@ function getEditorial() {
 	return file_get_contents(EDITORIAL);
 }
 
-function setEditorial($content){
+function setEditorial($content) {
 	// open file
 	$file = fopen(EDITORIAL, "w") or die("Cannot open　" . EDITORIAL);
 
@@ -404,9 +404,9 @@ function addStory($subject, $story) {
 
 	// create the data to write
 	foreach ($stories as $story) {
-		$content .= $story['date']."|";
-		$content .= $story['subject']."|";
-		$content .= $story['story']."\n";
+		$content .= $story['date'] . "|";
+		$content .= $story['subject'] . "|";
+		$content .= $story['story'] . "\n";
 	}
 
 	// write only if it has data
@@ -419,50 +419,87 @@ function addStory($subject, $story) {
 
 }
 
-function addAdminContent(){
+function startContentDiv() {
 	// setup container div
-	$result = '<div id="content" class="noFloat roundBox">';
-	
-	// add INI edit
-	addINIEditForm();
-	
-	// add editorial edit form
-	addEditorialEditForm();
-	
-	// add newsAdd form
-	addNewsAddForm();
-	
-	// close container div
-	$result .= "</div> <!-- id='content'-->";
-
-	// return the result
-	return $result;	
+	return '<div id="content" class="noFloat roundBox">';
 }
 
-function addINIEditForm(){
+function closeContentDiv() {
+	// close container div
+	return "</div> <!-- id='content'-->";
+}
+
+function addAdminLinks() {
+	$result = "";
+
+	// add links
+	$result .= "<div id='adminLinksDiv'>";
+	$result .= "<ul id='adminLinks'>";
+	$result .= "<li><a href='edit_ini.php'>Change Admin values</a>";
+	$result .= "<li><a href='edit_editorial.php'>Edit the Editorial</a>";
+	$result .= "<li><a href='add_story.php'>Add a story</a>";
+	$result .= "</ul> <!-- id='adminLinks' -->";
+	$result .= "<br />";
+	$result .= "</div> <!-- id='adminLinksDiv' -->";
+
+	// return the result
+	return $result;
+}
+
+function addINIEditForm() {
+	global $prefs;
+
 	// start result
 	$result = "";
-	
+
 	// start form
 	$result .= "<form action='' method='post'>";
+
+	$result .= "<fieldset>";
+	$result .= "<legend>Change Admin Values:</legend>";
+
+	// display inputs for the file
+	foreach ($prefs as $key => $val) {
+		$displayVal = $val;
+
+		if ($key == "password") {
+			$displayVal = "";
+		}
+
+		$result .= "<label for='$key'>$key</label>";
+		$result .= "<input type='text' name='$key' value='$displayVal' />";
+		$result .= "<br />";
+	}
 	
+	$result .= "</fieldset>";
+
+	// add password protection
+	$result .= "<label for='adminPass'>Enter Admin Password</label>";
+	$result .= "<input type='text' name='adminPass' />";
+	$result .= "<br />";
 	
-	
+	// add submit button
+	$result .= "<input type='submit' name='submit' value='submit'/>";
+
 	// close form
 	$result .= "</form>";
-	
+
 	// return result
 	return $result;
 }
 
-function addEditorialEditForm(){
-	
+function verifyKey($key, $val) {
+	global $prefs;
+	return $prefs[$key] == $val;
 }
 
-function addNewsAddForm(){
-	
+function addEditorialEditForm() {
+
 }
 
+function addNewsAddForm() {
+
+}
 ?>
 
 <!-- show the code -->
