@@ -217,12 +217,13 @@ function getXStories($offset, $numItems) {
 	if ($offset < 0) {
 		$offset = 0;
 	} else if ($offset > $newsLength) {
-		$offset = $newsLength - $numItems;
+		echo "true<br />";
+		$offset = $newsLength - $numItems+2; //+2 to handle zero based pages
 	}
-
+	
 	// set the page num
 	$pageNum = intval($offset / $numItems);
-
+	
 	// check if we are starting from outside our range
 	if ($offset < $newsLength) {
 		// check if we exceed our range
