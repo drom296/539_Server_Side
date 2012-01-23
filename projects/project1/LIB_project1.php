@@ -731,7 +731,7 @@ function addEditAdForm() {
 	
 	// display inputs
 	foreach ($banners as $banner) {
-		$result .= "<img src='".BANNER_PATH.$banner['fileName']."' />". "\n";
+		$result .= "<img alt='".$banner['fileName']."' src='".BANNER_PATH.$banner['fileName']."' />". "\n";
 		$result .= "<input class='adInput' type='hidden' name='"
 					.urlencode($banner['fileName'])."' value='".urlencode($banner['fileName'])."'/>". "\n";
 		

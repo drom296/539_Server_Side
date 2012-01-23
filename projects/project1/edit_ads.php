@@ -45,7 +45,7 @@ if (isset($_POST['submit']) && isset($_POST[$adminField]) && isCorrectPassword($
 $styles = array("css/pedro.css", "css/nav.css");
 
 // create header tags
-$output = html_header("Pedro News - Home", $styles);
+$output = html_header("Edit Ad info", $styles);
 
 // create banner div
 $output .= addBanner();
