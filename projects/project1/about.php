@@ -12,7 +12,17 @@ $output .= addBanner();
 // create the nav
 $output .= addNav();
 
+// start content container
+$output .= startContentDiv();
+
+// add info about user's broswer
+$output .= addUserInfo();
+
 // add the about stuff
+// $output .= addAboutInfo();
+
+// close content container
+$output .= closeContentDiv();
 
 // create footer
 $output .= html_footer("");

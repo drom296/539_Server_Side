@@ -16,6 +16,9 @@ $output .= addNav();
 $numItems = getNumItemsHome();
 $output .= addNewsContent(true, 0, $numItems);
 
+// add link to user info
+$output .= "<p id='userLink'><a href='about.php'>Your Browser info</a></p>";
+
 // create footer
 $output .= html_footer("");
 

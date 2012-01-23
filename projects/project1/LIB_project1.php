@@ -5,6 +5,7 @@ define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
 define('PREFS_DATA', 'data/setup.ini');
 define('BANNER', 'data/banners.txt');
+define('DATE_TIME', 'm/d/y g:iA');
 
 $totalNewsItems;
 $pageNum;
@@ -472,7 +473,7 @@ function addStory($subject, $story) {
 	if (!empty($subject) && !empty($story)) {
 
 		// get the date
-		$date = date('m/d/y g:iA');
+		$date = date(DATE_TIME);
 
 		// get the stories
 		$stories = getXStories(0, 1, true);
@@ -650,6 +651,55 @@ function addNewsAddForm() {
 	$result .= "</form>" . "\n";
 
 	// return result
+	return $result;
+}
+
+function addUserInfo() {
+	$result = "";
+
+	// setup container div
+	$result .= "<div id='userInfo' class='roundBox'>" . "\n";
+	
+	// show heading
+	$result .= "<h2>User Info</h2>";
+
+	// setup vars
+	$time = "NA";
+	$ip = "NA";
+	$referer = "NA";
+	$user_agent = "NA";
+
+	// get time accessed
+	if (!empty($_SERVER['REQUEST_TIME']))
+		$time = date(DATE_TIME, $_SERVER['REQUEST_TIME']);
+
+	// get ip address
+	if (!empty($_SERVER['REMOTE_ADDR']))
+		$ip = $_SERVER['REMOTE_ADDR'];
+
+	// referer
+	if (!empty($_SERVER['HTTP_REFERER']))
+		$referer = $_SERVER['HTTP_REFERER'];
+
+	// get browser info
+	if (!empty($_SERVER['HTTP_USER_AGENT']))
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+	// setup list
+	$result .= "<ul>";
+
+	// display gathered info
+	$result .= "<li>Time Accessed: " . $time . "</li>" . "\n";
+	$result .= "<li>Your IP: " . $ip . "</li>" . "\n";
+	$result .= "<li>Referred by: " . $referer . "</li>" . "\n";
+	$result .= "<li>Your browser: " . $user_agent . "</li>" . "\n";
+
+	// close list
+	$result .= "</ul>";
+
+	// close container div
+	$result .= "</div> <!-- id='userInfo' -->" . "\n";
+
 	return $result;
 }
 ?>
