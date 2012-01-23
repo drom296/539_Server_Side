@@ -20,10 +20,8 @@ if (isset($_POST['submit']) && isset($_POST[$adminField]) && isCorrectPassword($
 	// get the banners
 	$banners = getBanners();
 
-	echo "<br />" . "<br />";
-
 	// for each of the fields we are looking
-	foreach ($banners as $banner) {
+	foreach ($banners as &$banner) {
 		$something = str_replace(".", "_", $banner['fileName']);
 
 		$weight = $_POST[$something . "_weight"];
@@ -31,12 +29,12 @@ if (isset($_POST['submit']) && isset($_POST[$adminField]) && isCorrectPassword($
 
 		// check if weight and count is set
 		if (isset($weight) && !empty($weight) && isset($count) && !empty($count)) {
-			// update the banner info
 			$banner['weight'] = $weight;
 			$banner['count'] = $count;
 			$changed = true;
 		}
 	}
+	
 	// if changed
 	if ($changed) {
 		// update the banners file
