@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<polls>
+<record topic="Movies">
+	<question>What kind of movies do you like?</question>
+	<choices>
+		<choice>Action</choice>
+		<choice>Bromance</choice>
+		<choice>Gratuitous Violence</choice>
+		<choice>Independent</choice>
+		<choice>Kids</choice>
+		<choice>Romance</choice>
+	</choices>
+</record>
+<record topic="Music">
+	<question>What type of music do you like best?</question>
+	<choices>
+		<choice>Childrens</choice>
+		<choice>Club</choice>
+		<choice>Country</choice>
+		<choice>80s</choice>
+		<choice>Rock</choice>
+		<choice>Trance</choice>
+	</choices>
+</record>
+<record topic="Courses">
+	<question>Which IT course is your favorite?</question>
+	<choices>
+		<choice>539</choice>
+		<choice>PFW</choice>
+		<choice>Prog. For Web</choice>
+		<choice>Server Side</choice>
+		<choice>All of the above</choice>
+	</choices>
+</record>
+<record topic="Name"><question>What is your name?</question><choices><choice>Bobby</choice><choice>Candy</choice><choice>Doug</choice><choice>Ed</choice><choice>Fartboy</choice></choices></record><record topic="Name"><question>What is your name?</question><choices><choice>Bobby</choice><choice>Candy</choice><choice>Doug</choice><choice>Ed</choice><choice>Fartboy</choice></choices></record></polls>
