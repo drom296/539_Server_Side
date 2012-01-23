@@ -159,7 +159,7 @@ body {
 }
 #adminLinks {
 	list-style-type: none;
-	width: 23.5em;
+	width: 30.5em;
 	margin: auto;
 }
 #adminLinks a {
@@ -209,6 +209,11 @@ form label {
 form input {
 	margin: .4% 0 .4% 0;
 }
+form img {
+	height: 100px;
+	width: 100px;
+	margin-right: 2%;
+}
 form fieldset {
 	border-color: #555544;
 	margin-bottom: 1%;
@@ -231,24 +236,34 @@ form textarea {
 	height: 15em;
 	font-size: 1.2em;
 }
-#userInfo {
+#userInfo, .midBox {
 	width: 70%;
 	margin: 2% auto 2% auto;
-	
 	padding: 2%;
 }
 #userInfo ul {
 	list-style: none;
 }
-#userLink{
+#userLink {
 	text-align: center;
 	width: 8em;
 	margin: 1% auto;
 	border-color: #555544;
 	background-color: #555544;
 	color: #eeddbb;
-	
 }
-#userLink a{
+#userLink a {
 	color: #eeddbb;
+}
+form .adInput {
+	text-align: center;
+	width: 4em;
+}
+
+form p.ad_Label{
+	margin-left: 7em;
+	font-weight: bold;
+}
+form p.ad_Label>span{
+	margin-left: .8em;
 }

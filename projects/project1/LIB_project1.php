@@ -5,6 +5,7 @@ define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
 define('PREFS_DATA', 'data/setup.ini');
 define('BANNER', 'data/banners.txt');
+define('BANNER_PATH', 'img/banner/');
 define('DATE_TIME', 'm/d/y g:iA');
 
 $totalNewsItems;
@@ -163,9 +164,28 @@ function getBannerAd() {
 	$result = "";
 
 	// setup banner array
+	$banners = getBanners();
+
+	// sort the banners based on their display value (weight*count)
+	usort($banners, "bannerSort");
+
+	// choose the one with the smallest display value (first one)
+	$result = $banners[0]['fileName'];
+	// update count
+	$banners[0]['count'] = $banners[0]['count'] + 1;
+
+	// update banners file
+	setBanners($banners);
+
+	// prepend with image folder location
+	$result = "img/banner/" . $result;
+
+	return $result;
+}
+
+function getBanners() {
+	// setup banner array
 	$banners = array();
-	// start with the highest num possible
-	$result = array('fileName' => "", "weight" => "", "count" => "", "displayVal" => PHP_INT_MAX);
 
 	// get all the lines
 	$lines = return_file_as_array(BANNER);
@@ -177,27 +197,14 @@ function getBannerAd() {
 		// $displayVal = ($weight * $count);
 
 		// push to associative array
-		array_push($banners, array("fileName" => $fileName, "weight" => intval($weight), "count" => intval($count)));
+		array_push($banners, array("fileName" => $fileName, 
+			"weight" => intval($weight), "count" => intval($count)));
 	}
 
-	// sort the banners based on their display value (weight*count)
-	usort($banners, "bannerSort");
-
-	// choose the one with the smallest display value (first one)
-	$result = $banners[0]['fileName'];
-	// update count
-	$banners[0]['count'] = $banners[0]['count'] + 1;
-
-	// update banners file
-	updateBanners($banners);
-
-	// prepend with image folder location
-	$result = "img/banner/" . $result;
-
-	return $result;
+	return $banners;
 }
 
-function updateBanners($banners) {
+function setBanners($banners) {
 	// open file
 	$file = fopen(BANNER, "w") or die("Cannot open　" . BANNER);
 
@@ -525,6 +532,7 @@ function addAdminLinks() {
 	$result .= "\t" . "\t" . "<li><a href='edit_ini.php'>Change Admin values</a>" . "\n";
 	$result .= "\t" . "\t" . "<li><a href='edit_editorial.php'>Edit the Editorial</a>" . "\n";
 	$result .= "\t" . "\t" . "<li><a href='add_story.php'>Add a story</a>" . "\n";
+	$result .= "\t" . "\t" . "<li><a href='edit_ads.php'>Edit Ad Info</a>" . "\n";
 	$result .= "\t" . "</ul> <!-- id='adminLinks' -->" . "\n";
 	$result .= "\t" . "<br />" . "\n";
 	$result .= "</div> <!-- id='adminLinksDiv' -->" . "\n";
@@ -595,8 +603,7 @@ function addEditorialEditForm() {
 	$result .= "<form action='' method='post' >" . "\n";
 
 	// add label
-	$result .= "<label>Edit Your Editorial</label>" . "\n";
-	$result .= "<br />" . "\n";
+	$result .= "<h3>Edit Your Editorial</h3>" . "\n";
 
 	// add text area for editorial
 	$result .= "<textarea name='editorial' class='roundBox'>" . htmlspecialchars(getEditorial()) . "</textarea>" . "\n";
@@ -659,7 +666,7 @@ function addUserInfo() {
 
 	// setup container div
 	$result .= "<div id='userInfo' class='roundBox'>" . "\n";
-	
+
 	// show heading
 	$result .= "<h2>User Info</h2>";
 
@@ -699,6 +706,64 @@ function addUserInfo() {
 
 	// close container div
 	$result .= "</div> <!-- id='userInfo' -->" . "\n";
+
+	return $result;
+}
+
+function addEditAdForm() {
+	$result = "";
+
+	// get the banners
+	$banners = getBanners();
+
+	// setup container
+	//$result = "<div class='midBox'>";
+
+	// start form
+	$result .= "<form action='' method='post'>" . "\n";
+
+	$result .= "<h3>Edit Banner Info</h3>" . "\n";
+	
+	$result .= "<fieldset>";
+	
+	// $result .= "<p class='ad_Label' style='margin-left: 6em;'>Count <span style='margin-left: 1em;'>Weight</span></p>";
+	$result .= "<p class='ad_Label' >Count <span>Weight</span></p>";
+	
+	// display inputs
+	foreach ($banners as $banner) {
+		$result .= "<img src='".BANNER_PATH.$banner['fileName']."' />". "\n";
+		$result .= "<input class='adInput' type='hidden' name='"
+					.urlencode($banner['fileName'])."' value='".urlencode($banner['fileName'])."'/>". "\n";
+		
+		$result .= "<input class='adInput' type='text' name='"
+					.urlencode($banner['fileName'])."_weight' value='".$banner['weight']."'/>". "\n";
+		
+		$result .= "<input class='adInput' type='text' name='"
+					.urlencode($banner['fileName'])."_count' value='".$banner['count']."'/>". "\n";
+		
+		$result .= "<br />". "\n";
+	}
+	
+	$result .= "<input type='hidden' name='test.test.test.png' value='test.test.test.png' />";
+
+	$result .= "</fieldset>";
+	
+	// add password protection
+	$result .= "<label for='adminPass'>Enter Admin Password</label>" . "\n";
+	$result .= "<input type='text' name='adminPass' id='adminPass' />" . "\n";
+	$result .= "<br />" . "\n";
+
+	// add reset button
+	$result .= "<input type='reset' name='reset' value='reset'/>" . "\n";
+
+	// add submit button
+	$result .= "<input type='submit' name='submit' value='submit'/>" . "\n";
+
+	// close form
+	$result .= "</form>" . "\n";
+
+	// setup container
+	//$result .= "<div> <!-- class='midbox' -->";
 
 	return $result;
 }
