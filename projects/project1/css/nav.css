@@ -17,6 +17,23 @@ input, button {
 	overflow: visible;
 }
 /*My COde*/
+
+/*This is suppose to highlight the current web page menu*/
+#navHome .navHome, #navNews .navNews, #navAdmin .navAdmin, #navAbout .navAbout {
+	transition: background-color 1s;
+	/* Firefox 4 */
+	-moz-transition: background-color 1s;
+	/* Safari and Chrome */
+	/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
+	-webkit-transition: background-color 1s;
+	/* Opera */
+	-o-transition: background-color 1s;
+	font-weight: bolder;
+	/*	background-color: #eeddbb;*/
+	background-color: #CB8;
+	color: #555544;
+	text-transform: uppercase;
+}
 #navDiv {
 	border-width: 2px 1px 2px 1px;
 	border-style: solid;
