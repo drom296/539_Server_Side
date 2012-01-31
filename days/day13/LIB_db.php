@@ -119,10 +119,10 @@ function getLink($record) {
 	
 	// start data
 	$result .= "\t\t<td><a href='phones.php?".ID_FIELD."=$id&"
-							.FIRST_NAME_FIELD."=$fName&".LAST_NAME_FIELD."=$lName>$id</a></td>";
-	$result .= "\t\t<td>$lName</td>";
-	$result .= "\t\t<td>$fName</td>";
-	$result .= "\t\t<td>$nName</td>";
+							.FIRST_NAME_FIELD."=$fName&".LAST_NAME_FIELD."=$lName'>$id</a></td>\n";
+	$result .= "\t\t<td>$lName</td>\n";
+	$result .= "\t\t<td>$fName</td>\n";
+	$result .= "\t\t<td>$nName</td>\n";
 	
 	// return the result	
 	return $result;

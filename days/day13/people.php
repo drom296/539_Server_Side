@@ -9,5 +9,5 @@ $user = 'pjm8632';
 $password = 'Bully296';
 $database = "pjm8632";
 $query = "select * from people";
-printInfo($host, $user, $password, $database, $query);
+printInfo($host, $user, $password, $database, $query, true);
 ?>
