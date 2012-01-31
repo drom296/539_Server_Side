@@ -1,4 +1,40 @@
+/*Modernizer Code*/
+/* IE6 css fixer v0.95: Sat, 21 Jan 2012 22:02:04 +0100 */
+
+/* ============================================= */
+/* safe settings                                 */
+
+/* add display:inline to floated elements */
+#nav li {
+	display: inline;
+}
+/* add zoom:1 to overflow:hidden */
 #nav {
+	zoom: 1;
+}
+/* add overflow:visible to (submit) buttons */
+input, button {
+	overflow: visible;
+}
+/*My COde*/
+
+/*This is suppose to highlight the current web page menu*/
+#navHome .navHome, #navNews .navNews, #navAdmin .navAdmin, #navAbout .navAbout {
+	transition: background-color 1s;
+	/* Firefox 4 */
+	-moz-transition: background-color 1s;
+	/* Safari and Chrome */
+	/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
+	-webkit-transition: background-color 1s;
+	/* Opera */
+	-o-transition: background-color 1s;
+	font-weight: bolder;
+	/*	background-color: #eeddbb;*/
+	background-color: #CB8;
+	color: #555544;
+	text-transform: uppercase;
+}
+#navDiv {
 	border-width: 2px 1px 2px 1px;
 	border-style: solid;
 	border-color: #555544;
@@ -8,25 +44,26 @@
 #nav {
 	list-style-type: none;
 	overflow: hidden;
+	background-color: #555544;
 }
-a {
+#nav a {
 	text-decoration: none;
 	color: #eeddbb;
 	/*	font-stretch: extra-expanded;*/ /*Maybe when its implemented*/
 	letter-spacing: 10px;
 }
-li {
+#nav li {
 	float: left;
-	width: 24.8%;
+	width: 24.7511%;
 	text-align: center;
 }
-li+ li {
+#nav  li+ li {
 	border-left: 2px solid #eeddbb;
 }
-li a {
+#nav li a {
 	display: block;
 }
-li a:hover {
+#nav li a:hover {
 	transition: background-color 1s;
 	/* Firefox 4 */
 	-moz-transition: background-color 1s;

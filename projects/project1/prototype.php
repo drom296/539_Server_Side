@@ -10,26 +10,28 @@
 	</head>
 	<body>
 		<div id="page">
-			<div id="banner">
-				<img src="img/logo.png" alt="logo" />
+			<div id="header">
+				<div id="banner">
+					<img src="img/logo.png" alt="logo" />
+				</div>
+				<div id="navDiv">
+					<ul id="nav">
+						<li id="navHome">
+							<a href="">Home</a>
+						</li>
+						<li id="navNews">
+							<a href="">News</a>
+						</li>
+						<li id="navAdmin">
+							<a href="">Admin</a>
+						</li>
+						<li id="navAbout">
+							<a href="">About</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div id="nav">
-				<ul id="nav">
-					<li id="navHome">
-						<a href="">Home</a>
-					</li>
-					<li id="navNews">
-						<a href="">News</a>
-					</li>
-					<li id="navAdmin">
-						<a href="">Admin</a>
-					</li>
-					<li id="navAbout">
-						<a href="">About</a>
-					</li>
-				</ul>
-			</div>
-			<div id="content" class="noFloat">
+			<div id="content" class="noFloat roundBox">
 				<div id="editorial" class="navHome">
 					<h1>Editorial</h1>
 					<img src="img/editor2.jpg" alt="editor" />
@@ -48,10 +50,10 @@
 						<br/>
 					</p>
 				</div>
-				<div id="news">
+				<div id="news" class="roundBox">
 					<h1>News</h1>
 					<?php
-					$times = 10;
+					$times = 2;
 					for ($i = 0; $i < $times; $i++) {
 						$string = <<<END
 <div class="newsItem">
