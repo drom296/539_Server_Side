@@ -77,7 +77,6 @@ function printInfo($host, $user, $password, $database, $query) {
 		}
 
 		// commence the row
-
 		$result .= "\t</tr>\n";
 	}
 
