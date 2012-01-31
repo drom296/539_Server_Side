@@ -1,4 +1,6 @@
 <?php
+
+// bring in the helper
 require_once ('LIB_db.php');
 
 // TASKS:

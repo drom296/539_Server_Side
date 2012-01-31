@@ -5,10 +5,10 @@
 // Send a Query to the Selected Database
 // Retrieve The Results of the Query
 // Close the Connection to the Database
-define("ID_FIELD","PersonID");
-define("FIRST_NAME_FIELD","FirstName");
-define("LAST_NAME_FIELD","LastName");
-define("NICK_NAME_FIELD","NickName");
+define("ID_FIELD", "PersonID");
+define("FIRST_NAME_FIELD", "FirstName");
+define("LAST_NAME_FIELD", "LastName");
+define("NICK_NAME_FIELD", "NickName");
 
 $host = 'localhost';
 $user = 'pjm8632';
@@ -108,27 +108,26 @@ function printInfo($host, $user, $password, $database, $query, $forPeople = fals
 
 function getLink($record) {
 	$result = "";
-	
+
 	// get the id
 	$id = $record['PersonID'];
-	
+
 	// get the first name
 	$lName = $record['LastName'];
-	
+
 	// get the last name
 	$fName = $record['FirstName'];
-	
+
 	// get the nickname
 	$nName = $record['NickName'];
-	
+
 	// start data
-	$result .= "\t\t<td><a href='phones.php?".ID_FIELD."=$id&"
-							.FIRST_NAME_FIELD."=$fName&".LAST_NAME_FIELD."=$lName'>$id</a></td>\n";
+	$result .= "\t\t<td><a href='phones.php?" . ID_FIELD . "=$id&" . FIRST_NAME_FIELD . "=$fName&" . LAST_NAME_FIELD . "=$lName'>$id</a></td>\n";
 	$result .= "\t\t<td>$lName</td>\n";
 	$result .= "\t\t<td>$fName</td>\n";
 	$result .= "\t\t<td>$nName</td>\n";
-	
-	// return the result	
+
+	// return the result
 	return $result;
 }
 ?>
