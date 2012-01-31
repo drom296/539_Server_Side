@@ -10,6 +10,10 @@ define("FIRST_NAME_FIELD","FirstName");
 define("LAST_NAME_FIELD","LastName");
 define("NICK_NAME_FIELD","NickName");
 
+$host = 'localhost';
+$user = 'pjm8632';
+$password = 'Bully296';
+$database = "pjm8632";
 
 function getPeopleInfo($host, $user, $password, $database, $query) {
 	$records = array();
