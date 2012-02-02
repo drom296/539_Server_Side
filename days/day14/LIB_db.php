@@ -31,13 +31,13 @@ function addPhone($pid, $areaCode, $phone, $type) {
 		sanitize($areacode);
 		sanitize($phone);
 		sanitize($type);
-		
+
 		var_dump($mysqli);
 		echo "<br />";
 
 		// prepare statment
 		$stmt = $mysqli -> prepare("insert into phonenumbers(PersonID, PhoneType, PhoneNum, AreaCode) values (?,?,?,?) ");
-		var_dump($stmt,$mysqli->error);
+		var_dump($stmt, $mysqli -> error);
 		// bind variables
 		$stmt -> bind_param('isss', $id, $type, $phone, $areaCode);
 
@@ -53,7 +53,9 @@ function addPhone($pid, $areaCode, $phone, $type) {
 		/* store result */
 		$stmt -> store_result();
 
-		printf("Number of rows: %d.\n", $stmt -> num_rows);
+		// DISPLAY THE ID THAT WAS ADDED
+		echo "<br />";
+		printf("ID: %d.\n", $stmt -> insert_id);
 
 		/* free result */
 		$stmt -> free_result();
@@ -115,21 +117,22 @@ function getPeopleInfo($query) {
 	}
 
 	// open a connection to MySQL
-	if ($dbLink = openConnect()) {
+	if ($mysqli = openConnectI()) {
+		var_dump($mysqli);
 
 		// Send a Query to the Selected Database
-		$result = mysql_query($query);
+		$result = $mysqli -> query($query);
 		if (!$result) {
 			die('Invalid query: ' . mysql_error());
 		} else {
 			// start building the array
-			while ($row = mysql_fetch_assoc($result)) {
+			while ($row = $result -> fetch_assoc()) {
 				$records[] = $row;
 			}
 		}
 
 		// close the connection
-		mysql_close($dbLink);
+		$mysqli -> close();
 	}
 
 	// return the results

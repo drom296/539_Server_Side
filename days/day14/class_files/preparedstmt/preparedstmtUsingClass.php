@@ -1,26 +1,25 @@
-  <?php
-  
-  	function __autoload ($class) {
-		require_once $class.".class.php";
-	}
+<?php
 
- 	$db = new PS_Database();
+function __autoload($class) {
+	require_once $class . ".class.php";
+}
 
-	if ($db->getError() != "") {
-    	printf("Connect failed: %s\n", $db->getError());
-    	exit();
-	}
-    
-    $code = "C%";
+$db = new PS_Database();
 
-    $rows = $db->getCountryNames($code);
-	
-    /* fetch values */
-    foreach ($rows as $row) {
-        printf("%s %s<br />\n", $row['code'], $row['name']);
-    }
+if ($db -> getError() != "") {
+	printf("Connect failed: %s\n", $db -> getError());
+	exit();
+}
 
-    /* close connection */
-    $db->close();
+$code = "C%";
 
+$rows = $db -> getCountryNames($code);
+
+/* fetch values */
+foreach ($rows as $row) {
+	printf("%s %s<br />\n", $row['code'], $row['name']);
+}
+
+/* close connection */
+$db -> close();
 ?> 
