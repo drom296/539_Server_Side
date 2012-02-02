@@ -9,7 +9,7 @@ require_once ("LIB_db.php");
 
 // use mysqli and prepared statements
 
-if (areRequestVarsReady(array("areacode", "phonenum", "phonetype", "id"))) {
+if (areRequestVarsGood(array("areacode", "phonenum", "phonetype", "id"))) {
 	echo "in if";
 
 	// get the fields
@@ -19,12 +19,12 @@ if (areRequestVarsReady(array("areacode", "phonenum", "phonetype", "id"))) {
 	$pId = $_POST['id'];
 
 	// add the phone
-	$success = addPhone($pId, $areaCode, $phone, $type);
+	$phoneID = addPhone($pId, $areaCode, $phone, $type);
 
 	// if success,
-	if ($success) {
+	if ($phoneID) {
 		// clear $_GET, stops multiple adds
-		echo "well done";
+		echo "phone id: $phoneID";
 
 		// redirect to phones list
 		header("Location: phones.php?" . ID_FIELD . "=$pId");

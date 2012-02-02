@@ -15,7 +15,7 @@ $user = 'pjm8632';
 $password = 'Bully296';
 $database = "pjm8632";
 
-function areRequestVarsReady($fields){
+function areRequestVarsGood($fields){
 	$result = true;	
 		
 	foreach($fields as $field){
@@ -63,6 +63,8 @@ function addPhone($pid, $areaCode, $phone, $type) {
 			// display the results
 			/* store result */
 			$stmt -> store_result();
+			
+			$result = $stmt->insert_id;
 
 			/* free result */
 			$stmt -> free_result();
@@ -71,7 +73,7 @@ function addPhone($pid, $areaCode, $phone, $type) {
 			$stmt -> close();
 
 			// we succeeded!
-			$result = true;
+			// $result = true;
 		}
 
 		// close the link
