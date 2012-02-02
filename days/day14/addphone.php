@@ -1,5 +1,5 @@
 <?php
-require_once("LIB_db.php");
+require_once ("LIB_db.php");
 
 // accepts 4 inputs:
 //   -area code
@@ -9,24 +9,34 @@ require_once("LIB_db.php");
 
 // use mysqli and prepared statements
 
-// get the fields
-$areaCode = $_GET['areacode'];
-$phone = $_GET['phonenum'];
-$type = $_GET['type'];
-$pId = $_GET['id'];
+if (areRequestVarsReady(array("areacode", "phonenum", "phonetype", "id"))) {
+	echo "in if";
 
-addPhone($pId, $areaCode, $phone, $type);
+	// get the fields
+	$areaCode = $_POST['areacode'];
+	$phone = $_POST['phonenum'];
+	$type = $_POST['phonetype'];
+	$pId = $_POST['id'];
 
+	// add the phone
+	$success = addPhone($pId, $areaCode, $phone, $type);
+
+	// if success,
+	if ($success) {
+		// clear $_GET, stops multiple adds
+		echo "well done";
+
+		// redirect to phones list
+		header("Location: phones.php?" . ID_FIELD . "=$pId");
+	}
+}
 ?>
 
-
-
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>html5_template</title>
+		<title>Add a Phone</title>
 		<meta name="description" content="" />
 		<meta name="author" content="Pedro" />
 	</head>
@@ -42,15 +52,11 @@ addPhone($pId, $areaCode, $phone, $type);
 			</p>
 			<p>
 				Type:
-				<select name="type">
-					<option value="home">home</option><option value="office">office</option><option value="cell">cell</option><option value="other">other</option>
-				</select>
+				<input type="text" name="phonetype" size="8"/>
 			</p>
 			<p>
-				Person:
-				<select name="id">
-					<option value="1"  >Bryan French </option><option value="2"  >George Bush </option><option value="3"  >Elvis Presley </option><option value="4"  >Smith Susan </option><option value="5"  >Joseph Jones </option><option value="6"  >Willy Wonka </option><option value="7"  >Kanobi Obi Wan </option><option value="8"  >Skywalker Luke </option><option value="10"  >Lennon John </option><option value="11"  >McCartney Paul </option><option value="12"  >Tonya Roberts </option><option value="13"  >Sam Sneed </option><option value="14"  >Arnold Schwartzenager </option><option value="15"  >Smith Smithtown </option><option value="16"  >Bill JIm Joe Bob </option><option value="17"  >muumin mohamed </option><option value="18"  >muumin mohamed </option><option value="19"  >sindhu kadiyala </option><option value="20"  >ha haa </option><option value="21"  >muumin mohamed </option><option value="22"  >sindhu jhfjkfh </option><option value="23"  >sindhu kadiyala </option><option value="24"  >sss sss </option><option value="25"  >Johnson Marcus </option><option value="26"  >Johnson Marcus </option><option value="27"  >s s </option><option value="28"  >Mr. Moe </option><option value="29"  >bob Smith </option><option value="30"  >Nitin agotiya </option><option value="31"  >AAAAA BBBBBB </option>
-				</select>
+				Person Id:
+				<input type="text" name="id" size="8"/>
 			</p>
 			<p>
 				<input type="submit" name="submit" value="Add Phone"/>
@@ -58,4 +64,4 @@ addPhone($pId, $areaCode, $phone, $type);
 			<a href="people.php">go back</a>
 		</form>
 	</body>
-</html> -->
+</html>

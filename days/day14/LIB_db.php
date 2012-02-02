@@ -15,7 +15,22 @@ $user = 'pjm8632';
 $password = 'Bully296';
 $database = "pjm8632";
 
+function areRequestVarsReady($fields){
+	$result = true;	
+		
+	foreach($fields as $field){
+		if(!isset($_POST[$field]) || empty($_POST[$field])){
+			$result = false;
+			break;
+		}
+	}
+	
+	return $result;
+}
+
 function addPhone($pid, $areaCode, $phone, $type) {
+	$result = false;
+
 	if (empty($pid) && empty($areaCode) && empty($phone) && empty($type)) {
 		echo "None of the fields may be empty";
 		return false;
@@ -23,7 +38,7 @@ function addPhone($pid, $areaCode, $phone, $type) {
 
 	// make a connection
 	$mysqli = openConnectI();
-	
+
 	// check if connection successful
 	if ($mysqli) {
 		// sanitize data
@@ -32,45 +47,38 @@ function addPhone($pid, $areaCode, $phone, $type) {
 		sanitize($phone);
 		sanitize($type);
 
-		var_dump($mysqli);
-		echo "<br />";
-
 		// prepare statment
-		$stmt = $mysqli -> prepare("insert into phonenumbers(PersonID, PhoneType, PhoneNum, AreaCode) values (?,?,?,?) ");
-		var_dump($stmt, $mysqli -> error);
-		// bind variables
-		// var_dump($stmt, $mysqli->error);
-		$stmt -> bind_param('isss', $id, $type, $phone, $areaCode);
-		
-		var_dump($stmt);
+		if ($stmt = $mysqli -> prepare("insert into phonenumbers(PersonID, PhoneType, PhoneNum, AreaCode) values (?,?,?,?) ")) {
+			// bind variables
+			$stmt -> bind_param('isss', $pid, $type, $phone, $areaCode);
 
-		// $stmt -> bind_param('isii', $PersonId, $PhoneType, $PhoneNum, $Code);
-		// $PersonId = $pid;
-		// $PhoneType = $type;s
-		// $PhoneNum = $phone;
-		// $Code = $areaCode;
-		// execute statement
-		$stmt -> execute();
+			// $stmt -> bind_param('isii', $PersonId, $PhoneType, $PhoneNum, $Code);
+			// $PersonId = $pid;
+			// $PhoneType = $type;s
+			// $PhoneNum = $phone;
+			// $Code = $areaCode;
+			// execute statement
+			$stmt -> execute();
 
-		var_dump($stmt);
-		
-		// display the results
-		/* store result */
-		$stmt -> store_result();
+			// display the results
+			/* store result */
+			$stmt -> store_result();
 
-		// DISPLAY THE ID THAT WAS ADDED
-		echo "<br />";
-		printf("ID: %d.\n", $stmt -> insert_id);
+			/* free result */
+			$stmt -> free_result();
 
-		/* free result */
-		$stmt -> free_result();
+			// close statement
+			$stmt -> close();
 
-		// close statement
-		$stmt -> close();
+			// we succeeded!
+			$result = true;
+		}
 
 		// close the link
 		$mysqli -> close();
 	}
+
+	return $result;
 }
 
 function sanitize(&$str) {
@@ -123,8 +131,6 @@ function getPeopleInfo($query) {
 
 	// open a connection to MySQL
 	if ($mysqli = openConnectI()) {
-		var_dump($mysqli);
-
 		// Send a Query to the Selected Database
 		$result = $mysqli -> query($query);
 		if (!$result) {
