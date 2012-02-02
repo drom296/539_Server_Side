@@ -1,5 +1,46 @@
 <?php
+require_once ("LIB_db.php");
 
+// accepts 4 inputs:
+//   -area code
+//   -phone number
+//   -type of phone
+//   -persond id
+
+// use mysqli and prepared statements
+
+if (arePostVarsGood(array("firstname", "lastname"))) {
+	echo "In if";
+
+	// get the fields
+	$nickName = "";
+	$firstName = $_GET['firstname'];
+	$lastName = $_GET['lastname'];
+	if(arePostVarsGood('nickname')){
+		$nickName = $_GET['nickname'];
+	}
+
+	// add the person, get the id
+	$pId = addPerson($firstName, $lastName, $nickName);
+	
+	echo "Person: $pId";
+
+	if ($pid && arePostVarsGood(array("areacode", "phone", "type"))) {
+		// get the fields
+		$areaCode = $_POST['areacode'];
+		$phone = $_POST['phone'];
+		$type = $_POST['type'];
+
+		// add the phone using the PersonID, get the id
+		$phoneID = addPhone($pId, $areaCode, $phone, $type);
+	}
+	
+	// if we received a valid PersonID
+	if($pId){
+		// redirect to the people listing
+		header("Location: people.php?");
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +55,7 @@
 		<form action="adduser.php" method="get">
 			<p>
 				First Name:
-				<input type="text" name="firstname" size="3" />
+				<input type="text" name="firstname" size="8" />
 			</p>
 			<p>
 				Last Name:
@@ -39,7 +80,7 @@
 					<option value="home">home</option>
 					<option value="work">work</option>
 					<option value="other">other</option>
-				</select>				
+				</select>
 			</p>
 			<p>
 				<input type="submit" name="submit" value="Add Person"/>
