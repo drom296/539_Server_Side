@@ -9,9 +9,9 @@ require_once ("LIB_db.php");
 
 // use mysqli and prepared statements
 
-if (areRequestVarsGood(array("areacode", "phonenum", "phonetype", "id"))) {
+if (arePostVarsGood(array("areacode", "phonenum", "phonetype", "id"))) {
 
-	// get the fields
+	// get the fields	
 	$areaCode = $_POST['areacode'];
 	$phone = $_POST['phonenum'];
 	$type = $_POST['phonetype'];

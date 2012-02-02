@@ -9,27 +9,24 @@ require_once ("LIB_db.php");
 
 // use mysqli and prepared statements
 
-if (arePostVarsGood(array("firstname", "lastname"))) {
-	echo "In if";
+if (areGetVarsGood(array("firstname", "lastname"))) {
 
 	// get the fields
 	$nickName = "";
 	$firstName = $_GET['firstname'];
 	$lastName = $_GET['lastname'];
-	if(arePostVarsGood('nickname')){
+	if(areGetVarsGood('nickname')){
 		$nickName = $_GET['nickname'];
 	}
 
 	// add the person, get the id
 	$pId = addPerson($firstName, $lastName, $nickName);
 	
-	echo "Person: $pId";
-
-	if ($pid && arePostVarsGood(array("areacode", "phone", "type"))) {
+	if ($pId && areGetVarsGood(array("areacode", "phone", "type"))) {
 		// get the fields
-		$areaCode = $_POST['areacode'];
-		$phone = $_POST['phone'];
-		$type = $_POST['type'];
+		$areaCode = $_GET['areacode'];
+		$phone = $_GET['phone'];
+		$type = $_GET['type'];
 
 		// add the phone using the PersonID, get the id
 		$phoneID = addPhone($pId, $areaCode, $phone, $type);

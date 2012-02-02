@@ -15,27 +15,138 @@ $user = 'pjm8632';
 $password = 'Bully296';
 $database = "pjm8632";
 
-function areRequestVarsGood($fields){
-	$result = true;	
-		
-	foreach($fields as $field){
-		if(!isset($_POST[$field]) || empty($_POST[$field])){
+/**
+ * Checks to see if the fieldNames passed in the fields array is set and is not
+ * empty in the POST array
+ *
+ * @param $fields - array of fields to check (i.e. array("submit", "id"))
+ */
+function arePostVarsGood($fields) {
+	$result = true;
+
+	foreach ($fields as $field) {
+		if (!isset($_POST[$field]) || empty($_POST[$field])) {
 			$result = false;
 			break;
 		}
 	}
-	
+
 	return $result;
 }
 
-function addPhone($pid, $areaCode, $phone, $type) {
+/**
+ * Checks to see if the fieldNames passed in the fields array is set and is not
+ * empty in the GET array
+ *
+ * @param $fields - array of fields to check (i.e. array("submit", "id"))
+ */
+function areGetVarsGood($fields) {
+	$result = true;
+
+	foreach ($fields as $field) {
+		if (!isset($_GET[$field]) || empty($_GET[$field])) {
+			$result = false;
+			break;
+		}
+	}
+
+	return $result;
+}
+
+/**
+ * Adds a person to the db, using mySQLI and paramterized query
+ *
+ * @param $firstName - Required field
+ * @param $lastName - Required field
+ * @param $nickName - optional field
+ */
+function addPerson($firstName, $lastName, $nickName) {
 	$result = false;
 
+	// perform validation
+	// check if they passed in names
+	if (empty($firstName) && empty($lastName)) {
+		return false;
+	}
+
+	// make a connection
+	$mysqli = openConnectI();
+
+	// check if connection successful
+	if ($mysqli) {
+		// sanitize data
+		sanitize($firstName);
+		sanitize($lastName);
+		sanitize($nickName);
+
+		// prepare statment
+		if ($stmt = $mysqli -> prepare("insert into people(FirstName, LastName, NickName) values (?,?,?) ")) {
+			// bind variables
+			$stmt -> bind_param('sss', $firstName, $lastName, $nickName);
+			// execute statement
+			$stmt -> execute();
+
+			// display the results
+			/* store result */
+			$stmt -> store_result();
+
+			// set the result to the ID for the inserted record
+			$result = $stmt -> insert_id;
+
+			/* free result */
+			$stmt -> free_result();
+
+			// close statement
+			$stmt -> close();
+		}
+
+		// close the link
+		$mysqli -> close();
+	}
+
+	return $result;
+}
+
+/**
+ * Adds the phone number to the DB using mySQLI and a parameterized query. All
+ * fields are required
+ *
+ * @param $pid - The person id the phone number is tied to
+ * @param $areaCode - 3 digit number
+ * @param $phone - 8 digit string, (ie ###-####)
+ * @param $type - string depicting the type of phone
+ *
+ */
+function addPhone($pid, $areaCode, $phone, $type) {
+	$result = false;
+	// validate
+	// check if any are empty
 	if (empty($pid) && empty($areaCode) && empty($phone) && empty($type)) {
 		echo "None of the fields may be empty";
 		return false;
 	}
 
+	// make sure that parameters are of the expected type
+	if(intval($pid)==0 || intval($areaCode)==0){
+		return false;
+	}
+	
+	// check lengths 
+	if(strlen($areaCode)!= 3 || strlen($phone) != 8){
+		return false;
+	}
+	
+	// make sure the phone matches our pattern
+	// ###-####
+	// the # at either end are delimeters required by PHP for regex
+	$pattern = '#[0-9]{3}[-][0-9]{4}#';
+	if(!preg_match($pattern, $phone)){
+		return false;
+	}
+	
+	// remove the dash from the number
+	$phone = str_replace("-", "", $phone);
+	
 	// make a connection
 	$mysqli = openConnectI();
 
@@ -52,19 +163,13 @@ function addPhone($pid, $areaCode, $phone, $type) {
 			// bind variables
 			$stmt -> bind_param('isss', $pid, $type, $phone, $areaCode);
 
-			// $stmt -> bind_param('isii', $PersonId, $PhoneType, $PhoneNum, $Code);
-			// $PersonId = $pid;
-			// $PhoneType = $type;s
-			// $PhoneNum = $phone;
-			// $Code = $areaCode;
-			// execute statement
 			$stmt -> execute();
 
 			// display the results
 			/* store result */
 			$stmt -> store_result();
-			
-			$result = $stmt->insert_id;
+
+			$result = $stmt -> insert_id;
 
 			/* free result */
 			$stmt -> free_result();
@@ -72,8 +177,6 @@ function addPhone($pid, $areaCode, $phone, $type) {
 			// close statement
 			$stmt -> close();
 
-			// we succeeded!
-			// $result = true;
 		}
 
 		// close the link
