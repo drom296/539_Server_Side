@@ -197,8 +197,7 @@ function getBanners() {
 		// $displayVal = ($weight * $count);
 
 		// push to associative array
-		array_push($banners, array("fileName" => $fileName, 
-			"weight" => intval($weight), "count" => intval($count)));
+		array_push($banners, array("fileName" => $fileName, "weight" => intval($weight), "count" => intval($count)));
 	}
 
 	return $banners;
@@ -436,8 +435,8 @@ function addNewsNav() {
 	// do this to avoid zero based page confusion
 	$pageNum = $pageNum + 1;
 	$maxPages = $maxPages + 1;
-	
-	if($pageNum>$maxPages){
+
+	if ($pageNum > $maxPages) {
 		$pageNum = $maxPages;
 	}
 
@@ -447,9 +446,10 @@ function addNewsNav() {
 	// setup container div
 	$result .= "<div>" . "\n";
 
-	$end = $pageNum * $prefs["numItems"];// $numNewsItems;
+	$end = $pageNum * $prefs["numItems"];
+	// $numNewsItems;
 	$start = $end - $numNewsItems + 1;
-	
+
 	// TODO: fix bug with last page.
 	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
 
@@ -728,31 +728,28 @@ function addEditAdForm() {
 	$result .= "<form action='' method='post'>" . "\n";
 
 	$result .= "<h3>Edit Banner Info</h3>" . "\n";
-	
+
 	$result .= "<fieldset>";
-	
+
 	// $result .= "<p class='ad_Label' style='margin-left: 6em;'>Count <span style='margin-left: 1em;'>Weight</span></p>";
 	$result .= "<p class='ad_Label' >Count <span>Weight</span></p>";
-	
+
 	// display inputs
 	foreach ($banners as $banner) {
-		$result .= "<img alt='".$banner['fileName']."' src='".BANNER_PATH.$banner['fileName']."' />". "\n";
-		$result .= "<input class='adInput' type='hidden' name='"
-					.urlencode($banner['fileName'])."' value='".urlencode($banner['fileName'])."'/>". "\n";
-		
-		$result .= "<input class='adInput' type='text' name='"
-					.urlencode($banner['fileName'])."_weight' value='".$banner['weight']."'/>". "\n";
-		
-		$result .= "<input class='adInput' type='text' name='"
-					.urlencode($banner['fileName'])."_count' value='".$banner['count']."'/>". "\n";
-		
-		$result .= "<br />". "\n";
+		$result .= "<img alt='" . $banner['fileName'] . "' src='" . BANNER_PATH . $banner['fileName'] . "' />" . "\n";
+		$result .= "<input class='adInput' type='hidden' name='" . urlencode($banner['fileName']) . "' value='" . urlencode($banner['fileName']) . "'/>" . "\n";
+
+		$result .= "<input class='adInput' type='text' name='" . urlencode($banner['fileName']) . "_weight' value='" . $banner['weight'] . "'/>" . "\n";
+
+		$result .= "<input class='adInput' type='text' name='" . urlencode($banner['fileName']) . "_count' value='" . $banner['count'] . "'/>" . "\n";
+
+		$result .= "<br />" . "\n";
 	}
-	
+
 	$result .= "<input type='hidden' name='test.test.test.png' value='test.test.test.png' />";
 
 	$result .= "</fieldset>";
-	
+
 	// add password protection
 	$result .= "<label for='adminPass'>Enter Admin Password</label>" . "\n";
 	$result .= "<input type='text' name='adminPass' id='adminPass' />" . "\n";
