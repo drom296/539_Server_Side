@@ -15,10 +15,13 @@ $phone = $_GET['phonenum'];
 $type = $_GET['type'];
 $pId = $_GET['id'];
 
-addPhone($pid, $areaCode, $phone, $type);
+addPhone($pId, $areaCode, $phone, $type);
 
-//
 ?>
+
+
+
+
 <!-- <!DOCTYPE html>
 <html lang="en">
 	<head>

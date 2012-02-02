@@ -23,7 +23,7 @@ function addPhone($pid, $areaCode, $phone, $type) {
 
 	// make a connection
 	$mysqli = openConnectI();
-
+	
 	// check if connection successful
 	if ($mysqli) {
 		// sanitize data
@@ -31,15 +31,14 @@ function addPhone($pid, $areaCode, $phone, $type) {
 		sanitize($areacode);
 		sanitize($phone);
 		sanitize($type);
-		
-		var_dump($mysqli);
-		echo "<br />";
 
 		// prepare statment
-		$stmt = $mysqli -> prepare("insert into phonenumbers(PersonID, PhoneType, PhoneNum, AreaCode) values (?,?,?,?) ");
-		var_dump($stmt,$mysqli->error);
+		$stmt = $mysqli -> prepare("insert into phonenumbers (PersonID, PhoneType, PhoneNum, AreaCode) values (?,?,?,?) ");
 		// bind variables
+		// var_dump($stmt, $mysqli->error);
 		$stmt -> bind_param('isss', $id, $type, $phone, $areaCode);
+		
+		var_dump($stmt);
 
 		// $stmt -> bind_param('isii', $PersonId, $PhoneType, $PhoneNum, $Code);
 		// $PersonId = $pid;
@@ -49,6 +48,8 @@ function addPhone($pid, $areaCode, $phone, $type) {
 		// execute statement
 		$stmt -> execute();
 
+		var_dump($stmt);
+		
 		// display the results
 		/* store result */
 		$stmt -> store_result();
