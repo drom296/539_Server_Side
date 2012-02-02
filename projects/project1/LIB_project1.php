@@ -431,11 +431,15 @@ function getXStories($offset, $numItems, $getAll = false) {
 }
 
 function addNewsNav() {
-	global $pageNum, $maxPages, $numNewsItems;
+	global $pageNum, $maxPages, $numNewsItems, $prefs;
 
 	// do this to avoid zero based page confusion
 	$pageNum = $pageNum + 1;
 	$maxPages = $maxPages + 1;
+	
+	if($pageNum>$maxPages){
+		$pageNum = $maxPages;
+	}
 
 	// setup result
 	$result = "";
@@ -443,8 +447,9 @@ function addNewsNav() {
 	// setup container div
 	$result .= "<div>" . "\n";
 
-	$end = $pageNum * $numNewsItems;
+	$end = $pageNum * $prefs["numItems"];// $numNewsItems;
 	$start = $end - $numNewsItems + 1;
+	
 	// TODO: fix bug with last page.
 	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
 
