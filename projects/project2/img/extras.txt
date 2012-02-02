@@ -1,0 +1,12 @@
+http://people.rit.edu/pjm8632/539_server_side/project1/index.php   
+
+Extras
+- User info is shown in the about page, and has a link to it from the main screen.
+
+-User can choose number of news items, change password, and change their editor pic (if image already exists).
+   |-> this was done by saving info to ini file, created a form to allow user to easily change stuff: http://localhost/school/539_server_side/projects/project1/edit_ini.php   
+
+-User can change the weight and count of the ads.
+http://people.rit.edu/pjm8632/539_server_side/project1/edit_ads.php 
+
+- banners use a weighted system 

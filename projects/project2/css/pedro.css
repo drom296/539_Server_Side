@@ -1,0 +1,269 @@
+/*modernizer code*/
+/* IE6 css fixer v0.95: Sat, 21 Jan 2012 22:01:03 +0100 */
+
+/* ============================================= */
+/* safe settings                                 */
+
+/* add display:inline to floated elements */
+#editorial {
+	display: inline;
+}
+/* convert min height values */
+#page {
+	height: 50%;
+}
+/* fix negative margins */
+#banner {
+	position: relative;
+	zoom: 1;
+}
+/* add zoom:1 to overflow:hidden */
+#content {
+	zoom: 1;
+}
+/* add overflow:visible to (submit) buttons */
+input, button {
+	overflow: visible;
+}
+/*my code*/
+* {
+	margin: 0;
+	padding: 0;
+}
+.noFloat {
+	clear: both;
+}
+body {
+	background-color: #776655;
+	color: #555544;
+	background-image: url(../img/minimalfly.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-color: rgba(0,0,0,0.8);
+	background-size: cover;
+}
+#page {
+	min-width: 600px;
+	min-height: 50%;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#content, #banner, #nav, #news, #editorial {
+	background-color: #ccbb88;
+	background-color: rgb(204,187,136);
+	background-color: rgba(204,187,136,.5);
+}
+.roundBox {
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+#banner {
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-left-width: 2px;
+	border-style: solid;
+	/*	This was added b/c for some odd white space after the pic*/
+	/*	margin-bottom: -4px;*/
+	/**********************/
+	/*	overflow: hidden;*/
+}
+#banner > img {
+	margin: 0;
+}
+#banner > #ad {
+	height: 100px;
+	/*	width: 50px;*/
+	/*	done to center the image*/
+	display: block;
+	margin: auto;
+	margin-top: -105px;
+	/* ++++++++++++++++ */
+}
+#content {
+	margin-top: 2%;
+	border: 2px solid;
+	overflow: hidden;
+	/*	width: inherit;*/
+}
+#content h1, #content h2 {
+	text-align: center;
+}
+#editorial {
+	max-width: 50%;
+	width: 255px;
+	color: black;
+	float: left;
+	padding: 0 2% 0 2%;
+	margin-right: 2%;
+	background-color: rgb(204,187,136);
+	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-radius: 15px 0px 0px 15px;
+	border-radius: 15px 0px 0px 15px;
+}
+#editorial > img {
+	padding: 0;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+#editorial p {
+	margin: 3%;
+}
+#news {
+	padding: 0 2% 2% 2%;
+	color: black;
+}
+.newsItem {
+	margin-bottom: 1%;
+	background-color: rgba(204,187,136,.85);
+}
+.newsItem + div {
+	border-top: 2px dashed;
+	padding-top: 1%;
+}
+.newsSubject {
+	font-weight: bold;
+	font-size: 1.3em;
+}
+.newsDate {
+	font-style: italic;
+	font-size: .77em;
+	margin-left: 1em;
+}
+#newsNav {
+	width: 6em;
+	background-color: #555544;
+	color: #eeddbb;
+	text-align: center;
+	font-size: 1.2em;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+#newsNav a {
+	color: #eeddbb;
+}
+#curNewsPage {
+	font-weight: bolder;
+}
+#numItemsShowing {
+	float: right;
+	font-size: .8em;
+}
+#adminLinks {
+	list-style-type: none;
+	width: 30.5em;
+	margin: auto;
+}
+#adminLinks a {
+	text-decoration: none;
+	color: #eeddbb;
+}
+#adminLinks li {
+	background-color: #555544;
+	float: left;
+	padding: 1.3%;
+}
+#adminLinks li+ li {
+	margin-left: 2%;
+}
+#adminLinks li a {
+	display: block;
+}
+#adminLinks li a:hover {
+	transition: background-color 1s;
+	/* Firefox 4 */
+	-moz-transition: background-color 1s;
+	/* Safari and Chrome */
+	/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
+	-webkit-transition: background-color 1s;
+	/* Opera */
+	-o-transition: background-color 1s;
+	/*	font-weight: bolder;*/
+	background-color: #eeddbb;
+	color: #555544;
+	/*	text-transform: uppercase;*/
+}
+form {
+	width: 70%;
+	margin: 2% auto 2% auto;
+	text-align: center;
+	/*	padding-right: 25%;*/
+	/*	padding-left: 25%;*/
+}
+form input, form textarea, form input[type="submit"], #userInfo {
+	border-color: #555544;
+	background-color: #555544;
+	color: #eeddbb;
+}
+form label {
+	margin-right: 2%;
+}
+form input {
+	margin: .4% 0 .4% 0;
+}
+form img {
+	height: 100px;
+	width: 100px;
+	margin-right: 2%;
+}
+form fieldset {
+	border-color: #555544;
+	margin-bottom: 1%;
+}
+form input[type="submit"], form input[type="reset"] {
+	width: 5em;
+	margin: 1%;
+}
+form label[for="adminPass"] {
+	font-weight: bold;
+}
+#fromAcknowledge {
+	text-align: center;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+form textarea {
+	padding: 2%;
+	width: 90%;
+	height: 15em;
+	font-size: 1.2em;
+}
+#userInfo, .midBox {
+	width: 70%;
+	margin: 2% auto 2% auto;
+	padding: 2%;
+}
+#userInfo ul {
+	list-style: none;
+}
+#userLink {
+	text-align: center;
+	width: 8em;
+	margin: 1% auto;
+	border-color: #555544;
+	background-color: #555544;
+	color: #eeddbb;
+}
+#userLink a {
+	color: #eeddbb;
+}
+form .adInput {
+	text-align: center;
+	width: 4em;
+}
+
+form p.ad_Label{
+	margin-left: 7em;
+	font-weight: bold;
+}
+form p.ad_Label>span{
+	margin-left: .8em;
+}
