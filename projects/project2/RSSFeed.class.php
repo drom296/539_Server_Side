@@ -1,21 +1,5 @@
 <?php
 
-$title = "Pedro Test";
-$link = "www.google.com";
-$desc = "this is a test";
-
-$items = array();
-$items[] = array("subject" => "Pedro", "story" => "this is going to fail", "date"=>"today");
-$items[] = array("subject" => "Dario", "story" => "this is going to fail twice", "date"=>"tomorrow");
-
-$dom = RSSFeed::createRSSFeed($title, $link, $desc, $items);
-
-// var_dump(new RSSFeed());
-
-// var_dump($dom);
-
-// echo htmlspecialchars($dom->saveXML());
-
 class RSSFeed {
 	private $rssDom;
 	public $link;
@@ -24,12 +8,12 @@ class RSSFeed {
 	public $lang;
 
 	public function _construct($title, $link, $description, $language = "en-us") {
-		$this->link = $link;
-		$this->title = $title;
-		$this->desc = $description;
-		$this->lang = $language;
-		$this->rssDom = new DOMDocument('1.0', 'utf-8');
-		
+		$this -> link = $link;
+		$this -> title = $title;
+		$this -> desc = $description;
+		$this -> lang = $language;
+		$this -> rssDom = new DOMDocument('1.0', 'utf-8');
+
 	}
 
 	public function getRSSDOM() {
@@ -79,7 +63,7 @@ class RSSFeed {
 	}
 
 	/**
-	 * Creates an rss field from the items. Was trying to modularize this massive 
+	 * Creates an rss field from the items. Was trying to modularize this massive
 	 * function, but for some reason my variables werent being set in the contructor.
 	 * So I moved on
 	 *
@@ -90,8 +74,7 @@ class RSSFeed {
 	 * @param $descName -> the key for the description
 	 * @param $dateName -> the key for the date
 	 */
-	public static function createRSSFeed($title, $link, $description, $items,
-	$lang = "en-us", $titleName = "subject", $descName = "story", $dateName = "date") {
+	public static function createRSSFeed($title, $link, $description, $items, $lang = "en-us", $titleName = "subject", $descName = "story", $dateName = "date") {
 
 		$dom = new DOMDocument('1.0', 'utf-8');
 
@@ -141,11 +124,22 @@ class RSSFeed {
 		$item -> appendChild($dom -> createElement("link", $link));
 
 		// create and add the date
-		$item -> appendChild($dom -> createElement("pubdate", $date));
+		// format the date
+		$dt = new DateTime($date, new DateTimeZone('GMT'));
+
+		// $date = $dt -> format("D, d M Y G:i:s e");
+		$date = $dt -> format("D, d M Y G:i:s");
+		// TODO: This is wrong and should be fixed
+		$date .= " GMT";
+
+		$item -> appendChild($dom -> createElement("pubDate", $date));
+
+		// In CFML the DateFormat mask would be ddd, dd mmm yyyy and the
+		// TimeFormat would be HH:mm:ss. Dates should be offset to GMT.
 
 		// create and add the description
-		$descNode = $dom->createElement("description");
-		$descNode -> appendChild($dom ->createCDATASection($desc));
+		$descNode = $dom -> createElement("description");
+		$descNode -> appendChild($dom -> createCDATASection($desc));
 		$item -> appendChild($descNode);
 
 		return $item;
@@ -159,6 +153,5 @@ class RSSFeed {
 		// </item>
 		// <!-- put more items here -->
 	}
-
 }
 ?>
