@@ -14,7 +14,7 @@ $dom = RSSFeed::createRSSFeed($title, $link, $desc, $items);
 
 // var_dump($dom);
 
-echo htmlspecialchars($dom->saveXML());
+// echo htmlspecialchars($dom->saveXML());
 
 class RSSFeed {
 	private $rssDom;
@@ -141,10 +141,12 @@ class RSSFeed {
 		$item -> appendChild($dom -> createElement("link", $link));
 
 		// create and add the date
-		$item -> appendChild($dom -> createElement("date", $date));
+		$item -> appendChild($dom -> createElement("pubdate", $date));
 
 		// create and add the description
-		$item -> appendChild($dom -> createElement("description", "<![CDATA[" . $desc . "]]>"));
+		$descNode = $dom->createElement("description");
+		$descNode -> appendChild($dom ->createCDATASection($desc));
+		$item -> appendChild($descNode);
 
 		return $item;
 
