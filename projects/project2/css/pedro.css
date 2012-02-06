@@ -159,7 +159,7 @@ body {
 }
 #adminLinks {
 	list-style-type: none;
-	width: 30.5em;
+	width: 40em;
 	margin: auto;
 }
 #adminLinks a {
@@ -266,4 +266,17 @@ form p.ad_Label{
 }
 form p.ad_Label>span{
 	margin-left: .8em;
+}
+.feeds{
+	padding: 2%;
+	width: 28%;
+	margin:auto;
+	background-color: #555544;
+	color: #eeddbb;
+	text-align:left;
+}
+
+.feeds input[type="checkbox"]{
+	float: left;
+	margin-right: 1em;
 }

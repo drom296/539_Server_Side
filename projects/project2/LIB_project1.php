@@ -10,6 +10,8 @@ define('BANNER', 'data/banners.txt');
 define('BANNER_PATH', 'img/banner/');
 define('DATE_TIME', 'm/d/y g:iA');
 
+define('FEEDS', 'http://www.ist.rit.edu/~bdf/539/project2/rss_class.xml');
+
 $totalNewsItems;
 $pageNum;
 $maxPages;
@@ -549,6 +551,7 @@ function addAdminLinks() {
 	$result .= "\t" . "\t" . "<li><a href='edit_editorial.php'>Edit the Editorial</a>" . "\n";
 	$result .= "\t" . "\t" . "<li><a href='add_story.php'>Add a story</a>" . "\n";
 	$result .= "\t" . "\t" . "<li><a href='edit_ads.php'>Edit Ad Info</a>" . "\n";
+	$result .= "\t" . "\t" . "<li><a href='news_feed.php'>NewsFeeds</a>" . "\n";
 	$result .= "\t" . "</ul> <!-- id='adminLinks' -->" . "\n";
 	$result .= "\t" . "<br />" . "\n";
 	$result .= "</div> <!-- id='adminLinksDiv' -->" . "\n";
@@ -609,6 +612,81 @@ function verifyKey($key, $val) {
 
 function isCorrectPassword($pass) {
 	return verifyKey('password', $pass);
+}
+
+function getFeeds(){
+	// setup the dom	
+	$dom = new DOMDocument();
+	$dom->load(FEEDS);
+	
+	$feeds = array();
+	
+	// grab all the students
+	$students = $dom->getElementsByTagName('student');
+	
+	foreach($students as $student){
+		// grab the first name
+		$first = $student->getElementsByTagName('first')->item(0)->nodeValue;
+		
+		// grab the last name
+		$last = $student->getElementsByTagName('last')->item(0)->nodeValue;
+		
+		// grab their link
+		$link = $student->getElementsByTagName('url')->item(0)->nodeValue;
+		
+		// push it to the feeds
+		$feeds[] = array("name"=>$first." ".$last, "link"=>$link);
+	}
+	
+	return $feeds;
+}
+
+function addFeedForm(){
+	// start the result
+	$result = "";
+	
+	// start form
+	$result .= "<form action='' method='post' class='feedForm'>" . "\n";
+
+	// add label
+	$result .= "<h3>Choose Feeds</h3>" . "\n";
+
+	// add a div for the feeds
+	$result .= "<div class='feeds'>";
+
+	// get listing of feeds to choose from
+	$feeds = getFeeds();
+	
+	// setup checkboxes for each of the feeds
+	foreach($feeds as $feed){
+		$result .= "<input type='checkbox' name='feeds[]' value='".$feed['link']."' />";
+		$result .= $feed['name']."<br />";
+	}
+
+	// close a div for the feeds
+	$result .= "</div>";
+	
+	// add password protection
+	$result .= "<label for='adminPass'>Enter Admin Password</label>" . "\n";
+	$result .= "<input type='text' name='adminPass' id='adminPass'/>" . "\n";
+	$result .= "<br />" . "\n";
+
+
+
+	// add reset button
+	$result .= "<input type='reset' name='reset' value='reset'/>" . "\n";
+
+	// add submit button
+	$result .= "<input type='submit' name='submit' value='submit'/>" . "\n";
+
+	
+
+	// close form
+	$result .= "</form>" . "\n";
+	
+	// return the result
+	return $result;
+	
 }
 
 function addEditorialEditForm() {
