@@ -152,22 +152,30 @@ class P2_Utils {
 		// the title
 		$result .= "<h1>News Feeds</h1>";
 
+		$result .= "<div>";
+
 		// grab all the URLS for the feeds
 		$urls = self::getChoosenFeedLinks();
 
 		foreach ($urls as $rss) {
 			// check to see if its a valid link
 			// check if the RSS passes validation
-			if (is_file($rss) && is_readable($rss) && validRSS($rss)) {
-				
+			if (self::validRSS($rss) || self::old_validRSS($rss)) {
+				$result .= "<p>$rss is an valid RSS feed";
+			} else {
+				$result .= "<p>$rss is an invalid RSS feed";
 			}
-
+			
+			// add separator
+			$result .= "<hr />";
 		}
+		
+		$result .= "</div>";
 
 		return $result;
 	}
 
-	public static function validRSS($rss) {
+	public static function old_validRSS($rss) {
 		$result = false;
 		
 		// setup url for validator service
@@ -175,19 +183,54 @@ class P2_Utils {
 
 		// get the result
 		$valResult = @file_get_contents($validator . urlencode($rss));
-		
+
 		// if we have a result
-		if($valResult){
-			// what to look for
-			$validString = "This is a valid RSS feed";
+		if ($valResult) {
+			// create a dom doc from it
+			$dom = new DOMDocument();
+			$success = @$dom->loadHTML($valResult);
 			
-			// check if we can find it
-			if(stristr($valResult, $validString) != false){
-				$result = true;
-			} 
+			if($success){
+				// grab the first h2
+				$valResult = $dom->getElementsByTagName('h2')->item(0)->nodeValue;
+				
+				// what to look for
+				$validString = "Congratulations!";
+	
+				// check if we can find it
+				if (stristr($valResult, $validString) != false) {
+					$result = true;
+				}
+			}
 		}
 		return $result;
 	}
+
+	public static function validRSS($rss) {
+		$result = false;
+		
+		// go the schema route
+		$xml = new DOMDocument();
+		$success = @$xml->load($rss);
+		
+		echo "loading the doc<br />";
+		
+		if($success){
+			echo "Doc loaded<br />";
+			// validate
+			echo "Validating<br />";
+			$result = @$xml->schemaValidate("rss-2_0.xsd");
+			
+			echo "valid: $result<br />";
+		}
+		
+		return $result;
+	}
+
 }
 
+$rss = "http://people.rit.edu/pjm8632/539/project2/project2.rss";
+$rss2 = "http://people.rit.edu/~dxc8808/539/project2/project2.rss";
+echo P2_Utils::old_validRSS($rss);
+echo P2_Utils::old_validRSS($rss2);
 ?>
