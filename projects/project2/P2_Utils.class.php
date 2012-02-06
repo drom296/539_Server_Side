@@ -155,5 +155,14 @@ class P2_Utils {
 
 		return $feeds;
 	}
+	
+	public static function addNewsFeeds(){
+		$result = "";
+			
+		// the title
+		$result .= "<h1>News Feeds</h1>";	
+			
+		return $result;
+	}
 }
 ?>
