@@ -1,5 +1,7 @@
 <?php
 
+require_once("P2_Utils.class.php");
+
 define('LOGO_PIC', 'img/logo.png');
 define('EDITORIAL', 'data/editorial.txt');
 define('NEWS', 'data/news.txt');
@@ -479,6 +481,12 @@ function addNewsNav() {
 	return $result;
 }
 
+function rssFeed($stories){
+	$title = "Pedro Project2 RSS Feed";
+	$desc = "Project2 RSS Feed";
+	P2_Utils::createRSS($title, $desc, $stories);
+}
+
 function addStory($subject, $story) {
 	$result = false;
 
@@ -492,6 +500,9 @@ function addStory($subject, $story) {
 
 		// add new story
 		array_unshift($stories, array('date' => $date, 'subject' => $subject, 'story' => $story));
+
+		// add the first 10 stories to the RSS Feed
+		rssFeed(array_slice($stories, 0, 10));
 
 		// write stories back to file
 
