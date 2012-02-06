@@ -1,3 +1,4 @@
+02/06/12 5:06PM|RSS|Another test
 02/06/12 5:01PM|RSS feeds 3.0|Was using the wrong tag name for the date
 02/06/12 5:00PM|RSS Feeds 2.0|Now with the correct tags!
 02/06/12 4:54PM|RSS Feeds|The rss feeds should be working now.
