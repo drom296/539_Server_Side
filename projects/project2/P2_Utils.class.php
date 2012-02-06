@@ -2,16 +2,6 @@
 
 require_once ("RSSFeed.class.php");
 
-$title = "Pedro Test";
-$link = "www.google.com";
-$desc = "this is a test";
-
-$items = array();
-$items[] = array("subject" => "Pedro", "story" => "this is going to fail", "date" => "today");
-$items[] = array("subject" => "Dario", "story" => "this is going to fail twice", "date" => "tomorrow");
-
-P2_Utils::createRSS($title, $desc, $items);
-
 class P2_Utils {
 	private static $fileName = "project2.rss";
 	private static $feedXMLName = "data/feeds.xml";
@@ -66,20 +56,20 @@ class P2_Utils {
 
 		// get listing of feeds to choose from
 		$feeds = self::getFeeds();
-		
+
 		// get listing of the choosen fields
 		$choosenFeedLinks = self::getChoosenFeedLinks();
 
 		// setup checkboxes for each of the feeds
 		foreach ($feeds as $feed) {
 			$result .= "<input type='checkbox' name='feeds[]' value='" . $feed['link'] . "'";
-			
+
 			// check if it was selected previously
-			if(in_array($feed['link'], $choosenFeedLinks)){
+			if (in_array($feed['link'], $choosenFeedLinks)) {
 				$result .= " checked='checked' ";
 			}
-			
-			$result .=  "/>";
+
+			$result .= "/>";
 			$result .= $feed['name'] . "<br />";
 		}
 
@@ -147,22 +137,57 @@ class P2_Utils {
 
 			// get the feeds
 			$urls = $dom -> getElementsByTagName('url');
-			
-			for($i=0, $len = $urls->length; $i<$len; $i++){
-				$feeds[] = $urls->item($i)->nodeValue;
+
+			for ($i = 0, $len = $urls -> length; $i < $len; $i++) {
+				$feeds[] = $urls -> item($i) -> nodeValue;
 			}
 		}
 
 		return $feeds;
 	}
-	
-	public static function addNewsFeeds(){
+
+	public static function addNewsFeeds() {
 		$result = "";
-			
+
 		// the title
-		$result .= "<h1>News Feeds</h1>";	
+		$result .= "<h1>News Feeds</h1>";
+
+		// grab all the URLS for the feeds
+		$urls = self::getChoosenFeedLinks();
+
+		foreach ($urls as $rss) {
+			// check to see if its a valid link
+			// check if the RSS passes validation
+			if (is_file($rss) && is_readable($rss) && validRSS($rss)) {
+				
+			}
+
+		}
+
+		return $result;
+	}
+
+	public static function validRSS($rss) {
+		$result = false;
+		
+		// setup url for validator service
+		$validator = 'http://feedvalidator.org/check.cgi?url=';
+
+		// get the result
+		$valResult = @file_get_contents($validator . urlencode($rss));
+		
+		// if we have a result
+		if($valResult){
+			// what to look for
+			$validString = "This is a valid RSS feed";
 			
+			// check if we can find it
+			if(stristr($valResult, $validString) != false){
+				$result = true;
+			} 
+		}
 		return $result;
 	}
 }
+
 ?>
