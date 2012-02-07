@@ -123,6 +123,7 @@ body {
 .newsItem {
 	margin-bottom: 1%;
 	background-color: rgba(204,187,136,.85);
+	padding: 2%;
 }
 .newsItem + div {
 	border-top: 2px dashed;
@@ -259,24 +260,56 @@ form .adInput {
 	text-align: center;
 	width: 4em;
 }
-
-form p.ad_Label{
+form p.ad_Label {
 	margin-left: 7em;
 	font-weight: bold;
 }
-form p.ad_Label>span{
+form p.ad_Label > span {
 	margin-left: .8em;
 }
-.feeds{
+.feeds {
 	padding: 2%;
 	width: 28%;
-	margin:auto;
+	margin: auto;
 	background-color: #555544;
 	color: #eeddbb;
-	text-align:left;
+	text-align: left;
 }
-
-.feeds input[type="checkbox"]{
+.feeds input[type="checkbox"] {
 	float: left;
 	margin-right: 1em;
+}
+.rssFeed {
+	text-align: center;
+}
+.rssFeed a {
+	color: #555544;
+}
+#feeds {
+	background-color: #555544;
+	color: #eeddbb;
+	width: 80%;
+	margin: auto;
+	padding: 2%;
+	margin-bottom: 2%;
+}
+.feed+ .feed {
+	margin-top: 2%;
+	/*	margin-bottom: 2%;*/
+}
+.feed > h2 {
+	text-align: left;
+}
+.feed a, #feeds a {
+	color: #eeddbb;
+}
+.feed a:hover {
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.feed > p {
+	text-align: center;
+}
+.feedItems {
+	color: #555544;
 }

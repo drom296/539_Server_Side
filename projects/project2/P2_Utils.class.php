@@ -152,24 +152,90 @@ class P2_Utils {
 		// the title
 		$result .= "<h1>News Feeds</h1>";
 
-		$result .= "<div>";
+		// link to my RSS
+		$result .= "<p class='rssFeed'><a href='project2.rss'>RSS Feed</a></p>";
+
+		$result .= "<div id='feeds' class='roundBox'>";
 
 		// grab all the URLS for the feeds
 		$urls = self::getChoosenFeedLinks();
 
 		foreach ($urls as $rss) {
+			$result .= "<div class='feed roundBox'>";
 			// check to see if its a valid link
 			// check if the RSS passes validation
 			if (self::validRSS($rss) || self::old_validRSS($rss)) {
-				$result .= "<p>$rss is an valid RSS feed";
+
+				// setup the dom
+				$dom = new DOMDocument();
+				$dom -> load($rss);
+
+				// grab the feeds name
+				$feedName = $dom -> getElementsByTagName('title') -> item(0) -> nodeValue;
+
+				// grab the description
+				$feedDesc = $dom -> getElementsByTagName('description') -> item(0) -> nodeValue;
+
+				// grab the feeds link
+				$feedLink = $dom -> getElementsByTagName('link') -> item(0) -> nodeValue;
+
+				$result .= "<h2><a href='$feedLink'>$feedName</a></h2>";
+				$result .= "<p>$feedDesc</p>";
+
+				// grab the items
+				$items = $dom -> getElementsByTagName('item');
+
+				$result .= "<div class='feedItems'>";
+				// foreach ($items as $item) {
+				for($i=0, $len=$items->length; $i<2; $i++){
+					$item = $items->item($i);
+					// show the items
+					
+					// get the subject
+					$subject = $item->getElementsByTagName('title')->item(0)->nodeValue;
+					
+					// get the link
+					$link = $item->getElementsByTagName('link')->item(0)->nodeValue;
+					
+					// get the date
+					$date = $item->getElementsByTagName('pubDate')->item(0)->nodeValue;
+					
+					// get the story
+					$story = $item->getElementsByTagName('description')->item(0)->nodeValue;
+
+					// set up the news item container
+					$result .= '<div class="newsItem">' . "\n";
+
+					// setup container
+					$result .= "<p>" . "\n";
+
+					// set up the subject
+					$result .= '<span class="newsSubject">' . $subject . '</span>' . "\n";
+
+					// set up the date
+					$result .= '<span class="newsDate">' . $date . '</span>' . "\n";
+
+					// close the container
+					$result .= "</p>" . "\n";
+
+					// set up the story
+					$result .= "<p>" . $story . "</p>" . "\n";
+
+					// close the news item container
+					$result .= '</div> <!-- class="newsItem" -->' . "\n";
+
+				}
+				$result .= "</div>";
+
 			} else {
 				$result .= "<p>$rss is an invalid RSS feed";
 			}
-			
+
 			// add separator
-			$result .= "<hr />";
+			$result .= "</div>";
+			// $result .= "<hr />";
 		}
-		
+
 		$result .= "</div>";
 
 		return $result;
@@ -177,7 +243,9 @@ class P2_Utils {
 
 	public static function old_validRSS($rss) {
 		$result = false;
-		
+
+		echo "old was called<br />";
+
 		// setup url for validator service
 		$validator = 'http://feedvalidator.org/check.cgi?url=';
 
@@ -188,15 +256,15 @@ class P2_Utils {
 		if ($valResult) {
 			// create a dom doc from it
 			$dom = new DOMDocument();
-			$success = @$dom->loadHTML($valResult);
-			
-			if($success){
+			$success = @$dom -> loadHTML($valResult);
+
+			if ($success) {
 				// grab the first h2
-				$valResult = $dom->getElementsByTagName('h2')->item(0)->nodeValue;
-				
+				$valResult = $dom -> getElementsByTagName('h2') -> item(0) -> nodeValue;
+
 				// what to look for
 				$validString = "Congratulations!";
-	
+
 				// check if we can find it
 				if (stristr($valResult, $validString) != false) {
 					$result = true;
@@ -208,29 +276,23 @@ class P2_Utils {
 
 	public static function validRSS($rss) {
 		$result = false;
-		
+
 		// go the schema route
 		$xml = new DOMDocument();
-		$success = @$xml->load($rss);
-		
-		echo "loading the doc<br />";
-		
-		if($success){
-			echo "Doc loaded<br />";
+		$success = @$xml -> load($rss);
+
+		if ($success) {
 			// validate
-			echo "Validating<br />";
-			$result = @$xml->schemaValidate("rss-2_0.xsd");
-			
-			echo "valid: $result<br />";
+			$result = @$xml -> schemaValidate("rss-2_0.xsd");
 		}
-		
+
 		return $result;
 	}
 
 }
 
-$rss = "http://people.rit.edu/pjm8632/539/project2/project2.rss";
-$rss2 = "http://people.rit.edu/~dxc8808/539/project2/project2.rss";
-echo P2_Utils::old_validRSS($rss);
-echo P2_Utils::old_validRSS($rss2);
+// $rss = "http://people.rit.edu/pjm8632/539/project2/project2.rss";
+// $rss2 = "http://people.rit.edu/~dxc8808/539/project2/project2.rss";
+// echo P2_Utils::old_validRSS($rss);
+// echo P2_Utils::old_validRSS($rss2);
 ?>
