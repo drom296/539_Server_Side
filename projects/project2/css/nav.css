@@ -1,67 +1,58 @@
 /* CSSTidy 1.3dev: Tue, 07 Feb 2012 18:36:41 +0100 */
 #nav li {
-display:inline;
-float:left;
-text-align:center;
-width:19.8%;
+	display: inline;
+	float: left;
+	text-align: center;
+	width: 19.8%;
 }
-
 #nav {
-background-color:#554;
-list-style-type:none;
-overflow:hidden;
-zoom:1;
+	background-color: #554;
+	list-style-type: none;
+	overflow: hidden;
+	zoom: 1;
 }
-
-input,button {
-overflow:visible;
+input, button {
+	overflow: visible;
 }
-
-#navHome .navHome,#navNews .navNews,#navAdmin .navAdmin,#navAbout .navAbout {
--moz-transition:background-color 1s;
--o-transition:background-color 1s;
--webkit-transition:background-color 1s;
-background-color:#CB8;
-color:#554;
-font-weight:bolder;
-text-transform:uppercase;
-transition:background-color 1s;
+#navHome .navHome, #navNews .navNews, #navAdmin .navAdmin, #navAbout .navAbout {
+	-moz-transition: background-color 1s;
+	-o-transition: background-color 1s;
+	-webkit-transition: background-color 1s;
+	background-color: #CB8;
+	color: #554;
+	font-weight: bolder;
+	text-transform: uppercase;
+	transition: background-color 1s;
 }
-
 #navDiv {
-background-color:#554;
-border-color:#554;
-border-style:solid;
-border-width:2px 1px;
-color:#edb;
+	background-color: #554;
+	border-color: #554;
+	border-style: solid;
+	border-width: 2px 1px;
+	color: #edb;
 }
-
 #nav a {
-color:#edb;
-letter-spacing:10px;
-text-decoration:none;
+	color: #edb;
+	letter-spacing: 10px;
+	text-decoration: none;
 }
-
 #nav li+ li {
-border-left:2px solid #edb;
+	border-left: 2px solid #edb;
 }
-
 #nav li a {
-display:block;
+	display: block;
 }
-
 #nav li a:hover {
--moz-transition:background-color 1s;
--o-transition:background-color 1s;
--webkit-transition:background-color 1s;
-background-color:#edb;
-color:#554;
-font-weight:bolder;
-text-transform:uppercase;
-transition:background-color 1s;
+	-moz-transition: background-color 1s;
+	-o-transition: background-color 1s;
+	-webkit-transition: background-color 1s;
+	background-color: #edb;
+	color: #554;
+	font-weight: bolder;
+	text-transform: uppercase;
+	transition: background-color 1s;
 }
-
 #navHome .navHome {
-background-color:red;
-color:blue;
+	background-color: red;
+	color: blue;
 }

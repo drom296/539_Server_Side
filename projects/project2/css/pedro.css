@@ -1,285 +1,238 @@
 /* CSSTidy 1.3dev: Tue, 07 Feb 2012 18:42:39 +0100 */
 #editorial {
--moz-border-radius-bottomleft:15px;
--moz-border-radius-bottomright:0;
--moz-border-radius-topleft:15px;
--moz-border-radius-topright:0;
--webkit-border-radius:15px 0 0 15px;
-background-color:#cb8;
-border-radius:15px 0 0 15px;
-color:#000;
-display:inline;
-float:left;
-margin-right:2%;
-max-width:50%;
-padding:0 2%;
-width:255px;
+	-moz-border-radius-bottomleft: 15px;
+	-moz-border-radius-bottomright: 0;
+	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 0;
+	-webkit-border-radius: 15px 0 0 15px;
+	background-color: #cb8;
+	border-radius: 15px 0 0 15px;
+	color: #000;
+	display: inline;
+	float: left;
+	margin-right: 2%;
+	max-width: 50%;
+	padding: 0 2%;
+	width: 255px;
 }
-
 #page {
-height:50%;
-margin-left:auto;
-margin-right:auto;
-min-height:50%;
-min-width:600px;
-width:70%;
+	height: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	min-height: 50%;
+	min-width: 600px;
+	width: 70%;
 }
-
 #banner {
-border-left-width:2px;
-border-right-width:2px;
-border-style:solid;
-border-top-width:2px;
-position:relative;
-zoom:1;
+	border-left-width: 2px;
+	border-right-width: 2px;
+	border-style: solid;
+	border-top-width: 2px;
+	position: relative;
+	zoom: 1;
 }
-
 #content {
-border:2px solid;
-margin-top:2%;
-overflow:hidden;
-zoom:1;
+	border: 2px solid;
+	margin-top: 2%;
+	overflow: hidden;
+	zoom: 1;
 }
-
-input,button {
-overflow:visible;
+input, button {
+	overflow: visible;
 }
-
 * {
-margin:0;
-padding:0;
+	margin: 0;
+	padding: 0;
 }
-
 .noFloat {
-clear:both;
+	clear: both;
 }
-
 body {
-background-attachment:fixed;
-background-color:rgba(0,0,0,0.8);
-background-image:url(../img/minimalfly.jpg);
-background-repeat:no-repeat;
-background-size:cover;
-color:#554;
+	background-attachment: fixed;
+	background-color: rgba(0,0,0,0.8);
+	background-image: url(../img/minimalfly.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #554;
 }
-
-#content,#banner,#nav,#news,#editorial {
-background-color:rgba(204,187,136,.5);
+#content, #banner, #nav, #news, #editorial {
+	background-color: rgba(204,187,136,.5);
 }
-
 .roundBox {
--moz-border-radius:15px;
--webkit-border-radius:15px;
-border-radius:15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
 }
-
 #banner > img {
-margin:0;
+	margin: 0;
 }
-
 #banner > #ad {
-display:block;
-height:100px;
-margin:-105px auto auto;
+	display: block;
+	height: 100px;
+	margin: -105px auto auto;
 }
-
-#content h1,#content h2 {
-text-align:center;
+#content h1, #content h2 {
+	text-align: center;
 }
-
 #editorial > img {
--moz-border-radius:10px;
--webkit-border-radius:10px;
-border-radius:10px;
-margin-left:auto;
-margin-right:auto;
-padding:0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
 }
-
 #editorial p {
-margin:3%;
+	margin: 3%;
 }
-
 #news {
-color:#000;
-padding:0 2% 2%;
+	color: #000;
+	padding: 0 2% 2%;
 }
-
 .newsItem {
-background-color:rgba(204,187,136,.85);
-margin-bottom:1%;
+	background-color: rgba(204,187,136,.85);
+	margin-bottom: 1%;
 }
-
 .newsItem + div {
-border-top:2px dashed;
-padding-top:1%;
+	border-top: 2px dashed;
+	padding-top: 1%;
 }
-
 .newsSubject {
-font-size:1.3em;
-font-weight:700;
+	font-size: 1.3em;
+	font-weight: 700;
 }
-
 .newsDate {
-font-size:.77em;
-font-style:italic;
-margin-left:1em;
+	font-size: .77em;
+	font-style: italic;
+	margin-left: 1em;
 }
-
 #newsNav {
-background-color:#554;
-color:#edb;
-display:block;
-font-size:1.2em;
-margin-left:auto;
-margin-right:auto;
-text-align:center;
-width:6em;
+	background-color: #554;
+	color: #edb;
+	display: block;
+	font-size: 1.2em;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 6em;
 }
-
 #curNewsPage {
-font-weight:bolder;
+	font-weight: bolder;
 }
-
 #numItemsShowing {
-float:right;
-font-size:.8em;
+	float: right;
+	font-size: .8em;
 }
-
 #adminLinks {
-list-style-type:none;
-margin:auto;
-width:40em;
+	list-style-type: none;
+	margin: auto;
+	width: 40em;
 }
-
 #adminLinks a {
-color:#edb;
-text-decoration:none;
+	color: #edb;
+	text-decoration: none;
 }
-
 #adminLinks li {
-background-color:#554;
-float:left;
-padding:1.3%;
+	background-color: #554;
+	float: left;
+	padding: 1.3%;
 }
-
 #adminLinks li+ li {
-margin-left:2%;
+	margin-left: 2%;
 }
-
 #adminLinks li a {
-display:block;
+	display: block;
 }
-
 #adminLinks li a:hover {
--moz-transition:background-color 1s;
--o-transition:background-color 1s;
--webkit-transition:background-color 1s;
-background-color:#edb;
-color:#554;
-transition:background-color 1s;
+	-moz-transition: background-color 1s;
+	-o-transition: background-color 1s;
+	-webkit-transition: background-color 1s;
+	background-color: #edb;
+	color: #554;
+	transition: background-color 1s;
 }
-
 form {
-margin:2% auto;
-text-align:center;
-width:70%;
+	margin: 2% auto;
+	text-align: center;
+	width: 70%;
 }
-
-form input,form textarea,form input[type="submit"],#userInfo {
-background-color:#554;
-border-color:#554;
-color:#edb;
+form input, form textarea, form input[type="submit"], #userInfo {
+	background-color: #554;
+	border-color: #554;
+	color: #edb;
 }
-
 form label {
-margin-right:2%;
+	margin-right: 2%;
 }
-
 form input {
-margin:.4% 0;
+	margin: .4% 0;
 }
-
 form img {
-height:100px;
-margin-right:2%;
-width:100px;
+	height: 100px;
+	margin-right: 2%;
+	width: 100px;
 }
-
 form fieldset {
-border-color:#554;
-margin-bottom:1%;
+	border-color: #554;
+	margin-bottom: 1%;
 }
-
-form input[type="submit"],form input[type="reset"] {
-margin:1%;
-width:5em;
+form input[type="submit"], form input[type="reset"] {
+	margin: 1%;
+	width: 5em;
 }
-
 form label[for="adminPass"] {
-font-weight:700;
+	font-weight: 700;
 }
-
 #fromAcknowledge {
-font-size:1.1em;
-font-weight:700;
-text-align:center;
+	font-size: 1.1em;
+	font-weight: 700;
+	text-align: center;
 }
-
 form textarea {
-font-size:1.2em;
-height:15em;
-padding:2%;
-width:90%;
+	font-size: 1.2em;
+	height: 15em;
+	padding: 2%;
+	width: 90%;
 }
-
-#userInfo,.midBox {
-margin:2% auto;
-padding:2%;
-width:70%;
+#userInfo, .midBox {
+	margin: 2% auto;
+	padding: 2%;
+	width: 70%;
 }
-
 #userInfo ul {
-list-style:none;
+	list-style: none;
 }
-
 #userLink {
-background-color:#554;
-border-color:#554;
-color:#edb;
-margin:1% auto;
-text-align:center;
-width:8em;
+	background-color: #554;
+	border-color: #554;
+	color: #edb;
+	margin: 1% auto;
+	text-align: center;
+	width: 8em;
 }
-
 form .adInput {
-text-align:center;
-width:4em;
+	text-align: center;
+	width: 4em;
 }
-
 form p.ad_Label {
-font-weight:700;
-margin-left:7em;
+	font-weight: 700;
+	margin-left: 7em;
 }
-
-form p.ad_Label>span {
-margin-left:.8em;
+form p.ad_Label > span {
+	margin-left: .8em;
 }
-
 .feeds {
-background-color:#554;
-color:#edb;
-margin:auto;
-padding:2%;
-text-align:left;
-width:28%;
+	background-color: #554;
+	color: #edb;
+	margin: auto;
+	padding: 2%;
+	text-align: left;
+	width: 28%;
 }
-
 .feeds input[type="checkbox"] {
-float:left;
-margin-right:1em;
+	float: left;
+	margin-right: 1em;
 }
-
-#newsNav a,#userLink a {
-color:#edb;
+#newsNav a, #userLink a {
+	color: #edb;
 }
