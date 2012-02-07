@@ -311,5 +311,6 @@ form p.ad_Label > span {
 	text-align: center;
 }
 .feedItems {
-	color: #555544;
+/*	color: #555544;*/
+	color: black;
 }

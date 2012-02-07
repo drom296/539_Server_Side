@@ -4,7 +4,12 @@ require_once ("RSSFeed.class.php");
 
 class P2_Utils {
 	private static $fileName = "project2.rss";
-	private static $feedXMLName = "data/feeds.xml";
+	public static $feedXMLName = "data/feeds.xml";
+	
+	private static $feeds = 'http://www.ist.rit.edu/~bdf/539/project2/rss_class.xml';
+	public static $webFeeds = 'data/webfeeds.xml';
+	
+	public static $choosenWebFeeds = 'data/choosenwebfeeds.xml'; 
 
 	public static function createRSS($title, $description, $items, $link = "http://people.rit.edu/pjm8632/539/project2/news.php") {
 		// create the RSSFeed DOM
@@ -17,7 +22,7 @@ class P2_Utils {
 	public static function getFeeds() {
 		// setup the dom
 		$dom = new DOMDocument();
-		$dom -> load(FEEDS);
+		$dom -> load(self::$feeds);
 
 		$feeds = array();
 
@@ -58,7 +63,7 @@ class P2_Utils {
 		$feeds = self::getFeeds();
 
 		// get listing of the choosen fields
-		$choosenFeedLinks = self::getChoosenFeedLinks();
+		$choosenFeedLinks = self::getChoosenFeedLinks(self::$feedXMLName);
 
 		// setup checkboxes for each of the feeds
 		foreach ($feeds as $feed) {
@@ -66,6 +71,30 @@ class P2_Utils {
 
 			// check if it was selected previously
 			if (in_array($feed['link'], $choosenFeedLinks)) {
+				$result .= " checked='checked' ";
+			}
+
+			$result .= "/>";
+			$result .= $feed['name'] . "<br />";
+		}
+
+		// The web services
+		// get the web services links
+		$webFeeds = self::getWebFeeds();
+		
+		
+		// ********************WEB FEEDS********************
+		 
+		$result .= "<h2>Web Feeds</h2>";
+		
+		// setup checkboxes for each of the feeds
+		$choosenFeedLinks = self::getChoosenFeedLinks(self::$choosenWebFeeds);
+		
+		foreach ($webFeeds as $feed) {
+			$result .= "<input type='checkbox' name='webfeeds[]' value='" . $feed['link'] . "'";
+
+			// check if it was selected previously
+			if (is_array($choosenFeedLinks) && in_array($feed['link'], $choosenFeedLinks)) {
 				$result .= " checked='checked' ";
 			}
 
@@ -94,6 +123,30 @@ class P2_Utils {
 		return $result;
 	}
 
+	public static function getWebFeeds(){
+		// setup the dom
+		$dom = new DOMDocument();
+		$dom -> load(self::$webFeeds);
+
+		$feeds = array();
+
+		// grab all the feeds
+		$items = $dom -> getElementsByTagName('feed');
+
+		foreach ($items as $item) {
+			// grab the name
+			$name = $item -> getElementsByTagName('name') -> item(0) -> nodeValue;
+
+			// grab their link
+			$link = $item -> getElementsByTagName('url') -> item(0) -> nodeValue;
+
+			// push it to the feeds
+			$feeds[] = array("name" => $name, "link" => $link);
+		}
+
+		return $feeds;
+	}
+
 	/**
 	 * Takes the feeds associative array and creates an xml document from it
 	 *
@@ -104,7 +157,7 @@ class P2_Utils {
 	 * 	</student>
 	 * </students>
 	 */
-	public static function saveFeeds($feeds) {
+	public static function saveFeeds($fileName, $feeds) {
 		// create a dom
 		$dom = new DOMDocument('1.0', 'utf-8');
 
@@ -120,15 +173,15 @@ class P2_Utils {
 		// attach the students to the dom
 		$dom -> appendChild($feedXML);
 		// save the dom
-		$dom -> save(self::$feedXMLName);
+		$dom -> save($fileName);
 	}
 
-	public static function getChoosenFeedLinks() {
+	public static function getChoosenFeedLinks($xml) {
 		$feeds = null;
 
 		// check if file exists and is readable
-		if (file_exists(self::$feedXMLName) && is_readable(self::$feedXMLName)) {
-			$fileName = self::$feedXMLName;
+		if (file_exists($xml) && is_readable($xml)) {
+			$fileName = $xml;
 			$feeds = array();
 
 			// load up the DOM
@@ -158,7 +211,7 @@ class P2_Utils {
 		$result .= "<div id='feeds' class='roundBox'>";
 
 		// grab all the URLS for the feeds
-		$urls = self::getChoosenFeedLinks();
+		$urls = self::getChoosenFeedLinks(self::$feedXMLName);
 
 		foreach ($urls as $rss) {
 			$result .= "<div class='feed roundBox'>";
@@ -187,21 +240,21 @@ class P2_Utils {
 
 				$result .= "<div class='feedItems'>";
 				// foreach ($items as $item) {
-				for($i=0, $len=$items->length; $i<2; $i++){
-					$item = $items->item($i);
+				for ($i = 0, $len = $items -> length; $i < 2; $i++) {
+					$item = $items -> item($i);
 					// show the items
-					
+
 					// get the subject
-					$subject = $item->getElementsByTagName('title')->item(0)->nodeValue;
-					
+					$subject = $item -> getElementsByTagName('title') -> item(0) -> nodeValue;
+
 					// get the link
-					$link = $item->getElementsByTagName('link')->item(0)->nodeValue;
-					
+					$link = $item -> getElementsByTagName('link') -> item(0) -> nodeValue;
+
 					// get the date
-					$date = $item->getElementsByTagName('pubDate')->item(0)->nodeValue;
-					
+					$date = $item -> getElementsByTagName('pubDate') -> item(0) -> nodeValue;
+
 					// get the story
-					$story = $item->getElementsByTagName('description')->item(0)->nodeValue;
+					$story = $item -> getElementsByTagName('description') -> item(0) -> nodeValue;
 
 					// set up the news item container
 					$result .= '<div class="newsItem">' . "\n";
@@ -243,8 +296,6 @@ class P2_Utils {
 
 	public static function old_validRSS($rss) {
 		$result = false;
-
-		echo "old was called<br />";
 
 		// setup url for validator service
 		$validator = 'http://feedvalidator.org/check.cgi?url=';

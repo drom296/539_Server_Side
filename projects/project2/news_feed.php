@@ -13,7 +13,7 @@ if (isset($_POST['submit']) && isset($_POST[$adminField]) && isCorrectPassword($
 	// TODO: better form validation
 
 	// check if set
-	if ((isset($_POST['feeds']) && !empty($_POST['feeds'])) && is_array($_POST['feeds'])) {
+	if ((isset($_POST['feeds'])) && is_array($_POST['feeds'])) {
 		// set the ini file
 		$feeds = $_POST['feeds'];
 		$feedCount = count($feeds);
@@ -23,7 +23,25 @@ if (isset($_POST['submit']) && isset($_POST[$adminField]) && isCorrectPassword($
 		
 		// check if the amount selected falls in the range
 		if ($feedCount >= $min && $feedCount <= $max) {
-			P2_Utils::saveFeeds($feeds);
+			P2_Utils::saveFeeds(P2_Utils::$feedXMLName, $feeds);
+			$passed = true;
+		} else{
+			$errors .= "<p>You can only select $min to $max feeds. <br />You selected: ".$feedCount." feeds.</p>";
+		}
+	}
+	
+	// check if set
+	if ((isset($_POST['webfeeds'])) && is_array($_POST['webfeeds'])) {
+		// set the ini file
+		$feeds = $_POST['webfeeds'];
+		$feedCount = count($feeds);
+		
+		$min = 0;
+		$max = 3;
+		
+		// check if the amount selected falls in the range
+		if ($feedCount >= $min && $feedCount <= $max) {
+			P2_Utils::saveFeeds(P2_Utils::$choosenWebFeeds, $feeds);
 			$passed = true;
 		} else{
 			$errors .= "<p>You can only select $min to $max feeds. <br />You selected: ".$feedCount." feeds.</p>";

@@ -1,7 +1,7 @@
-DummyText-creative-job-ad.png|2|51
-banner_images1.png|1|101
-dummyBanner3.jpg|1|101
-dancing.gif|1|101
-spotify586.jpg|2|51
-dummy-banner.jpg|2|51
-banners.jpg|3|34
+dummyBanner3.jpg|1|106
+dancing.gif|1|105
+banner_images1.png|1|105
+banners.jpg|3|35
+dummy-banner.jpg|2|53
+spotify586.jpg|2|53
+DummyText-creative-job-ad.png|2|53

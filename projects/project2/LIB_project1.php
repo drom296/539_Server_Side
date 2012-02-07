@@ -10,8 +10,6 @@ define('BANNER', 'data/banners.txt');
 define('BANNER_PATH', 'img/banner/');
 define('DATE_TIME', 'm/d/y g:iA');
 
-define('FEEDS', 'http://www.ist.rit.edu/~bdf/539/project2/rss_class.xml');
-
 $totalNewsItems;
 $pageNum;
 $maxPages;
