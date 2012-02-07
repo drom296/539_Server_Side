@@ -1,0 +1,8 @@
+<h1>Project 1 Example</h1>
+<h2>Editorial goes here!!</h2>
+<p>Goal: To create a Content Management System for a local communtity newspaper.</p>
+<p>Tip: You will be updating this later in the quarter, so spend some time 
+to make it look nice and extensible.</p>
+<p>Another tip: DO NOT copy the layout and CSS of this site and submit 
+it as part of your project work.</p>
+<p>This example does not fulfill all of the Project 1 requirements. </p>

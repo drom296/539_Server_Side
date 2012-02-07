@@ -1,0 +1,13 @@
+Todo:
+-add padding to every news item
+-fix "displaying news" bug for last page of news
+-change the white in the logo to transparent
+-Make the logo a link to the home page
+-Fix forms
+  |->make the labels spans with a certain width
+  |->use margin's to line up the inputs
+-Add a way to upload photos
+  |->to change the logo
+  |->to change the editor's picture
+  |->to add more ads to display
+  
