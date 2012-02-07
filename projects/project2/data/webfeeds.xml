@@ -4,4 +4,8 @@
 		<name>Pedro Feed</name>
 		<url>http://people.rit.edu/~pjm8632/539/project2/project2.rss</url>
 	</feed>
+	<feed>
+		<name>Matt Feed</name>
+		<url>http://people.rit.edu/~met8481/539/project2/project2.rss</url>
+	</feed>
 </feeds>

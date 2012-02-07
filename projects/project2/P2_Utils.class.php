@@ -158,6 +158,7 @@ class P2_Utils {
 	 * </students>
 	 */
 	public static function saveFeeds($fileName, $feeds) {
+		
 		// create a dom
 		$dom = new DOMDocument('1.0', 'utf-8');
 
@@ -199,7 +200,7 @@ class P2_Utils {
 		return $feeds;
 	}
 
-	public static function addNewsFeeds() {
+	public static function addNewsFeeds($xml) {
 		$result = "";
 
 		// the title
@@ -211,7 +212,11 @@ class P2_Utils {
 		$result .= "<div id='feeds' class='roundBox'>";
 
 		// grab all the URLS for the feeds
-		$urls = self::getChoosenFeedLinks(self::$feedXMLName);
+		$urls = self::getChoosenFeedLinks($xml);
+		
+		if(count($urls) == 0){
+			$result .= "<p>No news feeds selected</p>";
+		}
 
 		foreach ($urls as $rss) {
 			$result .= "<div class='feed roundBox'>";

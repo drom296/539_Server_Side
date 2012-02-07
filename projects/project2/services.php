@@ -17,7 +17,7 @@ $output .= addNav();
 $output .= startContentDiv();
 
 // add the news feeds
-$output .= P2_Utils::addNewsFeeds();
+$output .= P2_Utils::addNewsFeeds(P2_Utils::$feedXMLName);
 
 // close content container
 $output .= closeContentDiv();

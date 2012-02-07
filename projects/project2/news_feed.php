@@ -12,41 +12,49 @@ $adminField = "adminPass";
 if (isset($_POST['submit']) && isset($_POST[$adminField]) && isCorrectPassword($_POST[$adminField])) {
 	// TODO: better form validation
 
+	// setup feeds
+	$feeds = array();
+
 	// check if set
 	if ((isset($_POST['feeds'])) && is_array($_POST['feeds'])) {
-		// set the ini file
+		// get fields
 		$feeds = $_POST['feeds'];
-		$feedCount = count($feeds);
-		
-		$min = 0;
-		$max = 10;
-		
-		// check if the amount selected falls in the range
-		if ($feedCount >= $min && $feedCount <= $max) {
-			P2_Utils::saveFeeds(P2_Utils::$feedXMLName, $feeds);
-			$passed = true;
-		} else{
-			$errors .= "<p>You can only select $min to $max feeds. <br />You selected: ".$feedCount." feeds.</p>";
-		}
 	}
-	
+
+	$feedCount = count($feeds);
+
+	$min = 0;
+	$max = 10;
+
+	// check if the amount selected falls in the range
+	if ($feedCount >= $min && $feedCount <= $max) {
+		P2_Utils::saveFeeds(P2_Utils::$feedXMLName, $feeds);
+		$passed = true;
+	} else {
+		$errors .= "<p>You can only select $min to $max feeds. <br />You selected: " . $feedCount . " feeds.</p>";
+	}
+
+	// reset the feeds
+	$feeds = array();
+
 	// check if set
 	if ((isset($_POST['webfeeds'])) && is_array($_POST['webfeeds'])) {
 		// set the ini file
 		$feeds = $_POST['webfeeds'];
-		$feedCount = count($feeds);
-		
-		$min = 0;
-		$max = 3;
-		
-		// check if the amount selected falls in the range
-		if ($feedCount >= $min && $feedCount <= $max) {
-			P2_Utils::saveFeeds(P2_Utils::$choosenWebFeeds, $feeds);
-			$passed = true;
-		} else{
-			$errors .= "<p>You can only select $min to $max feeds. <br />You selected: ".$feedCount." feeds.</p>";
-		}
 	}
+	$feedCount = count($feeds);
+
+	$min = 0;
+	$max = 3;
+
+	// check if the amount selected falls in the range
+	if ($feedCount >= $min && $feedCount <= $max) {
+		P2_Utils::saveFeeds(P2_Utils::$choosenWebFeeds, $feeds);
+		$passed = true;
+	} else {
+		$errors .= "<p>You can only select $min to $max feeds. <br />You selected: " . $feedCount . " feeds.</p>";
+	}
+
 }
 
 $styles = array("css/pedro.css", "css/nav.css");
