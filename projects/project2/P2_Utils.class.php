@@ -204,7 +204,7 @@ class P2_Utils {
 		$result = "";
 
 		// the title
-		$result .= "<h1>News Feeds</h1>";
+		$result .= "<h1 class='center'>News Feeds</h1>";
 
 		// link to my RSS
 		$result .= "<p class='rssFeed'><a href='project2.rss'>RSS Feed</a></p>";

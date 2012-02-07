@@ -19,6 +19,15 @@ $output .= addNewsContent(true, 0, $numItems);
 // add link to user info
 $output .= "<p id='userLink'><a href='about.php'>Your Browser info</a></p>";
 
+// start content container
+$output .= startContentDiv();
+
+// add the news feeds
+$output .= P2_Utils::addNewsFeeds(P2_Utils::$choosenWebFeeds);
+
+// close content container
+$output .= closeContentDiv();
+
 // create footer
 $output .= html_footer("");
 

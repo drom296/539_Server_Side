@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <feeds>
 	<feed>
-		<name>Pedro Feed</name>
-		<url>http://people.rit.edu/~pjm8632/539/project2/project2.rss</url>
+		<name>The Simple Dollar</name>
+		<url>http://feeds.feedburner.com/thesimpledollar</url>
 	</feed>
 	<feed>
-		<name>Matt Feed</name>
-		<url>http://people.rit.edu/~met8481/539/project2/project2.rss</url>
+		<name>LifeHacker</name>
+		<url>http://feeds.gawker.com/lifehacker/full</url>
 	</feed>
+	
+	<feed>
+		<name>GO2WEB20</name>
+		<url>http://feeds.feedburner.com/go2web20net</url>
+	</feed>
+	
+	
 </feeds>

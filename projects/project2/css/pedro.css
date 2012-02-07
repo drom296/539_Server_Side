@@ -314,3 +314,6 @@ form p.ad_Label > span {
 /*	color: #555544;*/
 	color: black;
 }
+.center{
+	text-align: center;
+}
