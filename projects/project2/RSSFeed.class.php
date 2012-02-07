@@ -128,7 +128,7 @@ class RSSFeed {
 		$dt = new DateTime($date, new DateTimeZone('GMT'));
 
 		// $date = $dt -> format("D, d M Y G:i:s e");
-		$date = $dt -> format("D, d M Y G:i:s");
+		$date = $dt -> format("D, d M Y H:i:s");
 		// TODO: This is wrong and should be fixed
 		$date .= " GMT";
 

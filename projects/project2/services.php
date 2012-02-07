@@ -5,7 +5,7 @@ require_once ("P2_Utils.class.php");
 $styles = array("css/pedro.css", "css/nav.css");
 
 // create header tags
-$output = html_header("News", $styles);
+$output = html_header("Services", $styles);
 
 // create banner div
 $output .= addBanner();
