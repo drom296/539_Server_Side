@@ -32,7 +32,7 @@ function displayColInfo($tableName) {
 
 	$colsInfo = $db -> getColInfo($tableName);
 
-	$result .= "<h2>Column Info for: $table</h2>";
+	$result .= "<h2>Column Info for: $table</h2>\n";
 
 	// setup the table
 	$result .= "<table border='1'>\n";
@@ -60,7 +60,7 @@ function displayColInfo($tableName) {
 	}
 
 	// setup the table
-	$result .= "</table>";
+	$result .= "</table>\n";
 
 	return $result;
 }
