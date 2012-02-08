@@ -189,7 +189,7 @@ class Database {
 				$field = $metadata -> fetch_fields();
 
 				foreach ($field as $val) {
-					$this -> column_info[$val -> name] = array("length" => $val -> length, "type" => $this -> get_type_name($val -> type, $val -> length, $val -> decimals, $val -> charsetnr, $val -> flags), "flags" => $val - flags);
+					$this -> column_info[$val -> name] = array("length" => $val -> length, "type" => $this -> get_type_name($val -> type, $val -> length, $val -> decimals, $val -> charsetnr, $val -> flags), "flags" => $val -> flags);
 				}
 			}
 

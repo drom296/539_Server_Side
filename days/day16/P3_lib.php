@@ -2,25 +2,78 @@
 
 require_once ('Database.class.php');
 
-function getCityInfo($pageNum){
+/**
+ * Expects an array of associative arrays, returns it as a table in HTML
+ *
+ */
+function displayAssocArrayT($twoDarray) {
+	$result = "";
+
+	// var_dump($twoDarray);
+
+	// setup the table
+	$result .= "<table border='1'>\n";
+
+	// setup the table headers
+	$result .= "\t<tr>\n";
+
+	// get the keys
+	// by getting the first element, array
+	// then get that arrays keys
+	$keys = array_keys(array_pop(array_slice($twoDarray, 0, 1)));
+	// cycle thru the keys
+	foreach ($keys as $key) {
+		$result .= "\t\t<th>$key</th>\n";
+	}
+	$result .= "\t</tr>\n";
+
+	// fill the table
+	foreach ($twoDarray as $assocArray) {
+		// var_dump($assocArray);
+		$result .= "\t<tr>\n";
+		foreach ($assocArray as $elem) {
+			$result .= "\t\t<td>$elem</td>\n";
+
+			// var_dump($elem);
+		}
+		$result .= "\t</tr>\n";
+	}
+
+	// close the table
+	$result .= "</table>\n";
+
+	// return the result
+	return $result;
+}
+
+function getCityInfo($pageNum) {
 	$result = "";
 	// number of items to get
 	$numItems = 10;
-	
+
 	// start offset
-	$start = ($pageNum-1)*10;
-		
+	$start = ($pageNum - 1) * 10;
+
 	// write the query
-	$query = "select city, county, start, zip ";
+	$query = "select city, county, state, zip ";
 	$query .= "from demo_zipcode ";
 	$query .= "order by city, county, state, zip ";
-	$query .= "limit $start, $numItems";
-	
+	$query .= "limit ?, ?";
+
+	// setup the arrays vars for the query
+	$vars = array($start, $numItems);
+	$types = array("i", "i");
+
 	//get a singleton instance of the database class
 	$db = Database::getInstance();
-	
-	return $result;	
+
+	// run the query
+	$result = $db -> doQuery($query, $vars, $types);
+
+	return $result;
 }
+
+
 
 /**
  * Returns the html for an ordered list consisting of the column names of the table
@@ -58,7 +111,7 @@ function displayColInfo($tableName) {
 
 	$colsInfo = $db -> getColInfo($tableName);
 
-	$result .= "<h2>Column Info for: $table</h2>\n";
+	$result .= "<h2>Column Info for: $tableName</h2>\n";
 
 	// setup the table
 	$result .= "<table border='1'>\n";
@@ -72,27 +125,26 @@ function displayColInfo($tableName) {
 	// get the keys
 	// by getting the first element, array
 	// then get that arrays keys
-	$keys = array_keys(array_pop(array_slice($colsInfo,0,1)));
-	
-	foreach($keys as $key){
-		$result .= "\t\t<th>$key</th>\n";	
+	$keys = array_keys(array_pop(array_slice($colsInfo, 0, 1)));
+
+	foreach ($keys as $key) {
+		$result .= "\t\t<th>$key</th>\n";
 	}
-	
+
 	// this way is probably quicker
 	// $result .= "\t\t<th>Type</th>\n";
 	// $result .= "\t\t<th>Null</th>\n";
 	// $result .= "\t\t<th>Key</th>\n";
 	// $result .= "\t\t<th>Default</th>\n";
 	// $result .= "\t\t<th>Extra</th>\n";
-	
-	
+
 	$result .= "\t</tr>\n";
 
 	// fill the table
 	foreach ($colsInfo as $field => $colInfo) {
 		$result .= "\t<tr>\n";
 		$result .= "\t\t<td>$field</th>\n";
-		foreach($colInfo as $col){
+		foreach ($colInfo as $col) {
 			$result .= "\t\t<td>" . $col . "</td>\n";
 		}
 		// $result .= "\t\t<td>" . $colInfo["Type"] . "</td>\n";
