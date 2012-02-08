@@ -1,31 +1,45 @@
-/*modernizer code*/
-/* IE6 css fixer v0.95: Sat, 21 Jan 2012 22:01:03 +0100 */
-
-/* ============================================= */
-/* safe settings                                 */
-
-/* add display:inline to floated elements */
+/* CSSTidy 1.3dev: Tue, 07 Feb 2012 18:42:39 +0100 */
 #editorial {
+	-moz-border-radius-bottomleft: 15px;
+	-moz-border-radius-bottomright: 0;
+	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 0;
+	-webkit-border-radius: 15px 0 0 15px;
+	background-color: #cb8;
+	border-radius: 15px 0 0 15px;
+	color: #000;
 	display: inline;
+	float: left;
+	margin-right: 2%;
+	max-width: 50%;
+	padding: 0 2%;
+	width: 255px;
 }
-/* convert min height values */
 #page {
 	height: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	min-height: 50%;
+	min-width: 600px;
+	width: 70%;
 }
-/* fix negative margins */
 #banner {
+	border-left-width: 2px;
+	border-right-width: 2px;
+	border-style: solid;
+	border-top-width: 2px;
 	position: relative;
 	zoom: 1;
 }
-/* add zoom:1 to overflow:hidden */
 #content {
+	border: 2px solid;
+	margin-top: 2%;
+	overflow: hidden;
 	zoom: 1;
 }
-/* add overflow:visible to (submit) buttons */
 input, button {
 	overflow: visible;
 }
-/*my code*/
 * {
 	margin: 0;
 	padding: 0;
@@ -34,122 +48,77 @@ input, button {
 	clear: both;
 }
 body {
-	background-color: #776655;
-	color: #555544;
-	background-image: url(../img/minimalfly.jpg);
-	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-color: rgba(0,0,0,0.8);
+	background-image: url(../img/minimalfly.jpg);
+	background-repeat: no-repeat;
 	background-size: cover;
-}
-#page {
-	min-width: 600px;
-	min-height: 50%;
-	width: 70%;
-	margin-left: auto;
-	margin-right: auto;
+	color: #554;
 }
 #content, #banner, #nav, #news, #editorial {
-	background-color: #ccbb88;
-	background-color: rgb(204,187,136);
 	background-color: rgba(204,187,136,.5);
 }
 .roundBox {
-	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
 	border-radius: 15px;
-}
-#banner {
-	border-top-width: 2px;
-	border-right-width: 2px;
-	border-left-width: 2px;
-	border-style: solid;
-	/*	This was added b/c for some odd white space after the pic*/
-	/*	margin-bottom: -4px;*/
-	/**********************/
-	/*	overflow: hidden;*/
 }
 #banner > img {
 	margin: 0;
 }
 #banner > #ad {
-	height: 100px;
-	/*	width: 50px;*/
-	/*	done to center the image*/
 	display: block;
-	margin: auto;
-	margin-top: -105px;
-	/* ++++++++++++++++ */
-}
-#content {
-	margin-top: 2%;
-	border: 2px solid;
-	overflow: hidden;
-	/*	width: inherit;*/
+	height: 100px;
+	margin: -105px auto auto;
 }
 #content h1, #content h2 {
 	text-align: center;
 }
-#editorial {
-	max-width: 50%;
-	width: 255px;
-	color: black;
-	float: left;
-	padding: 0 2% 0 2%;
-	margin-right: 2%;
-	background-color: rgb(204,187,136);
-	-moz-border-radius-topleft: 15px;
-	-moz-border-radius-topright: 0px;
-	-moz-border-radius-bottomright: 0px;
-	-moz-border-radius-bottomleft: 15px;
-	-webkit-border-radius: 15px 0px 0px 15px;
-	border-radius: 15px 0px 0px 15px;
-}
 #editorial > img {
-	padding: 0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	padding: 0;
 }
 #editorial p {
 	margin: 3%;
 }
 #news {
-	padding: 0 2% 2% 2%;
-	color: black;
+	color: #000;
+	padding: 0 2% 2%;
 }
 .newsItem {
-	margin-bottom: 1%;
 	background-color: rgba(204,187,136,.85);
+<<<<<<< HEAD
 	padding: 2%;
+=======
+	margin-bottom: 1%;
+>>>>>>> 5a9be9ad7ae4b7074133713cf29091eeb5189cea
 }
 .newsItem + div {
 	border-top: 2px dashed;
 	padding-top: 1%;
 }
 .newsSubject {
-	font-weight: bold;
 	font-size: 1.3em;
+	font-weight: 700;
 }
 .newsDate {
-	font-style: italic;
 	font-size: .77em;
+	font-style: italic;
 	margin-left: 1em;
 }
 #newsNav {
-	width: 6em;
-	background-color: #555544;
-	color: #eeddbb;
-	text-align: center;
-	font-size: 1.2em;
+	background-color: #554;
+	color: #edb;
 	display: block;
+	font-size: 1.2em;
 	margin-left: auto;
 	margin-right: auto;
-}
-#newsNav a {
-	color: #eeddbb;
+	text-align: center;
+	width: 6em;
 }
 #curNewsPage {
 	font-weight: bolder;
@@ -160,15 +129,15 @@ body {
 }
 #adminLinks {
 	list-style-type: none;
-	width: 40em;
 	margin: auto;
+	width: 40em;
 }
 #adminLinks a {
+	color: #edb;
 	text-decoration: none;
-	color: #eeddbb;
 }
 #adminLinks li {
-	background-color: #555544;
+	background-color: #554;
 	float: left;
 	padding: 1.3%;
 }
@@ -179,106 +148,109 @@ body {
 	display: block;
 }
 #adminLinks li a:hover {
-	transition: background-color 1s;
-	/* Firefox 4 */
 	-moz-transition: background-color 1s;
-	/* Safari and Chrome */
-	/*	-webkit-transition: color 1s, background-color 1s, text-transform 1s;*/
-	-webkit-transition: background-color 1s;
-	/* Opera */
 	-o-transition: background-color 1s;
-	/*	font-weight: bolder;*/
-	background-color: #eeddbb;
-	color: #555544;
-	/*	text-transform: uppercase;*/
+	-webkit-transition: background-color 1s;
+	background-color: #edb;
+	color: #554;
+	transition: background-color 1s;
 }
 form {
-	width: 70%;
-	margin: 2% auto 2% auto;
+	margin: 2% auto;
 	text-align: center;
-	/*	padding-right: 25%;*/
-	/*	padding-left: 25%;*/
+	width: 70%;
 }
 form input, form textarea, form input[type="submit"], #userInfo {
-	border-color: #555544;
-	background-color: #555544;
-	color: #eeddbb;
+	background-color: #554;
+	border-color: #554;
+	color: #edb;
 }
 form label {
 	margin-right: 2%;
 }
 form input {
-	margin: .4% 0 .4% 0;
+	margin: .4% 0;
 }
 form img {
 	height: 100px;
-	width: 100px;
 	margin-right: 2%;
+	width: 100px;
 }
 form fieldset {
-	border-color: #555544;
+	border-color: #554;
 	margin-bottom: 1%;
 }
 form input[type="submit"], form input[type="reset"] {
-	width: 5em;
 	margin: 1%;
+	width: 5em;
 }
 form label[for="adminPass"] {
-	font-weight: bold;
+	font-weight: 700;
 }
 #fromAcknowledge {
-	text-align: center;
 	font-size: 1.1em;
-	font-weight: bold;
+	font-weight: 700;
+	text-align: center;
 }
 form textarea {
+	font-size: 1.2em;
+	height: 15em;
 	padding: 2%;
 	width: 90%;
-	height: 15em;
-	font-size: 1.2em;
 }
 #userInfo, .midBox {
-	width: 70%;
-	margin: 2% auto 2% auto;
+	margin: 2% auto;
 	padding: 2%;
+	width: 70%;
 }
 #userInfo ul {
 	list-style: none;
 }
 #userLink {
+	background-color: #554;
+	border-color: #554;
+	color: #edb;
+	margin: 1% auto;
 	text-align: center;
 	width: 8em;
-	margin: 1% auto;
-	border-color: #555544;
-	background-color: #555544;
-	color: #eeddbb;
-}
-#userLink a {
-	color: #eeddbb;
 }
 form .adInput {
 	text-align: center;
 	width: 4em;
 }
 form p.ad_Label {
+<<<<<<< HEAD
+=======
+	font-weight: 700;
+>>>>>>> 5a9be9ad7ae4b7074133713cf29091eeb5189cea
 	margin-left: 7em;
-	font-weight: bold;
 }
 form p.ad_Label > span {
 	margin-left: .8em;
 }
 .feeds {
+<<<<<<< HEAD
+=======
+	background-color: #554;
+	color: #edb;
+	margin: auto;
+>>>>>>> 5a9be9ad7ae4b7074133713cf29091eeb5189cea
 	padding: 2%;
+	text-align: left;
 	width: 28%;
+<<<<<<< HEAD
 	margin: auto;
 	background-color: #555544;
 	color: #eeddbb;
 	text-align: left;
+=======
+>>>>>>> 5a9be9ad7ae4b7074133713cf29091eeb5189cea
 }
 .feeds input[type="checkbox"] {
 	float: left;
 	margin-right: 1em;
 }
+<<<<<<< HEAD
 .rssFeed {
 	text-align: center;
 }
@@ -317,3 +289,8 @@ form p.ad_Label > span {
 .center{
 	text-align: center;
 }
+=======
+#newsNav a, #userLink a {
+	color: #edb;
+}
+>>>>>>> 5a9be9ad7ae4b7074133713cf29091eeb5189cea
