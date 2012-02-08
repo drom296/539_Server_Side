@@ -2,6 +2,29 @@
 
 require_once ('Database.class.php');
 
+function getCityInfo($pageNum){
+	$result = "";
+	// number of items to get
+	$numItems = 10;
+	
+	// start offset
+	$start = ($pageNum-1)*10;
+		
+	// write the query
+	$query = "select city, county, start, zip ";
+	$query .= "from demo_zipcode ";
+	$query .= "order by city, county, state, zip ";
+	$query .= "limit $start, $numItems";
+	
+	//get a singleton instance of the database class
+	$db = Database::getInstance();
+	
+	return $result;	
+}
+
+/**
+ * Returns the html for an ordered list consisting of the column names of the table
+ */
 function displayColNames($tableName) {
 	$result = "";
 
@@ -24,6 +47,9 @@ function displayColNames($tableName) {
 	return $result;
 }
 
+/**
+ * Returns the html for a table consisting of the column info for the specified table
+ */
 function displayColInfo($tableName) {
 	$result = "";
 
@@ -40,22 +66,40 @@ function displayColInfo($tableName) {
 	// setup the table headers
 	$result .= "\t<tr>\n";
 	$result .= "\t\t<th>Column</th>\n";
-	$result .= "\t\t<th>Type</th>\n";
-	$result .= "\t\t<th>Null</th>\n";
-	$result .= "\t\t<th>Key</th>\n";
-	$result .= "\t\t<th>Default</th>\n";
-	$result .= "\t\t<th>Extra</th>\n";
+
+	// var_dump(array_pop(array_slice($colsInfo,0,1)));
+
+	// get the keys
+	// by getting the first element, array
+	// then get that arrays keys
+	$keys = array_keys(array_pop(array_slice($colsInfo,0,1)));
+	
+	foreach($keys as $key){
+		$result .= "\t\t<th>$key</th>\n";	
+	}
+	
+	// this way is probably quicker
+	// $result .= "\t\t<th>Type</th>\n";
+	// $result .= "\t\t<th>Null</th>\n";
+	// $result .= "\t\t<th>Key</th>\n";
+	// $result .= "\t\t<th>Default</th>\n";
+	// $result .= "\t\t<th>Extra</th>\n";
+	
+	
 	$result .= "\t</tr>\n";
 
 	// fill the table
 	foreach ($colsInfo as $field => $colInfo) {
 		$result .= "\t<tr>\n";
 		$result .= "\t\t<td>$field</th>\n";
-		$result .= "\t\t<td>" . $colInfo["Type"] . "</th>\n";
-		$result .= "\t\t<td>" . $colInfo["Null"] . "</th>\n";
-		$result .= "\t\t<td>" . $colInfo["Key"] . "</th>\n";
-		$result .= "\t\t<td>" . $colInfo["Default"] . "</th>\n";
-		$result .= "\t\t<td>" . $colInfo["Extra"] . "</th>\n";
+		foreach($colInfo as $col){
+			$result .= "\t\t<td>" . $col . "</td>\n";
+		}
+		// $result .= "\t\t<td>" . $colInfo["Type"] . "</td>\n";
+		// $result .= "\t\t<td>" . $colInfo["Null"] . "</td>\n";
+		// $result .= "\t\t<td>" . $colInfo["Key"] . "</td>\n";
+		// $result .= "\t\t<td>" . $colInfo["Default"] . "</td>\n";
+		// $result .= "\t\t<td>" . $colInfo["Extra"] . "</td>\n";
 		$result .= "\t</tr>\n";
 	}
 
