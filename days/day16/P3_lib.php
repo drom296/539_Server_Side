@@ -73,7 +73,58 @@ function getCityInfo($pageNum) {
 	return $result;
 }
 
+function getInfo($tables, $wheres, $orderbys, $page, $fields = "*", $numRecs = null) {
+	$result = "";
+	// number of items to get
 
+	// start offset
+	if (is_int($numRecs)) {
+		$start = ($pageNum - 1) * $numRecs;
+	}
+
+	// write the query
+	// here's to hoping they passed in the fields they wanted as an array
+	if (is_array($fields)) {
+		$fields = implode(",", $fields);
+	} else {
+		$fields = "*";
+	}
+
+	// set up the tables
+	if (is_array($tables)) {
+		$tables = implode(",", $tables);
+	}
+
+	// set up the orderbys
+	if (is_array($orderbys)) {
+		$orderbys = implode(",", $orderbys);
+	}
+
+	$query = "select $fields ";
+	$query .= "from $tables ";
+	$query .= "order by $orderbys ";
+
+	if (is_int($numRecs)) {
+		$query .= "limit ?, ?";
+	}
+
+	// setup the arrays vars for the query
+	if (is_int($numRecs)) {
+		$vars = array($start, $numItems);
+		$types = array("i", "i");
+	} else {
+		$vars = array();
+		$types = array();
+	}
+
+	//get a singleton instance of the database class
+	$db = Database::getInstance();
+
+	// run the query
+	$result = $db -> doQuery($query, $vars, $types);
+
+	return $result;
+}
 
 /**
  * Returns the html for an ordered list consisting of the column names of the table
