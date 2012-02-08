@@ -1,9 +1,9 @@
 <?php
 
 class Page {
-   
-   static function header($title='untitled', $stylesheet='dummy.css'){
-   	return <<<END
+
+	static function header($title = 'untitled', $stylesheet = 'dummy.css') {
+		return <<<END
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +13,14 @@ class Page {
 </head>
 <body>
 END;
-   }
-   
+	}
+
 	static function footer() {
 		return <<<END
 </body>
 </html>
 END;
-   }
-   
- } // end class Page
+	}
+
+} // end class Page
 ?>
