@@ -2,14 +2,85 @@
 
 require_once ('Database.class.php');
 
+function deleteCity(){
+	$query = "delete from demo_zipcode where zip = ?";
+
+	$vars = array("99999");
+	$types = array("s");
+
+	//get a singleton instance of the database class
+	$db = Database::getInstance();
+
+	$err = $db -> doQuery($query, $vars, $types);
+	
+	return $err;
+}
+
+function updateCity() {
+	$query = "update demo_zipcode set county = ?, areacode = ? where zip = ?";
+
+	$vars = array("Erie", "716", "99999");
+	$types = array("s", "s", "s");
+
+	//get a singleton instance of the database class
+	$db = Database::getInstance();
+
+	$err = $db -> doQuery($query, $vars, $types);
+	
+	return $err;
+}
+
+function insertCity() {
+	// query:
+	$sql = "insert into demo_zipcode values(?,?,?,?,?,?,?,?)";
+
+	$vars = array("99999", "My City", "My County", "NY", "518", "40.81", "-73.04", "EST");
+
+	$types = array("s", "s", "s", "s", "s", "s", "s", "s");
+
+	//get a singleton instance of the database class
+	$db = Database::getInstance();
+
+	//execute query
+	$err = $db -> doQuery($sql, $vars, $types);
+
+	return $err;
+}
+
+function displayCityPageInfo($pageNum, $numItems) {
+	$error = getCityInfo($pageNum, $numItems);
+	if (empty($error)) {
+		// display as table
+		echo "<h2>Page $pageNum</h2>\n";
+
+		//get a singleton instance of the database class
+		$db = Database::getInstance();
+
+		// display assoc array
+		echo displayAssocArrayT($db -> fetch_all_array());
+	}
+}
+
+function displayCityStatePageInfo($pageNum, $numItems) {
+	$error = getCityStateInfo($pageNum, $numItems);
+	if (empty($error)) {
+		// display as table
+		echo "<h2>Page $pageNum - using Join</h2>\n";
+
+		//get a singleton instance of the database class
+		$db = Database::getInstance();
+
+		// display assoc array
+		echo displayAssocArrayT($db -> fetch_all_array());
+	}
+}
+
 /**
  * Expects an array of associative arrays, returns it as a table in HTML
  *
  */
 function displayAssocArrayT($twoDarray) {
 	$result = "";
-
-	// var_dump($twoDarray);
 
 	// setup the table
 	$result .= "<table border='1'>\n";
@@ -46,76 +117,25 @@ function displayAssocArrayT($twoDarray) {
 	return $result;
 }
 
-function getCityInfo($pageNum) {
+function getCityStateInfo($pageNum, $numItems, $field = "statename", $from = "join demo_state on state=abbrev") {
+	return getCityInfo($pageNum, $numItems, $field, $from);
+}
+
+function getCityInfo($pageNum, $numItems = 10, $field = "state", $from = "") {
 	$result = "";
-	// number of items to get
-	$numItems = 10;
 
 	// start offset
-	$start = ($pageNum - 1) * 10;
+	$start = ($pageNum - 1) * $numItems;
 
 	// write the query
-	$query = "select city, county, state, zip ";
-	$query .= "from demo_zipcode ";
-	$query .= "order by city, county, state, zip ";
+	$query = "select city, county, $field, zip ";
+	$query .= "from demo_zipcode $from ";
+	$query .= "order by city ";
 	$query .= "limit ?, ?";
 
 	// setup the arrays vars for the query
 	$vars = array($start, $numItems);
 	$types = array("i", "i");
-
-	//get a singleton instance of the database class
-	$db = Database::getInstance();
-
-	// run the query
-	$result = $db -> doQuery($query, $vars, $types);
-
-	return $result;
-}
-
-function getInfo($tables, $wheres, $orderbys, $page, $fields = "*", $numRecs = null) {
-	$result = "";
-	// number of items to get
-
-	// start offset
-	if (is_int($numRecs)) {
-		$start = ($pageNum - 1) * $numRecs;
-	}
-
-	// write the query
-	// here's to hoping they passed in the fields they wanted as an array
-	if (is_array($fields)) {
-		$fields = implode(",", $fields);
-	} else {
-		$fields = "*";
-	}
-
-	// set up the tables
-	if (is_array($tables)) {
-		$tables = implode(",", $tables);
-	}
-
-	// set up the orderbys
-	if (is_array($orderbys)) {
-		$orderbys = implode(",", $orderbys);
-	}
-
-	$query = "select $fields ";
-	$query .= "from $tables ";
-	$query .= "order by $orderbys ";
-
-	if (is_int($numRecs)) {
-		$query .= "limit ?, ?";
-	}
-
-	// setup the arrays vars for the query
-	if (is_int($numRecs)) {
-		$vars = array($start, $numItems);
-		$types = array("i", "i");
-	} else {
-		$vars = array();
-		$types = array();
-	}
 
 	//get a singleton instance of the database class
 	$db = Database::getInstance();
@@ -161,6 +181,10 @@ function displayColInfo($tableName) {
 	$db = Database::getInstance();
 
 	$colsInfo = $db -> getColInfo($tableName);
+
+	if (!$colsInfo) {
+		return "No Column Info was returned: " . $db -> getError();
+	}
 
 	$result .= "<h2>Column Info for: $tableName</h2>\n";
 

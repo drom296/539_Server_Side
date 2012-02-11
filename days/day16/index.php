@@ -29,22 +29,40 @@ foreach ($tableNames as $tableName) {
 }
 
 // display city info for page 3
-displayCityPageInfo($db, 3);
+displayCityPageInfo(3, 10);
 
 // display city info for page 10
-displayCityPageInfo($db, 10);
+displayCityPageInfo(10, 10);
 
-function displayCityPageInfo($db, $pageNum) {
-	$error = getCityInfo($pageNum);
-	if (empty($error)) {
-		// display as table
-		echo "<h2>Page $pageNum</h2>\n";
+// display city state info for page 25
+displayCityStatePageInfo(25, 15);
 
-		// display assoc array
-		echo displayAssocArrayT($db -> fetch_all_array());
-	}
+// insert record
+$err = insertCity();
+
+if(empty($err)){
+	echo "<p><strong>Record was successfully added!</strong></p>";
+} else{
+	echo "<p>There was an error: $err</p>";
 }
 
+// update record
+$err = updateCity();
+
+if(empty($err)){
+	echo "<p><strong>Record was successfully updated!</strong></p>";
+} else{
+	echo "<p>There was an error: $err</p>";
+}
+
+// delete record
+$err = deleteCity();
+
+if(empty($err)){
+	echo "<p><strong>Record was successfully deleted!</strong></p>";
+} else{
+	echo "<p>There was an error: $err</p>";
+}
 
 
 echo Page::footer();
