@@ -2,7 +2,7 @@
 
 require_once ('Database.class.php');
 
-function deleteCity(){
+function deleteCity() {
 	$query = "delete from demo_zipcode where zip = ?";
 
 	$vars = array("99999");
@@ -12,7 +12,7 @@ function deleteCity(){
 	$db = Database::getInstance();
 
 	$err = $db -> doQuery($query, $vars, $types);
-	
+
 	return $err;
 }
 
@@ -26,7 +26,7 @@ function updateCity() {
 	$db = Database::getInstance();
 
 	$err = $db -> doQuery($query, $vars, $types);
-	
+
 	return $err;
 }
 
@@ -92,7 +92,7 @@ function displayAssocArrayT($twoDarray) {
 	// by getting the first element, array
 	// then get that arrays keys
 	$keys = array_keys(array_pop(array_slice($twoDarray, 0, 1)));
-	// cycle thru the keys
+	// cycle thru the keys to get the headers
 	foreach ($keys as $key) {
 		$result .= "\t\t<th>$key</th>\n";
 	}
