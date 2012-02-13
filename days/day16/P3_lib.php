@@ -57,7 +57,7 @@ function displayCityPageInfo($pageNum, $numItems) {
 		$db = Database::getInstance();
 
 		// display assoc array
-		echo displayAssocArrayT($db -> fetch_all_array());
+		echo getHTMLTable($db -> fetch_all_array());
 	}
 }
 
@@ -71,7 +71,7 @@ function displayCityStatePageInfo($pageNum, $numItems) {
 		$db = Database::getInstance();
 
 		// display assoc array
-		echo displayAssocArrayT($db -> fetch_all_array());
+		echo getHTMLTable($db -> fetch_all_array());
 	}
 }
 
@@ -79,7 +79,7 @@ function displayCityStatePageInfo($pageNum, $numItems) {
  * Expects an array of associative arrays, returns it as a table in HTML
  *
  */
-function displayAssocArrayT($twoDarray) {
+function getHTMLTable($twoDarray) {
 	$result = "";
 
 	// setup the table
