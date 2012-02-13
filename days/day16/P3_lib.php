@@ -91,7 +91,7 @@ function displayAssocArrayT($twoDarray) {
 	// get the keys
 	// by getting the first element, array
 	// then get that arrays keys
-	$keys = array_keys(array_pop(array_slice($twoDarray, 0, 1)));
+	$keys = array_keys($twoDarray[0]);
 	// cycle thru the keys
 	foreach ($keys as $key) {
 		$result .= "\t\t<th>$key</th>\n";
