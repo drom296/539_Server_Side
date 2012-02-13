@@ -2,7 +2,7 @@
 
 require_once ('Database.class.php');
 
-function deleteCity(){
+function deleteCity() {
 	$query = "delete from demo_zipcode where zip = ?";
 
 	$vars = array("99999");
@@ -12,7 +12,7 @@ function deleteCity(){
 	$db = Database::getInstance();
 
 	$err = $db -> doQuery($query, $vars, $types);
-	
+
 	return $err;
 }
 
@@ -26,7 +26,7 @@ function updateCity() {
 	$db = Database::getInstance();
 
 	$err = $db -> doQuery($query, $vars, $types);
-	
+
 	return $err;
 }
 
