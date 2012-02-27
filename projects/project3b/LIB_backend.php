@@ -27,8 +27,8 @@ function getNodeValue($domNode) {
  * Uses the getItems() to get an associative array
  * 
  */
-function getNews($pageNum, $newsCount){
-	return getItem(NEWS_URL."?page=$pageNum&count=$newsCount");
+function getNewsInfo($pageNum, $count){
+	return getItem(NEWS_URL."?page=$pageNum&count=$count");
 }
 
 /**
@@ -36,8 +36,8 @@ function getNews($pageNum, $newsCount){
  * Uses the getItems() to get an associative array
  * 
  */
-function getAds($pageNum, $newsCount){
-	return getItem(ADS_URL."?page=$pageNum&count=$newsCount");
+function getAdsInfo($pageNum, $count){
+	return getItem(ADS_URL."?page=$pageNum&count=$count");
 }
 
 /**

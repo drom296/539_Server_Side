@@ -6,12 +6,6 @@ define('EDITORIAL_PIC', 'img/editor2.jpg');
 
 require_once ("LIB_backend.php");
 
-$totalNewsItems;
-$pageNum;
-$maxPages;
-$numNewsItems;
-$prefs;
-
 function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	$string = <<<END
 <!DOCTYPE html>
@@ -150,12 +144,7 @@ function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, 
 	}
 
 	// create the news items
-	$result .= addNews($pageNum, $numItems);
-
-	// create the news nav
-	if ($includeNewsNav) {
-		$result .= addNewsNav();
-	}
+	$result .= addNews($pageNum, $numItems, $includeNewsNav);
 
 	// close the container div
 	$result .= "</div> <!-- id='content'-->" . "\n";
@@ -164,7 +153,7 @@ function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, 
 	return $result;
 }
 
-function addNews($pageNum, $numItems) {
+function addNews($pageNum, $numItems, $includeNewsNav=true) {
 	// setup container div
 	$result = '<div id="news" class="roundBox">' . "\n";
 
@@ -172,8 +161,9 @@ function addNews($pageNum, $numItems) {
 	$result .= "<h1>News</h1>" . "\n";
 
 	// get X news items
-	$newsItems = getXStories($pageNum, $numItems);
+	$data = getNewsInfo($pageNum, $numItems);
 	
+	$newsItems = $data['items'];
 	// loop thru the stories
 	foreach ($newsItems as $newsItem) {
 
@@ -181,7 +171,7 @@ function addNews($pageNum, $numItems) {
 		$result .= '<div class="newsItem">' . "\n";
 
 		// setup container
-		$result .= "<p>" . "\n";
+		$result .= "<p class='newsData'>" . "\n";
 
 		// set up the subject
 		$result .= '<span class="newsSubject">' . $newsItem['subject'] . '</span>' . "\n";
@@ -189,8 +179,10 @@ function addNews($pageNum, $numItems) {
 		// set up the date
 		$result .= '<span class="newsDate">' . $newsItem['pubDate'] . '</span>' . "\n";
 
-		// setup the editions
-		$result .= '<p class="newsDate">Editions: ' . implode(",", $newsItem['editions']) . '</p>' . "\n";
+		if(!empty($newsItem['editions'])){
+			// setup the editions
+			$result .= '<span class="edition"><span class="editionTitle">Editions</span>: ' . implode(",", $newsItem['editions']) . '</span>' . "\n";	
+		}
 
 		// close the container
 		$result .= "</p>" . "\n";
@@ -205,7 +197,61 @@ function addNews($pageNum, $numItems) {
 
 	// close container div
 	$result .= '</div> <!-- id="news" class="roundBox" -->' . "\n";
+	
+	// add the nav
+	if($includeNewsNav){
+		$pageNum = $data['pageNumber'];
+		$maxPages = $data['totalPages'];
+		$numItems = $data['numberPerPage'];
+		
+		$result .= addItemNav($pageNum, $maxPages, $numItems);
+	}
 
+	return $result;
+}
+
+function addItemNav($pageNum, $maxPages, $numItems) {
+	// check if the page Nunber exceeds the max number of pages
+	if ($pageNum > $maxPages) {
+		$pageNum = $maxPages;
+	}
+
+	// setup result
+	$result = "";
+
+	// setup container div
+	$result .= "<div>" . "\n";
+
+	$end = $pageNum * $numItems;
+	// $numNewsItems;
+	$start = $end - $numItems + 1;
+	
+	// setup the items showing info
+	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
+
+	// setup container
+	$result .= "<span id='newsNav'>" . "\n";
+
+	// setup the page links
+	if ($pageNum > 1) {
+		$result .= "<a href='news.php?page=1&count=$numItems'>&lt;&lt;</a> ";
+		$result .= "<a href='news.php?page=" . ($pageNum - 1) . "&count=$numItems'>&lt;</a> ";
+	}
+
+	$result .= "<span id='curNewsPage'>[" . ($pageNum) . "]</span> ";
+
+	if ($pageNum < $maxPages) {
+		$result .= "<a href='news.php?page=" . ($pageNum + 1) . "&count=$numItems'>&gt;</a> ";
+		$result .= "<a href='news.php?page=$maxPages'&count=$numItems>&gt;&gt;</a> ";
+	}
+
+	// setup container
+	$result .= "</span> <!-- id='newsNav -->" . "\n";
+
+	// close container div
+	$result .= "</div>" . "\n";
+
+	//return result
 	return $result;
 }
 
@@ -239,53 +285,6 @@ function getXStories($pageNumber, $numItems, $getAll = false) {
 	}
 
 	// return the result
-	return $result;
-}
-
-function addNewsNav() {
-	global $pageNum, $maxPages, $numNewsItems, $prefs;
-
-	// check if the page Nunber exceeds the max number of pages
-	if ($pageNum > $maxPages) {
-		$pageNum = $maxPages;
-	}
-
-	// setup result
-	$result = "";
-
-	// setup container div
-	$result .= "<div>" . "\n";
-
-	$end = $pageNum * $numNewsItems;
-	// $numNewsItems;
-	$start = $end - $numNewsItems + 1;
-
-	// TODO: fix bug with last page.
-	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
-
-	// setup container
-	$result .= "<span id='newsNav'>" . "\n";
-
-	// setup the page links
-	if ($pageNum > 1) {
-		$result .= "<a href='news.php?page=1&count=$numNewsItems'>&lt;&lt;</a> ";
-		$result .= "<a href='news.php?page=" . ($pageNum - 1) . "&count=$numNewsItems'>&lt;</a> ";
-	}
-
-	$result .= "<span id='curNewsPage'>[" . ($pageNum) . "]</span> ";
-
-	if ($pageNum < $maxPages) {
-		$result .= "<a href='news.php?page=" . ($pageNum + 1) . "&count=$numNewsItems'>&gt;</a> ";
-		$result .= "<a href='news.php?page=$maxPages'&count=$numNewsItems>&gt;&gt;</a> ";
-	}
-
-	// setup container
-	$result .= "</span> <!-- id='newsNav -->" . "\n";
-
-	// close container div
-	$result .= "</div>" . "\n";
-
-	//return result
 	return $result;
 }
 
