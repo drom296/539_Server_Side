@@ -1,13 +1,15 @@
 <?php
-require("LIB_project1.php");
+require ("LIB_project1.php");
 
-$offset=0;
-$numItems = getNumItems();
+$page = 1;
+$numItems = 5;
 
-if(isset($_GET['page'])){
-	if(($result = intval($_GET['page']))>0){
-		$offset = ($result -1)*$numItems;
-	}
+if (isset($_GET['page'])) {
+	$page = intval($_GET['page']);
+}
+
+if (isset($_GET['count'])) {
+	$numItems = intval($_GET['count']);
 }
 
 $styles = array("css/pedro.css", "css/nav.css");
@@ -22,7 +24,7 @@ $output .= addBanner();
 $output .= addNav();
 
 // add news and page nav
-$output .= addNewsContent(false, $offset, $numItems, true);
+$output .= addNewsContent(false, $page, $numItems, true);
 
 // create footer
 $output .= html_footer("");

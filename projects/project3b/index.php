@@ -13,8 +13,7 @@ $output .= addBanner();
 $output .= addNav();
 
 // add news and editorial
-$numItems = getNumItemsHome();
-$output .= addNewsContent(true, 0, $numItems);
+$output .= addNewsContent(true, 1, 3);
 
 // add link to user info
 $output .= "<p id='userLink'><a href='about.php'>Your Browser info</a></p>";
