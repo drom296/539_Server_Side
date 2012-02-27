@@ -85,6 +85,11 @@ function getItem($url) {
 
 		// grab the subject
 		$subject = getNodeValue($item -> getElementsByTagName('subject'));
+		
+		// if we don't have a subject, then we must have a title
+		if(!$subject){
+			$subject= getNodeValue($item -> getElementsByTagName('title'));
+		}
 
 		// grab the content
 		$content = getNodeValue($item -> getElementsByTagName('content'));

@@ -134,6 +134,20 @@ function getEditorial() {
 	return file_get_contents(EDITORIAL);
 }
 
+function addAdsContent($pageNum = 1, $numItems = 5, $includeNewsNav = false) {
+	// create container div
+	$result = '<div id="content" class="noFloat roundBox">' . "\n";
+
+	// create the news items
+	$result .= addAds($pageNum, $numItems, $includeNewsNav);
+
+	// close the container div
+	$result .= "</div> <!-- id='content'-->" . "\n";
+
+	// return the result
+	return $result;
+}
+
 function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, $includeNewsNav = false) {
 	// create container div
 	$result = '<div id="content" class="noFloat roundBox">' . "\n";
@@ -153,26 +167,26 @@ function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, 
 	return $result;
 }
 
-function displayItems($pageNum, $numItems, $includeNav = true, $type = "news") {
+function displayItems($pageNum, $numItems, $includeNav = true, $type = "News") {
 	// setup container div
 	$result = '<div id="items" class="roundBox">' . "\n";
 
 	// add the heading
-	$result .= "<h1>News</h1>" . "\n";
+	$result .= "<h1>$type</h1>" . "\n";
 
 	$data = null;
 
 	// get X news items
-	if ($type = "news") {
+	if ($type == "News") {
 		$data = getNewsInfo($pageNum, $numItems);
-	} else if ($type = "ads"){
+	} else if ($type == "Ads") {
 		$data = getAdsInfo($pageNum, $numItems);
 	}
 
 	if ($data) {
-		$newsItems = $data['items'];
+		$items = $data['items'];
 		// loop thru the stories
-		foreach ($newsItems as $newsItem) {
+		foreach ($items as $item) {
 
 			// set up the news item container
 			$result .= '<div class="item">' . "\n";
@@ -181,21 +195,21 @@ function displayItems($pageNum, $numItems, $includeNav = true, $type = "news") {
 			$result .= "<p class='itemData'>" . "\n";
 
 			// set up the subject
-			$result .= '<span class="itemSubject">' . $newsItem['subject'] . '</span>' . "\n";
+			$result .= '<span class="itemSubject">' . $item['subject'] . '</span>' . "\n";
 
 			// set up the date
-			$result .= '<span class="itemDate">' . $newsItem['pubDate'] . '</span>' . "\n";
+			$result .= '<span class="itemDate">' . $item['pubDate'] . '</span>' . "\n";
 
-			if (!empty($newsItem['editions'])) {
+			if (!empty($item['editions'])) {
 				// setup the editions
-				$result .= '<span class="edition"><span class="editionTitle">Editions</span>: ' . implode(",", $newsItem['editions']) . '</span>' . "\n";
+				$result .= '<span class="edition"><span class="editionTitle">Editions</span>: ' . implode(",", $item['editions']) . '</span>' . "\n";
 			}
 
 			// close the container
 			$result .= "</p>" . "\n";
 
 			// set up the story
-			$result .= "<p>" . $newsItem['content'] . "</p>" . "\n";
+			$result .= "<p>" . $item['content'] . "</p>" . "\n";
 
 			// close the news item container
 			$result .= '</div> <!-- class="newsItem" -->' . "\n";
@@ -219,11 +233,11 @@ function displayItems($pageNum, $numItems, $includeNav = true, $type = "news") {
 }
 
 function addNews($pageNum, $numItems, $includeNav = true) {
-	return displayItems($pageNum, $numItems, $includeNav, "news");
+	return displayItems($pageNum, $numItems, $includeNav, "News");
 }
 
 function addAds($pageNum, $numItems, $includeNav = true) {
-	return displayItems($pageNum, $numItems, $includeNav, "ads");
+	return displayItems($pageNum, $numItems, $includeNav, "Ads");
 }
 
 function addItemNav($pageNum, $maxPages, $numItems) {
