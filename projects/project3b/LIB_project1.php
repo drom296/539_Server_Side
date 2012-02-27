@@ -111,30 +111,6 @@ function addNav() {
 	}
 }
 
-function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, $includeNewsNav = false) {
-	// create container div
-	$result = '<div id="content" class="noFloat roundBox">' . "\n";
-
-	// create the editorial
-	if ($includeEditorial) {
-		$result .= addEditorial();
-	}
-
-	// create the news items
-	$result .= addNews($pageNum, $numItems);
-
-	// create the news nav
-	if ($includeNewsNav) {
-		$result .= addNewsNav();
-	}
-
-	// close the container div
-	$result .= "</div> <!-- id='content'-->" . "\n";
-
-	// return the result
-	return $result;
-}
-
 function addEditorial() {
 	$result = "";
 	// create the container div
@@ -164,6 +140,30 @@ function getEditorial() {
 	return file_get_contents(EDITORIAL);
 }
 
+function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, $includeNewsNav = false) {
+	// create container div
+	$result = '<div id="content" class="noFloat roundBox">' . "\n";
+
+	// create the editorial
+	if ($includeEditorial) {
+		$result .= addEditorial();
+	}
+
+	// create the news items
+	$result .= addNews($pageNum, $numItems);
+
+	// create the news nav
+	if ($includeNewsNav) {
+		$result .= addNewsNav();
+	}
+
+	// close the container div
+	$result .= "</div> <!-- id='content'-->" . "\n";
+
+	// return the result
+	return $result;
+}
+
 function addNews($pageNum, $numItems) {
 	// setup container div
 	$result = '<div id="news" class="roundBox">' . "\n";
@@ -173,7 +173,7 @@ function addNews($pageNum, $numItems) {
 
 	// get X news items
 	$newsItems = getXStories($pageNum, $numItems);
-
+	
 	// loop thru the stories
 	foreach ($newsItems as $newsItem) {
 
@@ -210,11 +210,11 @@ function addNews($pageNum, $numItems) {
 }
 
 // Grab x number of items from the file, starting from the specific offset
-function getXStories($pageNum, $numItems, $getAll = false) {
+function getXStories($pageNumber, $numItems, $getAll = false) {
 	global $totalNewsItems, $pageNum, $maxPages, $numNewsItems;
 
 	// associative array of info
-	$data = getNews($pageNum, $numItems);
+	$data = getNews($pageNumber, $numItems);
 
 	$pageNum = $data['pageNumber'];
 	$maxPages = $data['totalPages'];
