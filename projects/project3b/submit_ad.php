@@ -15,12 +15,10 @@ $output .= addNav();
 ////// CONTENT
 $output .= startContentDiv();
 
-// check if they submitted the form
-var_dump($_GET);
-
-// check if they have all the required fields
+// required fields
 $reqFields = array("edition", "content", 'title');
 
+// check if they submitted the form
 if (isset($_GET['submit'])) {
 	// check if they submitted everything
 	if (arrayContainsVals($_GET, $reqFields)) {
@@ -30,9 +28,6 @@ if (isset($_GET['submit'])) {
 		foreach ($reqFields as $field) {
 			$post[$field] = $_GET[$field];
 		}
-
-		echo '<br /><br />This is the post';
-		var_dump($post);
 
 		// make the request using MyCurl class
 		$response = submitAd($post);
