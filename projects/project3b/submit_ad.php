@@ -18,10 +18,20 @@ $output .= startContentDiv();
 // required fields
 $reqFields = array("editions", "content", 'title');
 
+var_dump($_GET);
+
 // check if they submitted the form
 if (isset($_GET['submit'])) {
 	// check if they submitted everything
 	if (arrayContainsVals($_GET, $reqFields)) {
+		
+		
+		
+		// implode the editions array
+		$_GET['editions'] = implode(" ", $_GET['editions']);
+		
+		echo "These are the editions";
+		var_dump($_GET['editions']);
 
 		// start building the post array
 		$post = array();

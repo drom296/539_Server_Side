@@ -16,7 +16,7 @@ require_once ("MyCurl.class.php");
  */
 function submitAd($post) {
 	if (fileExists(SUBMIT_AD)) {
-		return MyCurl::sendPost(SUBMIT_AD, $data);
+		return MyCurl::sendPost(SUBMIT_AD, $post);
 	} else{
 		return 'Something went wrong on the server, could not submit your ad.';
 	}
