@@ -36,6 +36,8 @@ END;
 <body>\n
 	<div id="page">\n
 END;
+
+	return $string;
 }
 
 function html_footer() {
