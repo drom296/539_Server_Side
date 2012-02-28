@@ -45,8 +45,21 @@ form textarea {
 	padding: 2%;
 	width: 90%;
 }
-form#submitAdForm label.smallLabel{
+form#submitAdForm label.smallLabel {
 	display: inline-block;
 	width: 3em;
 	text-align: right;
+}
+#editionsDiv {
+	background-color: rgba(204, 187, 136, .85);
+	width: 60%;
+	margin: auto;
+}
+#editionsDiv  input+ span {
+	margin-right: 3%;
+}
+#editionsDiv span {
+	display: inline-block;
+	width: 5em;
+	text-align: left;
 }

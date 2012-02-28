@@ -9,9 +9,6 @@ define("EDITIONS_URL", BASE_URL . "get_editions.php");
 
 require_once ("MyCurl.class.php");
 
-
-var_dump(getEditions());
-
 /**
  * Goes off and gets the editions from the backend and returns them as an assoicative array.
  * The keys will be the id for the edition, and the value is the name

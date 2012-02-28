@@ -379,11 +379,35 @@ function displaySubmitAdForm() {
 	// as well as edition
 	$result .= '<p>';
 	$result .= '<label class="smallLabel" for="content">Edition:</label>';
-	$result .= '<input type="text" name="edition" class="roundBox" />';
+	$result .= buildEditionsOptions();
 	$result .= '</p>';
 
 	$result .= '</form>';
 
+	return $result;
+}
+
+function buildEditionsOptions(){
+	// get the editions
+	$editions = getEditions();
+	
+	// setup the result var
+	$result = '<div id="editionsDiv">';
+	
+	// cycle thru the editions
+	
+	$i = 1;
+	foreach ($editions as $id => $name) {
+		$result .= '<input class="editionCheckbox" type="checkbox" name="edition" value="'.$id.'" /><span>'.$name.'</span>';
+		
+		if($i%2==0){
+			$result .= '<br />';
+		}
+		$i++;
+	}
+	
+	$result .= '</div>';
+	
 	return $result;
 }
 ?>
