@@ -6,6 +6,8 @@ define("ADS_URL", BASE_URL . "get_ads.php");
 define("BANNER_URL", BASE_URL . "get_banner.php");
 define("EDITORIAL_URL", BASE_URL . "get_editorial.php");
 
+require_once("MyCurl.class.php");
+
 /**
  * Accepts what should be a 1 item node list.
  * Determines if the length is at least greater than 0, then grabs the first item's value.
@@ -19,6 +21,14 @@ function getNodeValue($domNode) {
 	}
 
 	return $domNode;
+}
+
+function getBannerFromBackend(){
+	return MyCurl::getRemoteFile(BANNER_URL);
+}
+
+function getEditorialFromBackend(){
+	return MyCurl::getRemoteFile(EDITORIAL_URL);
 }
 
 /**
@@ -63,9 +73,9 @@ function getAdsInfo($pageNum, $count) {
  */
 function getItem($url) {
 	// TODO: add error checking if url exits
-	// if (!file_exists($url)) {
-		// return null;
-	// }
+	if (MyCurl::getStatusCode($url) == 404) {
+		return null;
+	}
 
 	// create a DOM object to parse the page
 	$dom = new DOMDocument();

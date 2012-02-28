@@ -69,30 +69,7 @@ function addBanner() {
 
 // TODO: gets the next banner to be displayed as a string
 function getBannerAd() {
-	return "";
-
-	// need to actually get the Banner Ad from the server
-
-	$result = "";
-
-	// setup banner array
-	$banners = getBanners();
-
-	// sort the banners based on their display value (weight*count)
-	usort($banners, "bannerSort");
-
-	// choose the one with the smallest display value (first one)
-	$result = $banners[0]['fileName'];
-	// update count
-	$banners[0]['count'] = $banners[0]['count'] + 1;
-
-	// update banners file
-	setBanners($banners);
-
-	// prepend with image folder location
-	$result = "img/banner/" . $result;
-
-	return $result;
+	return "img/banner/".getBannerFromBackend();
 }
 
 function addNav() {
@@ -129,9 +106,7 @@ function addEditorial() {
 
 //TODO: grab from editorial.txt file
 function getEditorial() {
-	return "NEEDS TO GET FROM SERVER";
-
-	return file_get_contents(EDITORIAL);
+	return getEditorialFromBackend();
 }
 
 function addAdsContent($pageNum = 1, $numItems = 5, $includeNewsNav = false) {
