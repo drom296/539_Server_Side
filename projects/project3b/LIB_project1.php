@@ -67,9 +67,9 @@ function addBanner() {
 	return $string;
 }
 
-// TODO: gets the next banner to be displayed as a string
+// gets the next banner to be displayed as a string
 function getBannerAd() {
-	return "img/banner/".getBannerFromBackend();
+	return "img/banner/" . getBannerFromBackend();
 }
 
 function addNav() {
@@ -104,7 +104,7 @@ function addEditorial() {
 	return $result;
 }
 
-//TODO: grab from editorial.txt file
+// grab from editorial.txt file
 function getEditorial() {
 	return getEditorialFromBackend();
 }
@@ -354,5 +354,36 @@ function startContentDiv() {
 function closeContentDiv() {
 	// close container div
 	return "</div> <!-- id='content'-->" . "\n";
+}
+
+/**
+ * Creates a form to submit an ad. Includes a captcha
+ */
+function displaySubmitAdForm() {
+	$result = "";
+
+	// add the heading
+	$result .= "<h1>Submit Your Ad</h1>" . "\n";
+
+	$result .= '<form id="submitAdForm">';
+	// ad has a title and content
+	$result .= '<p>';
+	$result .= '<label class="smallLabel" for="title">Title:</label>';
+	$result .= '<input type="text" name="title" />';
+	$result .= '</p>';
+	$result .= '<p>';
+	$result .= '<label for="content">Ad Description:</label>';
+	$result .= '<textarea name="content"></textarea>';
+	$result .= '</p>';
+
+	// as well as edition
+	$result .= '<p>';
+	$result .= '<label class="smallLabel" for="content">Edition:</label>';
+	$result .= '<input type="text" name="edition" />';
+	$result .= '</p>';
+
+	$result .= '</form>';
+
+	return $result;
 }
 ?>

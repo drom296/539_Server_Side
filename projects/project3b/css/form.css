@@ -1,0 +1,52 @@
+input, button {
+	overflow: visible;
+}
+form {
+	margin: 2% auto;
+	text-align: center;
+	width: 70%;
+}
+form input, form textarea, form input[type="submit"] {
+	background-color: #554;
+	border-color: #554;
+	color: #edb;
+}
+form label {
+	margin-right: 2%;
+}
+form input {
+	margin: .4% 0;
+	padding: 1%;
+}
+form img {
+	height: 100px;
+	margin-right: 2%;
+	width: 100px;
+}
+form fieldset {
+	border-color: #554;
+	margin-bottom: 1%;
+}
+form input[type="submit"], form input[type="reset"] {
+	margin: 1%;
+	width: 5em;
+}
+form label[for="adminPass"] {
+	font-weight: 700;
+}
+#fromAcknowledge {
+	font-size: 1.1em;
+	font-weight: 700;
+	text-align: center;
+}
+form textarea {
+	font-size: 1.2em;
+	height: 15em;
+	padding: 2%;
+	width: 90%;
+}
+form#submitAdForm label.smallLabel{
+	display: inline-block;
+	width: 3em;
+	text-align: right;
+}
