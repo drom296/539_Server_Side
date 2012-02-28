@@ -404,7 +404,7 @@ function buildEditionsOptions() {
 
 	$i = 1;
 	foreach ($editions as $id => $name) {
-		$result .= '<input class="editionCheckbox" type="checkbox" name="edition[]" value="' . $id . '" /><span>' . $name . '</span>';
+		$result .= '<input class="editionCheckbox" type="checkbox" name="editions[]" value="' . $id . '" /><span>' . $name . '</span>';
 
 		if ($i % 2 == 0) {
 			$result .= '<br />';

@@ -16,7 +16,7 @@ $output .= addNav();
 $output .= startContentDiv();
 
 // required fields
-$reqFields = array("edition", "content", 'title');
+$reqFields = array("editions", "content", 'title');
 
 // check if they submitted the form
 if (isset($_GET['submit'])) {
