@@ -383,7 +383,10 @@ function displaySubmitAdForm() {
 	$result .= '</p>';
 
 	// add captcha
+	$result .= '<div id="humanForm">';
+	$result .= '<p>Slide me to be able to submit</p>';
 	$result .= '<div class="QapTcha"></div>';
+	$result .= '</div>';
 
 	// add submit and reset buttons
 	$result .= '<div>';
