@@ -21,23 +21,22 @@ function getNodeValue($domNode) {
 	return $domNode;
 }
 
-
 /**
  * Gets the news items specified by the page number and the number of news pages.
  * Uses the getItems() to get an associative array
- * 
+ *
  */
-function getNewsInfo($pageNum, $count){
-	return getItem(NEWS_URL."?page=$pageNum&count=$count");
+function getNewsInfo($pageNum, $count) {
+	return getItem(NEWS_URL . "?page=$pageNum&count=$count");
 }
 
 /**
  * Gets the ads items specified by the page number and the number of news pages.
  * Uses the getItems() to get an associative array
- * 
+ *
  */
-function getAdsInfo($pageNum, $count){
-	return getItem(ADS_URL."?page=$pageNum&count=$count");
+function getAdsInfo($pageNum, $count) {
+	return getItem(ADS_URL . "?page=$pageNum&count=$count");
 }
 
 /**
@@ -64,6 +63,9 @@ function getAdsInfo($pageNum, $count){
  */
 function getItem($url) {
 	// TODO: add error checking if url exits
+	// if (!file_exists($url)) {
+		// return null;
+	// }
 
 	// create a DOM object to parse the page
 	$dom = new DOMDocument();
@@ -85,10 +87,10 @@ function getItem($url) {
 
 		// grab the subject
 		$subject = getNodeValue($item -> getElementsByTagName('subject'));
-		
+
 		// if we don't have a subject, then we must have a title
-		if(!$subject){
-			$subject= getNodeValue($item -> getElementsByTagName('title'));
+		if (!$subject) {
+			$subject = getNodeValue($item -> getElementsByTagName('title'));
 		}
 
 		// grab the content
