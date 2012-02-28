@@ -2,12 +2,14 @@
  * @author tuxedo
  */
 
+console.log("Jquery no work");
+
 $(document).ready(function() {
 	console.log("document is ready");
 	
 	$('.QapTcha').QapTcha({
 		disabledSubmit : true,
 		autoRevert : true,
-		PHPfile: "js/qaptcha_v4.0/php/Qaptcha.jquery.php"
+		PHPfile: "js/qaptcha/php/Qaptcha.jquery.php"
 	});
 });

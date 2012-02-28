@@ -1,17 +1,21 @@
 <?php
+session_start();
+ob_start();
+
 require ("LIB_project1.php");
 
-$captchaLoc = "js/qaptcha_v4.0/";
+$captchaLoc = "js/qaptcha/";
 
 $styles = array("css/pedro.css", "css/nav.css", "css/form.css", $captchaLoc."jquery/QapTcha.jquery.css");
 
-$scripts = array($captchaLoc."jquery.js", $captchaLoc."jquery-ui.js", $captchaLoc."jquery.ui.touch.js", $captchaLoc."QapTcha.jquery.js", 'js/pedro_captcha.js');
+$scripts = array($captchaLoc."jquery/jquery.js", $captchaLoc."jquery/jquery-ui.js", 
+$captchaLoc."jquery/jquery.ui.touch.js", $captchaLoc."jquery/QapTcha.jquery.js", 'js/pedro_captcha.js');
 
-var_dump($scripts);
+// var_dump($scripts);
 
 
 // create header tags
-$output = html_header("Submit Your Ad Here", $styles);
+$output = html_header("Submit Your Ad Here", $styles, $scripts);
 
 // create banner div
 $output .= addBanner();
@@ -74,4 +78,6 @@ $output .= closeContentDiv();
 $output .= html_footer("");
 
 echo $output;
+
+ob_flush();
 ?>
