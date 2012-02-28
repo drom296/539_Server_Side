@@ -37,6 +37,7 @@ END;
 	<div id="page">\n
 END;
 
+	var_dump($string);
 	return $string;
 }
 
@@ -382,11 +383,14 @@ function displaySubmitAdForm() {
 	$result .= buildEditionsOptions();
 	$result .= '</p>';
 
+	// add captcha
+	$result .= '<div class="QapTcha"></div>';
+
 	// add submit and reset buttons
-	$result .= '<p>';
+	$result .= '<div>';
 	$result .= '<input type="submit" name="submit" value="Submit Your Ad" />';
 	$result .= '<input type="reset" value="Reset Form" />';
-	$result .= '</p>';
+	$result .= '</div>';
 
 	$result .= '</form>';
 
