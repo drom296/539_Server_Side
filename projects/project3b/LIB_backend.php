@@ -5,8 +5,67 @@ define("NEWS_URL", BASE_URL . "get_news.php");
 define("ADS_URL", BASE_URL . "get_ads.php");
 define("BANNER_URL", BASE_URL . "get_banner.php");
 define("EDITORIAL_URL", BASE_URL . "get_editorial.php");
+define("EDITIONS_URL", BASE_URL . "get_editions.php");
 
-require_once("MyCurl.class.php");
+require_once ("MyCurl.class.php");
+
+
+var_dump(getEditions());
+
+/**
+ * Goes off and gets the editions from the backend and returns them as an assoicative array.
+ * The keys will be the id for the edition, and the value is the name
+ */
+function getEditions() {
+	$result = null;
+
+	if (fileExists(EDITIONS_URL)) {
+		// get the xml
+		$dom = new DOMDocument();
+		$dom -> load(EDITIONS_URL);
+
+		// parse the dom
+		// <edition>
+		//	 <id>1</id>
+		//	 <name>Sports</name>
+		// </edition>
+
+		$editions = $dom -> getElementsByTagName("edition");
+
+		// check to see if we have anything
+		if ($editions -> length > 0) {
+			// start up the array
+			$result = array();
+
+			// cycle thru the addition
+			foreach ($editions as $edition) {
+				// get edition data					
+				$id = $edition -> getElementsByTagName("id") -> item(0) -> nodeValue;
+				$name = $edition -> getElementsByTagName("name") -> item(0) -> nodeValue;
+				
+				// add to data
+				$result[$id] = $name;
+			}
+		}
+	}
+
+	return $result;
+}
+
+/**
+ * Checks to see if the url exists by using cURL to check if we get a 404
+ */
+function fileExists($url) {
+	$result = true;
+
+	// add error checking if url exits
+	if (MyCurl::getStatusCode($url) == 404) {
+		$result = false;
+		;
+	}
+
+	return $result;
+}
 
 /**
  * Accepts what should be a 1 item node list.
@@ -23,11 +82,11 @@ function getNodeValue($domNode) {
 	return $domNode;
 }
 
-function getBannerFromBackend(){
+function getBannerFromBackend() {
 	return MyCurl::getRemoteFile(BANNER_URL);
 }
 
-function getEditorialFromBackend(){
+function getEditorialFromBackend() {
 	return MyCurl::getRemoteFile(EDITORIAL_URL);
 }
 
@@ -73,7 +132,7 @@ function getAdsInfo($pageNum, $count) {
  */
 function getItem($url) {
 	// TODO: add error checking if url exits
-	if (MyCurl::getStatusCode($url) == 404) {
+	if (!fileExists($url)) {
 		return null;
 	}
 

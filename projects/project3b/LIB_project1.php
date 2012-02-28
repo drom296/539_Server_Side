@@ -369,17 +369,17 @@ function displaySubmitAdForm() {
 	// ad has a title and content
 	$result .= '<p>';
 	$result .= '<label class="smallLabel" for="title">Title:</label>';
-	$result .= '<input type="text" name="title" />';
+	$result .= '<input class="roundBox" type="text" name="title" />';
 	$result .= '</p>';
 	$result .= '<p>';
 	$result .= '<label for="content">Ad Description:</label>';
-	$result .= '<textarea name="content"></textarea>';
+	$result .= '<textarea name="content" class="roundBox" ></textarea>';
 	$result .= '</p>';
 
 	// as well as edition
 	$result .= '<p>';
 	$result .= '<label class="smallLabel" for="content">Edition:</label>';
-	$result .= '<input type="text" name="edition" />';
+	$result .= '<input type="text" name="edition" class="roundBox" />';
 	$result .= '</p>';
 
 	$result .= '</form>';
