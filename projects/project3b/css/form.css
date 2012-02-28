@@ -63,3 +63,16 @@ form#submitAdForm label.smallLabel {
 	width: 5em;
 	text-align: left;
 }
+
+#submitAdForm input[type="submit"], #submitAdForm input[type="reset"]{
+	width: auto;
+}
+
+div.submitAdResponse{
+	width: 70%;
+	text-align: center;
+	margin:auto;
+	background-color: #554;
+	color: #EDB;
+	font-size: 1.2em;
+}

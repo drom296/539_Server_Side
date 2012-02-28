@@ -6,8 +6,21 @@ define("ADS_URL", BASE_URL . "get_ads.php");
 define("BANNER_URL", BASE_URL . "get_banner.php");
 define("EDITORIAL_URL", BASE_URL . "get_editorial.php");
 define("EDITIONS_URL", BASE_URL . "get_editions.php");
+define("SUBMIT_AD", BASE_URL . "submit_ad.php");
 
 require_once ("MyCurl.class.php");
+
+/**
+ * Submits the ad using the MyCurl class and returns the reponse from the server
+ * Expects the array passed in is associative and simulates a $_POST array
+ */
+function submitAd($post) {
+	if (fileExists(SUBMIT_AD)) {
+		return MyCurl::sendPost(SUBMIT_AD, $data);
+	} else{
+		return 'Something went wrong on the server, could not submit your ad.';
+	}
+}
 
 /**
  * Goes off and gets the editions from the backend and returns them as an assoicative array.
@@ -36,10 +49,10 @@ function getEditions() {
 
 			// cycle thru the addition
 			foreach ($editions as $edition) {
-				// get edition data					
+				// get edition data
 				$id = $edition -> getElementsByTagName("id") -> item(0) -> nodeValue;
 				$name = $edition -> getElementsByTagName("name") -> item(0) -> nodeValue;
-				
+
 				// add to data
 				$result[$id] = $name;
 			}
@@ -57,8 +70,7 @@ function fileExists($url) {
 
 	// add error checking if url exits
 	if (MyCurl::getStatusCode($url) == 404) {
-		$result = false;
-		;
+		$result = false; ;
 	}
 
 	return $result;

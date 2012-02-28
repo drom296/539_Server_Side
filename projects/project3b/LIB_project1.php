@@ -382,32 +382,59 @@ function displaySubmitAdForm() {
 	$result .= buildEditionsOptions();
 	$result .= '</p>';
 
+	// add submit and reset buttons
+	$result .= '<p>';
+	$result .= '<input type="submit" name="submit" value="Submit Your Ad" />';
+	$result .= '<input type="reset" value="Reset Form" />';
+	$result .= '</p>';
+
 	$result .= '</form>';
 
 	return $result;
 }
 
-function buildEditionsOptions(){
+function buildEditionsOptions() {
 	// get the editions
 	$editions = getEditions();
-	
+
 	// setup the result var
 	$result = '<div id="editionsDiv">';
-	
+
 	// cycle thru the editions
-	
+
 	$i = 1;
 	foreach ($editions as $id => $name) {
-		$result .= '<input class="editionCheckbox" type="checkbox" name="edition" value="'.$id.'" /><span>'.$name.'</span>';
-		
-		if($i%2==0){
+		$result .= '<input class="editionCheckbox" type="checkbox" name="edition[]" value="' . $id . '" /><span>' . $name . '</span>';
+
+		if ($i % 2 == 0) {
 			$result .= '<br />';
 		}
 		$i++;
 	}
-	
+
 	$result .= '</div>';
-	
+
+	return $result;
+}
+
+/**
+ * Make sure that the keys specified exist in the array and its value is not empty
+ *
+ * @param $array - associative array to check
+ * @param keys - keys to look for in the array
+ *
+ * @return true if the keys exist and its value is not empty
+ */
+function arrayContainsVals($array, $keys) {
+	$result = true;
+
+	foreach ($keys as $key) {
+		if (!isset($array[$key]) || empty($array[$key])) {
+			$result = false;
+			break;
+		}
+	}
+
 	return $result;
 }
 ?>

@@ -133,7 +133,6 @@ static function sendPost($url,$data) {
 	$info = curl_getinfo($ch);
 	curl_close($ch);
 	return array("output"=>$output,"info"=>$info);
-
 }
 
 //$url with expecting post data, $data is array of "key"=>"value" s for post
