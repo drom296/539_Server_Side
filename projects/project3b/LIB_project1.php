@@ -142,7 +142,7 @@ function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, 
 	return $result;
 }
 
-function displayItems($pageNum, $numItems, $includeNav = true, $type = "News") {
+function displayItems($url, $pageNum, $numItems, $includeNav = true, $type = "News") {
 	// setup container div
 	$result = '<div id="items" class="roundBox">' . "\n";
 
@@ -200,7 +200,7 @@ function displayItems($pageNum, $numItems, $includeNav = true, $type = "News") {
 			$maxPages = $data['totalPages'];
 			$numItems = $data['numberPerPage'];
 
-			$result .= addItemNav($pageNum, $maxPages, $numItems);
+			$result .= addItemNav($url, $pageNum, $maxPages, $numItems);
 		}
 	}
 
@@ -208,14 +208,14 @@ function displayItems($pageNum, $numItems, $includeNav = true, $type = "News") {
 }
 
 function addNews($pageNum, $numItems, $includeNav = true) {
-	return displayItems($pageNum, $numItems, $includeNav, "News");
+	return displayItems("news.php",$pageNum, $numItems, $includeNav, "News");
 }
 
 function addAds($pageNum, $numItems, $includeNav = true) {
-	return displayItems($pageNum, $numItems, $includeNav, "Ads");
+	return displayItems("ads.php",$pageNum, $numItems, $includeNav, "Ads");
 }
 
-function addItemNav($pageNum, $maxPages, $numItems) {
+function addItemNav($url, $pageNum, $maxPages, $numItems) {
 	// check if the page Nunber exceeds the max number of pages
 	if ($pageNum > $maxPages) {
 		$pageNum = $maxPages;
@@ -239,15 +239,15 @@ function addItemNav($pageNum, $maxPages, $numItems) {
 
 	// setup the page links
 	if ($pageNum > 1) {
-		$result .= "<a href='news.php?page=1&count=$numItems'>&lt;&lt;</a> ";
-		$result .= "<a href='news.php?page=" . ($pageNum - 1) . "&count=$numItems'>&lt;</a> ";
+		$result .= "<a href='$url?page=1&count=$numItems'>&lt;&lt;</a> ";
+		$result .= "<a href='$url?page=" . ($pageNum - 1) . "&count=$numItems'>&lt;</a> ";
 	}
 
 	$result .= "<span id='curNewsPage'>[" . ($pageNum) . "]</span> ";
 
 	if ($pageNum < $maxPages) {
-		$result .= "<a href='news.php?page=" . ($pageNum + 1) . "&count=$numItems'>&gt;</a> ";
-		$result .= "<a href='news.php?page=$maxPages&count=$numItems'>&gt;&gt;</a> ";
+		$result .= "<a href='$url?page=" . ($pageNum + 1) . "&count=$numItems'>&gt;</a> ";
+		$result .= "<a href='$url?page=$maxPages&count=$numItems'>&gt;&gt;</a> ";
 	}
 
 	// setup container
