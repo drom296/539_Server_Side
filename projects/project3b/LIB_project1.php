@@ -1,13 +1,13 @@
 <?php
 
-define('LOGO_PIC', 'img/logo.png');
-define('DATE_TIME', 'm/d/y g:iA');
-define('EDITORIAL_PIC', 'img/editor2.jpg');
+    define('LOGO_PIC', 'img/logo.png');
+    define('DATE_TIME', 'm/d/y g:iA');
+    define('EDITORIAL_PIC', 'img/editor2.jpg');
 
-require_once ("LIB_backend.php");
+    require_once ("LIB_backend.php");
 
-function html_header($title = "Untitled", $styles = null, $scripts = null) {
-	$string = <<<END
+    function html_header($title = "Untitled", $styles = null, $scripts = null) {
+        $string = <<<END
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,436 +15,437 @@ function html_header($title = "Untitled", $styles = null, $scripts = null) {
 	<title>$title</title>
 END;
 
-	if (is_array($styles)) {
-		foreach ($styles as $style) {
-			$string .= "<link type='text/css' rel='stylesheet' href='$style' />\n";
-		}
-	} else if (is_string($styles)) {
-		$string .= "<link type='text/css' rel='stylesheet' href='$styles' />\n";
-	}
+        if (is_array($styles)) {
+            foreach ($styles as $style) {
+                $string .= "<link type='text/css' rel='stylesheet' href='$style' />\n";
+            }
+        } else if (is_string($styles)) {
+            $string .= "<link type='text/css' rel='stylesheet' href='$styles' />\n";
+        }
 
-	if (is_array($scripts)) {
-		foreach ($scripts as $script) {
-			$string .= "<script type='text/javascript' src='$script'></script>\n";
-		}
-	} else if (is_string($scripts)) {
-		$string .= "<script type='text/javascript' src='$scripts'></script>\n";
-	}
+        if (is_array($scripts)) {
+            foreach ($scripts as $script) {
+                $string .= "<script type='text/javascript' src='$script'></script>\n";
+            }
+        } else if (is_string($scripts)) {
+            $string .= "<script type='text/javascript' src='$scripts'></script>\n";
+        }
 
-	$string .= <<<END
+        $string .= <<<END
 </head>
 <body>\n
 	<div id="page">\n
 END;
 
-	return $string;
-}
+        return $string;
+    }
 
-function html_footer() {
-	$string = <<<END
+    function html_footer() {
+        $string = <<<END
 	</div> <!-- id=page -->
 </body>
 </html>
 END;
 
-	return $string;
-}
+        return $string;
+    }
 
-// create the banner div
-function addBanner() {
-	// start div
-	$string = "\t" . "\t" . '<div id="banner">' . "\n";
+    // create the banner div
+    function addBanner() {
+        // start div
+        $string = "\t" . "\t" . '<div id="banner">' . "\n";
 
-	// add logo
-	$string .= "\t" . "\t" . "\t" . '<img src="' . LOGO_PIC . '" alt="logo" />' . "\n";
+        // add logo
+        $string .= "\t" . "\t" . "\t" . '<img src="' . LOGO_PIC . '" alt="logo" />' . "\n";
 
-	// add banner ad
-	$string .= "\t" . "\t" . "\t" . '<img src="' . getBannerAd() . '" id="ad" alt="ad"/>' . "\n";
+        // add banner ad
+        $string .= "\t" . "\t" . "\t" . '<img src="' . getBannerAd() . '" id="ad" alt="ad"/>' . "\n";
 
-	// end div
-	$string .= "\t" . "\t" . '</div> <!-- id=banner -->' . "\n";
+        // end div
+        $string .= "\t" . "\t" . '</div> <!-- id=banner -->' . "\n";
 
-	return $string;
-}
-
-// gets the next banner to be displayed as a string
-function getBannerAd() {
-	return "img/banner/" . getBannerFromBackend();
-}
+        return $string;
+    }
 
-function addNav() {
-	$result = file_get_contents("nav.html");
+    // gets the next banner to be displayed as a string
+    function getBannerAd() {
+        return "img/banner/" . getBannerFromBackend();
+    }
 
-	if ($result) {
-		return $result;
-	} else {
-		return "";
-	}
-}
+    function addNav() {
+        $result = file_get_contents("nav.html");
 
-function addEditorial() {
-	$result = "";
-	// create the container div
-	$result = '<div id="editorial" class="navHome">' . "\n";
+        if ($result) {
+            return $result;
+        } else {
+            return "";
+        }
+    }
 
-	// create the heading
-	$result .= '<h1>Editorial</h1>' . "\n";
+    function addEditorial() {
+        $result = "";
+        // create the container div
+        $result = '<div id="editorial" class="navHome">' . "\n";
 
-	// add the editor's picture
-	// probably thru an INI file
-	$result .= '<img src="' . getEditorialPic() . '" alt="editor" />' . "\n";
+        // create the heading
+        $result .= '<h1>Editorial</h1>' . "\n";
 
-	// get editorial
-	$result .= getEditorial();
+        // add the editor's picture
+        // probably thru an INI file
+        $result .= '<img src="' . getEditorialPic() . '" alt="editor" />' . "\n";
 
-	// close div
-	$result .= '</div> <!-- id="editorial -->' . "\n";
+        // get editorial
+        $result .= getEditorial();
 
-	// return the result
-	return $result;
-}
+        // close div
+        $result .= '</div> <!-- id="editorial -->' . "\n";
 
-// grab from editorial.txt file
-function getEditorial() {
-	return getEditorialFromBackend();
-}
+        // return the result
+        return $result;
+    }
 
-function addAdsContent($pageNum = 1, $numItems = 5, $includeNewsNav = false) {
-	// create container div
-	$result = '<div id="content" class="noFloat roundBox">' . "\n";
+    // grab from editorial.txt file
+    function getEditorial() {
+        return getEditorialFromBackend();
+    }
 
-	// create the news items
-	$result .= addAds($pageNum, $numItems, $includeNewsNav);
+    function addAdsContent($pageNum = 1, $numItems = 5, $includeNewsNav = false) {
+        // create container div
+        $result = '<div id="content" class="noFloat roundBox">' . "\n";
 
-	// close the container div
-	$result .= "</div> <!-- id='content'-->" . "\n";
+        // create the news items
+        $result .= addAds($pageNum, $numItems, $includeNewsNav);
 
-	// return the result
-	return $result;
-}
+        // close the container div
+        $result .= "</div> <!-- id='content'-->" . "\n";
 
-function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, $includeNewsNav = false) {
-	// create container div
-	$result = '<div id="content" class="noFloat roundBox">' . "\n";
+        // return the result
+        return $result;
+    }
 
-	// create the editorial
-	if ($includeEditorial) {
-		$result .= addEditorial();
-	}
+    function addNewsContent($includeEditorial = false, $pageNum = 1, $numItems = 5, $includeNewsNav = false) {
+        // create container div
+        $result = '<div id="content" class="noFloat roundBox">' . "\n";
 
-	// create the news items
-	$result .= addNews($pageNum, $numItems, $includeNewsNav);
+        // create the editorial
+        if ($includeEditorial) {
+            $result .= addEditorial();
+        }
 
-	// close the container div
-	$result .= "</div> <!-- id='content'-->" . "\n";
+        // create the news items
+        $result .= addNews($pageNum, $numItems, $includeNewsNav);
 
-	// return the result
-	return $result;
-}
+        // close the container div
+        $result .= "</div> <!-- id='content'-->" . "\n";
 
-function displayItems($url, $pageNum, $numItems, $includeNav = true, $type = "News") {
-	// setup container div
-	$result = '<div id="items" class="roundBox">' . "\n";
+        // return the result
+        return $result;
+    }
 
-	// add the heading
-	$result .= "<h1>$type</h1>" . "\n";
+    function displayItems($url, $pageNum, $numItems, $includeNav = true, $type = "News") {
+        // setup container div
+        $result = '<div id="items" class="roundBox">' . "\n";
 
-	$data = null;
+        // add the heading
+        $result .= "<h1>$type</h1>" . "\n";
 
-	// get X news items
-	if ($type == "News") {
-		$data = getNewsInfo($pageNum, $numItems);
-	} else if ($type == "Ads") {
-		$data = getAdsInfo($pageNum, $numItems);
-	}
+        $data = null;
 
-	if ($data) {
-		$items = $data['items'];
-		
-		// update the length
-		$numItems = count($items);
-		
-		// loop thru the stories
-		foreach ($items as $item) {
+        // get X news items
+        if ($type == "News") {
+            $data = getNewsInfo($pageNum, $numItems);
+        } else if ($type == "Ads") {
+            $data = getAdsInfo($pageNum, $numItems);
+        }
 
-			// set up the news item container
-			$result .= '<div class="item">' . "\n";
+        if ($data) {
+            $items = $data['items'];
 
-			// setup container
-			$result .= "<p class='itemData'>" . "\n";
+            // update the length
+            $numItems = count($items);
 
-			// set up the subject
-			$result .= '<span class="itemSubject">' . $item['subject'] . '</span>' . "\n";
+            // loop thru the stories
+            foreach ($items as $item) {
 
-			// set up the date
-			$result .= '<span class="itemDate">' . $item['pubDate'] . '</span>' . "\n";
+                // set up the news item container
+                $result .= '<div class="item">' . "\n";
 
-			if (!empty($item['editions'])) {
-				// setup the editions
-				$result .= '<span class="edition"><span class="editionTitle">Editions</span>: ' . implode(",", $item['editions']) . '</span>' . "\n";
-			}
+                // setup container
+                $result .= "<p class='itemData'>" . "\n";
 
-			// close the container
-			$result .= "</p>" . "\n";
+                // set up the subject
+                $result .= '<span class="itemSubject">' . $item['subject'] . '</span>' . "\n";
 
-			// set up the story
-			$result .= "<p>" . $item['content'] . "</p>" . "\n";
+                // set up the date
+                $result .= '<span class="itemDate">' . $item['pubDate'] . '</span>' . "\n";
 
-			// close the news item container
-			$result .= '</div> <!-- class="newsItem" -->' . "\n";
+                if (!empty($item['editions'])) {
+                    // setup the editions
+                    $result .= '<span class="edition"><span class="editionTitle">Editions</span>: ' . implode(",", $item['editions']) . '</span>' . "\n";
+                }
 
-		}
+                // close the container
+                $result .= "</p>" . "\n";
 
-		// close container div
-		$result .= '</div> <!-- id="news" class="roundBox" -->' . "\n";
+                // set up the story
+                $result .= "<p>" . $item['content'] . "</p>" . "\n";
 
-		// add the nav
-		if ($includeNav) {
-			$pageNum = $data['pageNumber'];
-			$maxPages = $data['totalPages'];
-			$numItems = $data['numberPerPage'];
+                // close the news item container
+                $result .= '</div> <!-- class="newsItem" -->' . "\n";
 
-			$result .= addItemNav($url, $pageNum, $maxPages, $numItems);
-		}
-	}
+            }
 
-	return $result;
-}
+            // close container div
+            $result .= '</div> <!-- id="news" class="roundBox" -->' . "\n";
 
-function addNews($pageNum, $numItems, $includeNav = true) {
-	return displayItems("news.php",$pageNum, $numItems, $includeNav, "News");
-}
+            // add the nav
+            if ($includeNav) {
+                $pageNum = $data['pageNumber'];
+                $maxPages = $data['totalPages'];
+                $numItems = $data['numberPerPage'];
 
-function addAds($pageNum, $numItems, $includeNav = true) {
-	return displayItems("ads.php",$pageNum, $numItems, $includeNav, "Ads");
-}
+                $result .= addItemNav($url, $pageNum, $maxPages, $numItems);
+            }
+        }
 
-function addItemNav($url, $pageNum, $maxPages, $numItems) {
-	// check if the page Nunber exceeds the max number of pages
-	if ($pageNum > $maxPages) {
-		$pageNum = $maxPages;
-	}
+        return $result;
+    }
 
-	// setup result
-	$result = "";
+    function addNews($pageNum, $numItems, $includeNav = true) {
+        return displayItems("news.php", $pageNum, $numItems, $includeNav, "News");
+    }
 
-	// setup container div
-	$result .= "<div>" . "\n";
+    function addAds($pageNum, $numItems, $includeNav = true) {
+        return displayItems("ads.php", $pageNum, $numItems, $includeNav, "Ads");
+    }
 
-	$end = $pageNum * $numItems;
-	// $numNewsItems;
-	$start = $end - $numItems + 1;
+    function addItemNav($url, $pageNum, $maxPages, $numItems) {
+        // check if the page Nunber exceeds the max number of pages
+        if ($pageNum > $maxPages) {
+            $pageNum = $maxPages;
+        }
 
-	// setup the items showing info
-	$result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
+        // setup result
+        $result = "";
 
-	// setup container
-	$result .= "<span id='itemNav'>" . "\n";
+        // setup container div
+        $result .= "<div>" . "\n";
 
-	// setup the page links
-	if ($pageNum > 1) {
-		$result .= "<a href='$url?page=1&count=$numItems'>&lt;&lt;</a> ";
-		$result .= "<a href='$url?page=" . ($pageNum - 1) . "&count=$numItems'>&lt;</a> ";
-	}
+        $end = $pageNum * $numItems;
+        // $numNewsItems;
+        $start = $end - $numItems + 1;
 
-	$result .= "<span id='curNewsPage'>[" . ($pageNum) . "]</span> ";
+        // setup the items showing info
+        $result .= "<span id='numItemsShowing'>Showing news items: $start - $end</span>" . "\n";
 
-	if ($pageNum < $maxPages) {
-		$result .= "<a href='$url?page=" . ($pageNum + 1) . "&count=$numItems'>&gt;</a> ";
-		$result .= "<a href='$url?page=$maxPages&count=$numItems'>&gt;&gt;</a> ";
-	}
+        // setup container
+        $result .= "<span id='itemNav'>" . "\n";
 
-	// setup container
-	$result .= "</span> <!-- id='newsNav -->" . "\n";
+        // setup the page links
+        if ($pageNum > 1) {
+            $result .= "<a href='$url?page=1&count=$numItems'>&lt;&lt;</a> ";
+            $result .= "<a href='$url?page=" . ($pageNum - 1) . "&count=$numItems'>&lt;</a> ";
+        }
 
-	// close container div
-	$result .= "</div>" . "\n";
+        $result .= "<span id='curNewsPage'>[" . ($pageNum) . "]</span> ";
 
-	//return result
-	return $result;
-}
+        if ($pageNum < $maxPages) {
+            $result .= "<a href='$url?page=" . ($pageNum + 1) . "&count=$numItems'>&gt;</a> ";
+            $result .= "<a href='$url?page=$maxPages&count=$numItems'>&gt;&gt;</a> ";
+        }
 
-// Grab x number of items from the file, starting from the specific offset
-function getXStories($pageNumber, $numItems, $getAll = false) {
-	global $totalNewsItems, $pageNum, $maxPages, $numNewsItems;
+        // setup container
+        $result .= "</span> <!-- id='newsNav -->" . "\n";
 
-	// associative array of info
-	$data = getNews($pageNumber, $numItems);
+        // close container div
+        $result .= "</div>" . "\n";
 
-	$pageNum = $data['pageNumber'];
-	$maxPages = $data['totalPages'];
-	$numNewsItems = $data['numberPerPage'];
-	$totalNewsItems = $maxPages * $numNewsItems;
+        //return result
+        return $result;
+    }
 
-	// setup result
-	$result = $data['items'];
-
-	// if they want all stories
-	if ($getAll) {
-
-		// associative array of info
-		$data = getNews(1, $totalNewsItems);
-		$pageNum = $data['pageNumber'];
-		$maxPages = $data['totalPages'];
-		$numNewsItems = $data['numberPerPage'];
-		$totalNewsItems = $maxPages * $numNewsItems;
-
-		// setup result
-		$result = $data['items'];
-	}
-
-	// return the result
-	return $result;
-}
-
-function getEditorialPic() {
-	return EDITORIAL_PIC;
-}
-
-function addUserInfo() {
-	$result = "";
-
-	// setup container div
-	$result .= "<div id='userInfo' class='roundBox'>" . "\n";
-
-	// show heading
-	$result .= "<h2>User Info</h2>";
-
-	// setup vars
-	$time = "NA";
-	$ip = "NA";
-	$referer = "NA";
-	$user_agent = "NA";
-
-	// get time accessed
-	if (!empty($_SERVER['REQUEST_TIME']))
-		$time = date(DATE_TIME, $_SERVER['REQUEST_TIME']);
-
-	// get ip address
-	if (!empty($_SERVER['REMOTE_ADDR']))
-		$ip = $_SERVER['REMOTE_ADDR'];
-
-	// referer
-	if (!empty($_SERVER['HTTP_REFERER']))
-		$referer = $_SERVER['HTTP_REFERER'];
+    // Grab x number of items from the file, starting from the specific offset
+    function getXStories($pageNumber, $numItems, $getAll = false) {
+        global $totalNewsItems, $pageNum, $maxPages, $numNewsItems;
 
-	// get browser info
-	if (!empty($_SERVER['HTTP_USER_AGENT']))
-		$user_agent = $_SERVER['HTTP_USER_AGENT'];
-
-	// setup list
-	$result .= "<ul>";
-
-	// display gathered info
-	$result .= "<li>Time Accessed: " . $time . "</li>" . "\n";
-	$result .= "<li>Your IP: " . $ip . "</li>" . "\n";
-	$result .= "<li>Referred by: " . $referer . "</li>" . "\n";
-	$result .= "<li>Your browser: " . $user_agent . "</li>" . "\n";
-
-	// close list
-	$result .= "</ul>";
-
-	// close container div
-	$result .= "</div> <!-- id='userInfo' -->" . "\n";
-
-	return $result;
-}
-
-function startContentDiv() {
-	// setup container div
-	return '<div id="content" class="noFloat roundBox">' . "\n";
-}
-
-function closeContentDiv() {
-	// close container div
-	return "</div> <!-- id='content'-->" . "\n";
-}
-
-/**
- * Creates a form to submit an ad. Includes a captcha
- */
-function displaySubmitAdForm() {
-	$result = "";
-
-	// add the heading
-	$result .= "<h1>Submit Your Ad</h1>" . "\n";
-
-	$result .= '<form id="submitAdForm">';
-	// ad has a title and content
-	$result .= '<p>';
-	$result .= '<label class="smallLabel" for="title">Title:</label>';
-	$result .= '<input class="roundBox" type="text" name="title" />';
-	$result .= '</p>';
-	$result .= '<p>';
-	$result .= '<label for="content">Ad Description:</label>';
-	$result .= '<textarea name="content" class="roundBox" ></textarea>';
-	$result .= '</p>';
-
-	// as well as edition
-	$result .= '<p>';
-	$result .= '<label class="smallLabel" for="content">Edition:</label>';
-	$result .= buildEditionsOptions();
-	$result .= '</p>';
-
-	// add captcha
-	$result .= '<div id="humanForm">';
-	$result .= '<p>Slide me to be able to submit</p>';
-	$result .= '<div class="QapTcha"></div>';
-	$result .= '</div>';
-
-	// add submit and reset buttons
-	$result .= '<div>';
-	$result .= '<input type="submit" name="submit" value="Submit Your Ad" />';
-	$result .= '<input type="reset" value="Reset Form" />';
-	$result .= '</div>';
-
-	$result .= '</form>';
-
-	return $result;
-}
-
-function buildEditionsOptions() {
-	// get the editions
-	$editions = getEditions();
-
-	// setup the result var
-	$result = '<div id="editionsDiv">';
-
-	// cycle thru the editions
-
-	$i = 1;
-	foreach ($editions as $id => $name) {
-		$result .= '<input class="editionCheckbox" type="checkbox" name="editions[]" value="' . $id . '" /><span>' . $name . '</span>';
-
-		if ($i % 2 == 0) {
-			$result .= '<br />';
-		}
-		$i++;
-	}
-
-	$result .= '</div>';
-
-	return $result;
-}
-
-/**
- * Make sure that the keys specified exist in the array and its value is not empty
- *
- * @param $array - associative array to check
- * @param keys - keys to look for in the array
- *
- * @return true if the keys exist and its value is not empty
- */
-function arrayContainsVals($array, $keys) {
-	$result = true;
-
-	foreach ($keys as $key) {
-		if (!isset($array[$key]) || empty($array[$key])) {
-			$result = false;
-			break;
-		}
-	}
-
-	return $result;
-}
+        // associative array of info
+        $data = getNews($pageNumber, $numItems);
+
+        $pageNum = $data['pageNumber'];
+        $maxPages = $data['totalPages'];
+        $numNewsItems = $data['numberPerPage'];
+        $totalNewsItems = $maxPages * $numNewsItems;
+
+        // setup result
+        $result = $data['items'];
+
+        // if they want all stories
+        if ($getAll) {
+
+            // associative array of info
+            $data = getNews(1, $totalNewsItems);
+            $pageNum = $data['pageNumber'];
+            $maxPages = $data['totalPages'];
+            $numNewsItems = $data['numberPerPage'];
+            $totalNewsItems = $maxPages * $numNewsItems;
+
+            // setup result
+            $result = $data['items'];
+        }
+
+        // return the result
+        return $result;
+    }
+
+    function getEditorialPic() {
+        return EDITORIAL_PIC;
+    }
+
+    function addUserInfo() {
+        $result = "";
+
+        // setup container div
+        $result .= "<div id='userInfo' class='roundBox'>" . "\n";
+
+        // show heading
+        $result .= "<h2>User Info</h2>";
+
+        // setup vars
+        $time = "NA";
+        $ip = "NA";
+        $referer = "NA";
+        $user_agent = "NA";
+
+        // get time accessed
+        if (!empty($_SERVER['REQUEST_TIME']))
+            $time = date(DATE_TIME, $_SERVER['REQUEST_TIME']);
+
+        // get ip address
+        if (!empty($_SERVER['REMOTE_ADDR']))
+            $ip = $_SERVER['REMOTE_ADDR'];
+
+        // referer
+        if (!empty($_SERVER['HTTP_REFERER']))
+            $referer = $_SERVER['HTTP_REFERER'];
+
+        // get browser info
+        if (!empty($_SERVER['HTTP_USER_AGENT']))
+            $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+        // setup list
+        $result .= "<ul>";
+
+        // display gathered info
+        $result .= "<li>Time Accessed: " . $time . "</li>" . "\n";
+        $result .= "<li>Your IP: " . $ip . "</li>" . "\n";
+        $result .= "<li>Referred by: " . $referer . "</li>" . "\n";
+        $result .= "<li>Your browser: " . $user_agent . "</li>" . "\n";
+
+        // close list
+        $result .= "</ul>";
+
+        // close container div
+        $result .= "</div> <!-- id='userInfo' -->" . "\n";
+
+        return $result;
+    }
+
+    function startContentDiv() {
+        // setup container div
+        return '<div id="content" class="noFloat roundBox">' . "\n";
+    }
+
+    function closeContentDiv() {
+        // close container div
+        return "</div> <!-- id='content'-->" . "\n";
+    }
+
+    /**
+     * Creates a form to submit an ad. Includes a captcha
+     */
+    function displaySubmitAdForm() {
+        $result = "";
+
+        // add the heading
+        $result .= "<h1>Submit Your Ad</h1>" . "\n";
+
+        $result .= '<form id="submitAdForm">';
+        // ad has a title and content
+        $result .= '<p>';
+        $result .= '<label class="smallLabel" for="title">Title:</label>';
+        $result .= '<input class="roundBox" type="text" name="title" />';
+        $result .= '</p>';
+        $result .= '<p>';
+        $result .= '<label for="content">Ad Description:</label>';
+        $result .= '<textarea name="content" class="roundBox" ></textarea>';
+        $result .= '</p>';
+
+        // as well as edition
+        $result .= '<p>';
+        $result .= '<label class="smallLabel" for="content">Edition:</label>';
+        $result .= buildEditionsOptions();
+        $result .= '</p>';
+
+        // add captcha
+        $result .= '<div id="humanForm">';
+        $result .= '<p>Slide me to be able to submit</p>';
+        $result .= '<div class="QapTcha"></div>';
+        $result .= '</div>';
+
+        // add submit and reset buttons
+        $result .= '<div>';
+        $result .= '<input type="submit" name="submit" value="Submit Your Ad" />';
+        $result .= '<input type="reset" value="Reset Form" />';
+        $result .= '</div>';
+
+        $result .= '</form>';
+
+        return $result;
+    }
+
+    function buildEditionsOptions() {
+        // get the editions
+        $editions = getEditions();
+
+        // setup the result var
+        $result = '<div id="editionsDiv">';
+
+        // cycle thru the editions
+
+        $i = 1;
+        foreach ($editions as $id => $name) {
+            $result .= '<input class="editionCheckbox" type="checkbox" name="editions[]" value="' . $id . '" /><span>' . $name . '</span>';
+
+            if ($i % 2 == 0) {
+                $result .= '<br />';
+            }
+            $i++;
+        }
+
+        $result .= '</div>';
+
+        return $result;
+    }
+
+    /**
+     * Make sure that the keys specified exist in the array and its value is not
+     * empty
+     *
+     * @param $array - associative array to check
+     * @param keys - keys to look for in the array
+     *
+     * @return true if the keys exist and its value is not empty
+     */
+    function arrayContainsVals($array, $keys) {
+        $result = true;
+
+        foreach ($keys as $key) {
+            if (!isset($array[$key]) || empty($array[$key])) {
+                $result = false;
+                break;
+            }
+        }
+
+        return $result;
+    }
 ?>
