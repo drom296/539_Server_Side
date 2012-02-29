@@ -34,12 +34,13 @@ if (isset($_GET['submit'])) {
 
 	// check if they passed the captcha
 	if (isset($_SESSION['qaptcha_key']) && !empty($_SESSION['qaptcha_key'])) {
+		
 		$myVar = $_SESSION['qaptcha_key'];
 		if (isset($_POST['' . $myVar . '']) && empty($_POST['' . $myVar . ''])) {
-			// they passed the captcha
+			// they did not passed the captcha
 			$output .= '<div class="submitAdResponse submitError">Failure: You must be a human to use this form.</div>';
 		} else {
-			// they did not pass the captcha
+			// they passed the captcha
 
 			// check if they submitted everything
 			if (arrayContainsVals($_GET, $reqFields)) {
@@ -65,6 +66,9 @@ if (isset($_GET['submit'])) {
 				$output .= '<div class="submitAdResponse submitError">Failed to submit ad. All fields are required.</div>';
 			}
 		}
+	} else{
+		// they did not passed the captcha
+			$output .= '<div class="submitAdResponse submitError">Failure: You must be a human to use this form.</div>';
 	}
 	unset($_SESSION['qaptcha_key']);
 }
