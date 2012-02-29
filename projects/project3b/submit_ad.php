@@ -32,6 +32,9 @@ $reqFields = array("editions", "content", 'title');
 // check if they submitted the form
 if (isset($_GET['submit'])) {
 
+	// this works on my localhost but not on gibson
+	// i guess i'll comment it out for gibson
+
 	// check if they passed the captcha
 	if (isset($_SESSION['qaptcha_key']) && !empty($_SESSION['qaptcha_key'])) {
 		
