@@ -160,6 +160,10 @@ function displayItems($url, $pageNum, $numItems, $includeNav = true, $type = "Ne
 
 	if ($data) {
 		$items = $data['items'];
+		
+		// update the length
+		$numItems = count($items);
+		
 		// loop thru the stories
 		foreach ($items as $item) {
 
