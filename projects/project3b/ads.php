@@ -26,6 +26,8 @@ $output .= addNav();
 // add news and page nav
 $output .= addAdsContent($page, $numItems, true);
 
+$output .= '<a href="submit_ad.php" id="submitAdLink">Submit An Ad</a>';
+
 // create footer
 $output .= html_footer("");
 

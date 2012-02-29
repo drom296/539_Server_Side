@@ -154,7 +154,7 @@ body {
 #userInfo ul {
 	list-style: none;
 }
-#userLink {
+#userLink, a#submitAdLink {
 	text-align: center;
 	width: 8em;
 	margin: 1% auto;
@@ -170,3 +170,11 @@ body {
 	background-color: #555544;
 	color: #eeddbb;
 }
+a#submitAdLink {
+	display: inline-block;
+	position: relative;
+	top: -2em;
+	left: 3%;
+	width: 8em;
+}
+
