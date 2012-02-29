@@ -72,8 +72,7 @@
 
         // add error checking if url exits
         if (MyCurl::getStatusCode($url) == 404) {
-            $result = false;
-            ;
+            $result = false; ;
         }
 
         return $result;
@@ -133,7 +132,7 @@
      <content>
      <![CDATA[
      The world's largest maker of computer chips, Intel, saw quarterly profits
-    beat Wall Street forecasts, amid promises to ramp up spending.
+     beat Wall Street forecasts, amid promises to ramp up spending.
      ]]>
      </content>
      <pubdate>2012-01-19 23:55:03</pubdate>
